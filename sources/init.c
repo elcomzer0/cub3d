@@ -6,7 +6,8 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:35 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/15 19:46:36 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/15 21:37:42 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+# include "./includes/cub3d.h"
