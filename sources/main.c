@@ -6,11 +6,27 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:31 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/15 22:53:53 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:30:02 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "./includes/cub3d.h"
+
+int ft_clean(t_data *data)
+{
+    if(data)
+    {
+        free(data);
+        data = NULL;
+        return (0);
+    }
+    else
+    {
+        write(2, "Error: free failed\n", 20);
+        return (1);
+    }
+    return (0);
+}
 
 int main(int ac, char **av)
 {
@@ -20,10 +36,22 @@ int main(int ac, char **av)
     
     data = (t_data *)calloc(1, sizeof(t_data));
     if (!data)
+    {
+        write(2, "Error: malloc failed\n", 20);
+        free(data);
+        data = NULL;
         return (1);
-    
-
-    free(data);
-    data = NULL;
+    }
+    if (ac != 2 || (strcmp(av[1] + strlen(av[1]) - 4, ".cub") != 0))   
+    {
+        write(2, "Error: bad arguments\n", 20);
+        ft_clean(data);
+        return (1);
+    }
+    if (ac == 2)
+    {
+        ft_init(data);
+        
+    }
     return (0);
 }
