@@ -16,7 +16,7 @@ CFLAGS = -Wall -Werror -Wextra
 RM = rm -rf
 
 # Libraries and Includes
-# LIBRARIES = -lm -lX11 -lXext -lmlx_Linux -L$(MINILIBX_DIRERECTORY)
+LIBRARIES = -lm -lmlx -lX11 -lXext 
 INCLUDES = -I$(HEADER_DIR)
 
 # Library paths
@@ -46,7 +46,7 @@ all: $(NAME)
 # Build cub3d. MINILIBX needs to be included
 $(NAME): $(OBJECTS_DIR) $(OBJECTS)
 	@echo "$(YELLOW) Building $(BLUE) CUB3D $(YELLOW) program... $(RESET)\n"
-	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJECTS) -o $@
+	@$(CC) $(CFLAGS) $(LIBRARIES) $(INCLUDES) $(OBJECTS) -o $@
 	@echo "$(GREEN) Done $(RESET)\n"
 
 # Create folder objects dir
