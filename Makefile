@@ -30,7 +30,14 @@ HEADER_DIR = ./
 HEADER = $(addprefix $(HEADER_DIR), $(HEADER_LIST))
 
 SOURCES_DIR = ./sources/
-SOURCES_LIST = main.c
+SOURCES_LIST = main.c \
+	utils.c \
+	init.c \
+	free.c \
+	draw.c \
+	draw_elements.c \
+	menu.c \
+	move.c
 
 
 SOURCES = $(addprefix $(SOURCES_DIR), $(SOURCES_LIST))
