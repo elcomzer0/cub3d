@@ -6,11 +6,41 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:30:52 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/20 00:38:11 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:36:00 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/cub3d.h"
+
+void map_draw_line(t_data *data, int x0, int y0, int x1, int y1, int color)
+{
+    int dx = abs(x1 - x0);
+    int dy = -abs(y1 - y0);
+    int sx = x0 < x1 ? 1 : -1;
+    int sy = y0 < y1 ? 1 : -1;
+    int err = dx + dy;
+    int e2;
+
+    while (1)
+    {
+        my_map_pixel_put(data, x0, y0, color);
+        if (x0 == x1 && y0 == y1)
+            break;
+        e2 = 2 * err;
+        if (e2 >= dy)
+        {
+            err += dy;
+            x0 += sx;
+        }
+        if (e2 <= dx)
+        {
+            err += dx;
+            y0 += sy;
+        }
+    }
+        
+}
+
 
 void    draw_line(t_data *data, int x0, int y0, int x1, int y1, int color)
 {
@@ -141,6 +171,33 @@ void    draw_rainbow(t_data *data)
         y++;
     }
     
+}
+
+void draw_rectangle(t_data *data, int x, int y, int width, int height, int color)
+{
+    draw_line(data, x, y, x + width, y, color);
+    draw_line(data, x, y, x, y + height, color);
+    draw_line(data, x + width, y, x + width, y + height, color);
+    draw_line(data, x, y + height, x + width, y + height, color);   
+}
+
+void draw_filled_rectangle(t_data *data, int x, int y, int width, int height, int color)
+{
+    for(int i = y; i < y + height; i++)
+    {
+        for(int j = x; j < x + width; j++)
+        {
+            my_map_pixel_put(data, j, i, color);
+        }
+    }
+}
+
+void map_draw_rectangle(t_data *data, int x, int y, int width, int height, int color)
+{
+    map_draw_line(data, x, y, x + width, y, color);
+    map_draw_line(data, x, y, x, y + height, color);
+    map_draw_line(data, x + width, y, x + width, y + height, color);
+    map_draw_line(data, x, y + height, x + width, y + height, color);
 }
 
 t_point rotate_point(t_point p, t_point center, float angle)

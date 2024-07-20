@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/20 00:23:56 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/21 00:49:40 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,12 @@
 # include <endian.h>
 # include <mlx.h>
 
-# define HEIGHT 1080
-# define WIDTH 1920
+# define HEIGHT 720
+# define WIDTH  1280
+# define MAP_SIZE 10
+# define TILE_SIZE 50
+# define FOV 90 // Field of view in degrees
+# define NUM_RAYS WIDTH // Number of rays (one per screen column)
 
 typedef struct s_data {
 	float		x;
@@ -33,7 +37,7 @@ typedef struct s_data {
 	int			**z_values;
     int			*line_z;
     int		color;
-	int		map;
+	//int		map;
 	int		fd;
     char    *addr;
     int     endian;
@@ -41,13 +45,27 @@ typedef struct s_data {
     int     bpp;
     void		*mlx;
     void		*win;
-    void		*img;    
+    void		*img;
+    int			player_x;
+    int			player_y;
+    int map_offset_x;
+    int map_offset_y;
+    int map[MAP_SIZE][MAP_SIZE];
+    void *map_img;
+    char    *map_addr;
+    //t_point		**points;
+    //t_vector		**vector;
 }				t_data;
 
 typedef struct s_point {
 	float			x;
 	float			y;
 }				t_point;
+
+typedef struct s_vector {
+	float			x;
+	float			y;
+}				t_vector;
 
 /*main.c*/
 int ft_clean(t_data *data);
@@ -64,13 +82,20 @@ void    draw_gradient(t_data *data);
 void    draw_rainbow(t_data *data);
 t_point rotate_point(t_point p, t_point center, float angle);
 void rot_draw_triangle(t_data *data, t_point p1, t_point p2, t_point p3, float angle);
+void draw_rectangle(t_data *data, int x, int y, int width, int height, int color);
 void  draw_arrow(t_data *data, t_point center, int line_length, int triangle_size, float angle);
 void    cub_draw(t_data *data);
+void map_test(t_data *data);
+void draw_map(t_data *data, int map[MAP_SIZE][MAP_SIZE], int offset_x, int offset_y);
 void display_angle(t_data *data);
 void    cub_menu(t_data *data);
 int ft_init(t_data *data);
 
-
+void my_map_pixel_put(t_data *data, int x, int y, int color);
+void map_draw_rectangle(t_data *data, int x, int y, int width, int height, int color);
+void   map_draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
+void draw_filled_rectangle(t_data *data, int x, int y, int width, int height, int color);
+void raycasting(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);
 /*utils.c*/
 void float_to_string(float value, char *buffer);
 

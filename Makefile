@@ -37,6 +37,9 @@ SOURCES_LIST = main.c \
 	draw.c \
 	draw_elements.c \
 	menu.c \
+	read.c \
+	raycaster.c \
+	render.c \
 	move.c
 
 

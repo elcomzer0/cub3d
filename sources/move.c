@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:18 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/20 00:38:00 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/20 19:55:06 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,13 @@ int key_hook_press(int keycode, t_data *data)
     {
         data->arrow_angle += 0.05;   
     }
+	//mlx_destroy_image(data->mlx, data->map_img);
     mlx_destroy_image(data->mlx, data->img);
-	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+    //data->map_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+    data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+    map_test(data);
     cub_draw(data);
+    //mlx_put_image_to_window(data->mlx, data->win, data->map_img, 0, 0);
     mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
     cub_menu(data);
     return (0);
@@ -46,8 +50,12 @@ int key_hook_release(int keycode, t_data *data)
         data->arrow_angle += 0.05;   
     }
     mlx_destroy_image(data->mlx, data->img);
+    //mlx_destroy_image(data->mlx, data->map_img);
+    //data->map_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+    map_test(data);
     cub_draw(data);
+    //mlx_put_image_to_window(data->mlx, data->win, data->map_img, 0, 0);
     mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
     cub_menu(data);
     return (0);
