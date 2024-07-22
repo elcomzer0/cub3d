@@ -6,21 +6,59 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:33:07 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/21 01:11:18 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:18:54 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/cub3d.h"
 
+
+
+int blend_colors(int src_color, int dest_color)
+{
+    int src_a = (src_color >> 24) & 0xFF;
+    int src_r = (src_color >> 16) & 0xFF;
+    int src_g = (src_color >> 8) & 0xFF;
+    int src_b = src_color & 0xFF;
+
+    int dest_a = (dest_color >> 24) & 0xFF;
+    int dest_r = (dest_color >> 16) & 0xFF;
+    int dest_g = (dest_color >> 8) & 0xFF;
+    int dest_b = dest_color & 0xFF;
+
+    int out_a = src_a + dest_a * (255 - src_a) / 255;
+    
+    if (out_a == 0)
+    {
+        return (0 << 24 | 0 << 16 | 0 << 8 | 0); // Fully transparent
+    }
+
+    int out_r = (src_r * src_a + dest_r * dest_a * (255 - src_a) / 255) / out_a;
+    int out_g = (src_g * src_a + dest_g * dest_a * (255 - src_a) / 255) / out_a;
+    int out_b = (src_b * src_a + dest_b * dest_a * (255 - src_a) / 255) / out_a;
+
+    return (out_a << 24 | out_r << 16 | out_g << 8 | out_b);
+}
+
 void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-    char    *dst;
-    //write(1, "1\n", 2);
+    char *dst;
+    unsigned int *dst_color;
+
     dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
-    //write(1, "2\n", 2);
-    *(unsigned int*)dst = color;
-    //write(1, "3\n", 2);
+    dst_color = (unsigned int*)dst;
+
+    // Blend the new color with the existing color at the pixel
+    *dst_color = blend_colors(color, *dst_color);
 }
+
+
+/* void my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+    char    *dst;
+    dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+    *(unsigned int*)dst = color;
+} */
 
 void my_map_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -32,6 +70,11 @@ void my_map_pixel_put(t_data *data, int x, int y, int color)
 
 void  draw_arrow(t_data *data, t_point center, int line_length, int triangle_size, float angle)
 {
+    int red_color = create_trgb(255, 255, 0, 0);
+    int green_color = create_trgb(255, 0, 255, 0);
+    int blue_color = create_trgb(255, 0, 0, 255);
+    int yellow_color = create_trgb(255, 255, 255, 0);
+    int cyan_color = create_trgb(255, 0, 255, 255);
     //calculate the end point of the line
     t_point line_end = {center.x, center.y - line_length};
     t_point rotated_line_end = rotate_point(line_end, center, angle);
@@ -45,76 +88,50 @@ void  draw_arrow(t_data *data, t_point center, int line_length, int triangle_siz
     triangle_right = rotate_point(triangle_right, triangle_tip, angle);
     
     //draw the circle
-    draw_circle(data, center.x, center.y, 5, 0x00FF0000);
+    draw_circle(data, center.x, center.y, 5, red_color);
     
     //draw the line
-    draw_line(data, center.x, center.y, rotated_line_end.x, rotated_line_end.y, 0x00FF0000);
+    draw_line(data, center.x, center.y, rotated_line_end.x, rotated_line_end.y, red_color);
 
     //draw the triangle
-    draw_line(data, triangle_tip.x, triangle_tip.y, triangle_left.x, triangle_left.y, 0x0000FF00);
-    draw_line(data, triangle_tip.x, triangle_tip.y, triangle_right.x, triangle_right.y, 0x000000FF);
-    draw_line(data, triangle_left.x, triangle_left.y, triangle_right.x, triangle_right.y, 0x00FF0000);
+    draw_line(data, triangle_tip.x, triangle_tip.y, triangle_left.x, triangle_left.y, green_color); // color is green
+    draw_line(data, triangle_tip.x, triangle_tip.y, triangle_right.x, triangle_right.y, blue_color); // color is blue
+    draw_line(data, triangle_left.x, triangle_left.y, triangle_right.x, triangle_right.y, red_color); // color is red
 
     //draw the field of view lines
     t_point fov_left_end = rotate_point(line_end, center, angle - 67.5);
     t_point fov_right_end = rotate_point(line_end, center, angle + 67.5);
-    draw_line(data, center.x, center.y, fov_left_end.x, fov_left_end.y, 0x00FFFF00);
-    draw_line(data, center.x, center.y, fov_right_end.x, fov_right_end.y, 0x00FFFF00);
+    draw_line(data, center.x, center.y, fov_left_end.x, fov_left_end.y, yellow_color); // color is yellow
+    draw_line(data, center.x, center.y, fov_right_end.x, fov_right_end.y, yellow_color);
 
     //draw diagonal line
     t_point diagonal_left_end  = rotate_point(line_end, center, angle - 45);
     t_point diagonal_right_end = rotate_point(line_end, center, angle + 45);
-    draw_line(data, center.x, center.y, diagonal_left_end.x, diagonal_left_end.y, 0x0000FFFF);
-    draw_line(data, center.x, center.y, diagonal_right_end.x, diagonal_right_end.y, 0x0000FFFF);
+    draw_line(data, center.x, center.y, diagonal_left_end.x, diagonal_left_end.y, cyan_color); // color is cyan
+    draw_line(data, center.x, center.y, diagonal_right_end.x, diagonal_right_end.y, cyan_color);
 }
 
 void draw_map(t_data *data, int map[MAP_SIZE][MAP_SIZE], int offset_x, int offset_y)
 {
-    /* int i;
-    int j; */
-    
-   
 
-/*     while (i < MAP_SIZE)
-    {
-        j = 0;
-        while (j < MAP_SIZE)
-        {
-            int x = j * TILE_SIZE + offset_x;
-            int y = i * TILE_SIZE + offset_y;
-            if (map[i][j] == 1)
-            {
-                draw_rectangle(data, x, y, TILE_SIZE, TILE_SIZE, 0x00FFFFFF);
-            }
-            else
-            {
-                draw_rectangle(data, x, y, TILE_SIZE, TILE_SIZE, 0x00FF0000);
-            }
-            j++;
-        }
-    } */
-   //write(1, "1\n", 2);
+    int white_color = create_trgb(255, 255, 255, 255);
+    int red_color = create_trgb(255, 255, 0, 0);
    for(int i = 0; i < MAP_SIZE; i++)
    {
-    //write(1, "2\n", 2);
         for(int j = 0; j < MAP_SIZE; j++)
         {
-            //write(1, "3\n", 2);
             int x = j * TILE_SIZE + offset_x;
             int y = i * TILE_SIZE + offset_y;
             if (map[i][j] == 1)
             {
-                //write(1, "4\n", 2);
                 //map_draw_rectangle(data, x, y, TILE_SIZE, TILE_SIZE, 0x00FFFFFF);
-                draw_rectangle(data, x, y, TILE_SIZE, TILE_SIZE, 0x00FFFFFF);
+                draw_rectangle(data, x, y, TILE_SIZE, TILE_SIZE, white_color);
                 //draw_filled_rectangle(data, x, y, TILE_SIZE, TILE_SIZE, 0x00FFFFFF);
-                //write(1, "4\n", 2);
             }
             else
             {
-                //write(1, "5\n", 2);
                 //map_draw_rectangle(data, x, y, TILE_SIZE, TILE_SIZE, 0x00FF0000);
-               draw_rectangle(data, x, y, TILE_SIZE, TILE_SIZE, 0x00FF0000);
+               draw_rectangle(data, x, y, TILE_SIZE, TILE_SIZE, red_color);
                 //draw_filled_rectangle(data, x, y, TILE_SIZE, TILE_SIZE, 0x00FF0000);
             }
         }
@@ -122,13 +139,7 @@ void draw_map(t_data *data, int map[MAP_SIZE][MAP_SIZE], int offset_x, int offse
     //write(1, "2\n", 2);
 }
 
-/* void display_angle(t_data *data)
-{
-    char angle_str[50];
-    float_to_string(data->arrow_angle, angle_str);
-    mlx_string_put(data->mlx, data->win, 10, 10, 0x00FFFFFF, angle_str);
-    //free(angle_str);
-} */
+
 void    cub_draw(t_data *data)
 {
     int map[MAP_SIZE][MAP_SIZE] = {
@@ -144,37 +155,29 @@ void    cub_draw(t_data *data)
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
     
-    //t_point center;
+ 
     
+    /* data->player_x = 1;
+    data->player_y = 1; */
+    //calculate player position at the center of the map
+    
+
+    int color = create_trgb(50, 128, 128, 128); // 0xAARRGGBB (alpha, red, green, blue), grey = (128, 128, 128)
+    //Define arrow inputs
+    t_point center = {WIDTH / 2 , HEIGHT / 2};
     data->player_x = 1;
     data->player_y = 1;
-    
-    //center = (t_point){data->map_offset_x + data->player_x * TILE_SIZE + TILE_SIZE / 2, data->map_offset_y + data->player_y * TILE_SIZE + TILE_SIZE / 2};
-    //Define the vertices of the triangle
-    //t_point p1 = {960, 540};
-    //t_point p2 = {960, 640};
-    //t_point p3 = {1060, 640};
-    
-       //Define arrow inputs
-    t_point center = {WIDTH / 2 , HEIGHT / 2};
+    //data->map_offset_x = (WIDTH / 2) - (MAP_SIZE * TILE_SIZE / 2)
     int line_length = 100;
     int triangle_size = 30;
-    //data->arrow_angle = 0.0f;
-    //data->arrow_angle
-    
-   // data->arrow_angle = 180;
-    
-        //draw_gradient(data);
-   // draw_rainbow(data);
-    //draw_square(data, 1460, 540, 100, 0x00FF0000);
-//    draw_circle(data, 960, 540, 300, 0x00FF7F00);
 
-    draw_circle(data, (WIDTH / 2), (HEIGHT / 2), 100, 0x248A8D8F);
-    //draw_hexagon(data, 460, 540, 100, 0x000000FF);
-    //draw_triangle(data, 960, 740, 100, 0x000000FF);
-    //draw_line(data, 960, 540, 960, 440, 0x00FF0000);
-    //rot_draw_triangle(data, p1, p2, p3, angle);
+
+    raycasting_2D(data, map, data->arrow_angle);
+    draw_circle(data, (WIDTH / 2), (HEIGHT / 2), 100, color); //0x248A8D8F);
+    //raycasting_2D(data, map);
+   
     draw_arrow(data, center, line_length, triangle_size, data->arrow_angle);
     //display_angle(data);
-    raycasting(data, map, data->map_offset_x, data->map_offset_y);
+    //raycasting(data, map, data->map_offset_x, data->map_offset_y);
+    //raycasting_2D(data, map, data->map_offset_x, data->map_offset_y);
 }

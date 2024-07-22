@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/21 00:49:40 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/22 22:53:42 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int ft_clean(t_data *data);
 int ft_destroy(t_data *data);
 int key_hook_press(int keycode, t_data *data);
 int key_hook_release(int keycode, t_data *data);
+int create_trgb(int t, int r, int g, int b);
 void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void    draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 void    draw_square(t_data *data, int x, int y, int size, int color);
@@ -95,7 +96,10 @@ void my_map_pixel_put(t_data *data, int x, int y, int color);
 void map_draw_rectangle(t_data *data, int x, int y, int width, int height, int color);
 void   map_draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 void draw_filled_rectangle(t_data *data, int x, int y, int width, int height, int color);
-void raycasting(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);
+//void raycasting(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);
+//void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);
+//void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE]);
+void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle);
 /*utils.c*/
 void float_to_string(float value, char *buffer);
 

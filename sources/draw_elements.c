@@ -6,11 +6,16 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:30:52 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/20 20:36:00 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/23 00:31:02 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/cub3d.h"
+
+int create_trgb(int t, int r, int g, int b)
+{
+    return (t << 24 | r << 16 | g << 8 | b);
+}
 
 void map_draw_line(t_data *data, int x0, int y0, int x1, int y1, int color)
 {
@@ -203,7 +208,7 @@ void map_draw_rectangle(t_data *data, int x, int y, int width, int height, int c
 t_point rotate_point(t_point p, t_point center, float angle)
 {
     t_point rotated;
-    float radians = angle * M_PI / 18;
+    float radians = angle * M_PI / 180;
 
     rotated.x = (p.x - center.x) * cos(radians) - (p.y - center.y) * sin(radians) + center.x;
     rotated.y = (p.x - center.x) * sin(radians) + (p.y - center.y) * cos(radians) + center.y;
