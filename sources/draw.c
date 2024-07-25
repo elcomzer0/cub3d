@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:33:07 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/22 23:18:54 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/24 21:55:09 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void    cub_draw(t_data *data)
     int map[MAP_SIZE][MAP_SIZE] = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -173,11 +173,11 @@ void    cub_draw(t_data *data)
 
 
     raycasting_2D(data, map, data->arrow_angle);
+    //raycasting(data, map, data->map_offset_x, data->map_offset_y);
     draw_circle(data, (WIDTH / 2), (HEIGHT / 2), 100, color); //0x248A8D8F);
     //raycasting_2D(data, map);
    
     draw_arrow(data, center, line_length, triangle_size, data->arrow_angle);
     //display_angle(data);
-    //raycasting(data, map, data->map_offset_x, data->map_offset_y);
     //raycasting_2D(data, map, data->map_offset_x, data->map_offset_y);
 }

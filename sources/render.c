@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/23 00:46:50 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:00:53 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void map_test(t_data *data)
     int map[MAP_SIZE][MAP_SIZE] = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -37,7 +37,7 @@ void map_test(t_data *data)
 
 
 //FOR TESTING PURPOSES ONLY
-/* void raycasting(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y)
+void raycasting(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y)
 {
     //t_point player_center = {map_offset_x + data->player_x * TILE_SIZE + TILE_SIZE / 2, map_offset_y + data->player_y * TILE_SIZE + TILE_SIZE / 2};
     (void)map_offset_x;
@@ -114,25 +114,9 @@ void map_test(t_data *data)
             perp_wall_dist = (map_y - data->player_y + (1 - step_y) / 2) / ray_dir_y;
         }
         
-        int line_height = (int)(HEIGHT / perp_wall_dist);
-        int draw_start = -line_height / 2 + HEIGHT / 2;
-        if (draw_start < 0)
-        {
-            draw_start = 0;
-        }
-        int draw_end = line_height / 2 + HEIGHT / 2;
-        if (draw_end >= HEIGHT)
-        {
-            draw_end = HEIGHT - 1;
-        }
         
-        int color = (side == 1) ? 0x00FF0000 : 0x0000FF00;
-        for (int y = draw_start; y < draw_end; y++)
-        {
-            my_mlx_pixel_put(data, x, y, color);
-        }
     }
-} */
+}
 
 /* void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y)
 {
@@ -453,18 +437,20 @@ void print_map(int map[MAP_SIZE][MAP_SIZE]) {
     }
 }
 
-void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle) {
+void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle)
+{
     float fov = 90; // Full FOV of 135 degrees
     int blue_color = create_trgb(255, 0, 0, 255);
     int magenta_color = create_trgb(255, 0, 255, 255);
-    int yellow_color = create_trgb(255, 255, 255, 0); // Yellow for FOV lines
+    //int yellow_color = create_trgb(255, 255, 255, 0); // Yellow for FOV lines
+    float arrow_angle_t = arrow_angle;
 
     double ray_angle, ray_dir_x, ray_dir_y;
     int map_x, map_y;
     int hit;
 
     // Print the map data for debugging
-    print_map(map);
+    //print_map(map);
 
     // Calculate the center of the screen
     int screen_center_x = WIDTH / 2;
@@ -474,36 +460,40 @@ void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle)
     data->player_x = screen_center_x;
     data->player_y = screen_center_y;
 
-    t_point center = {screen_center_x, screen_center_y};
-    t_point line_end = {screen_center_x, screen_center_y - 100}; // Arbitrary length for FOV lines
+    // t_point center = {screen_center_x, screen_center_y};
+    // t_point line_end = {screen_center_x, screen_center_y - 100}; // Arbitrary length for FOV lines
 
-    // Calculate FOV endpoints
-    t_point fov_left_end = rotate_point(line_end, center, arrow_angle - (fov / 2));
-    t_point fov_right_end = rotate_point(line_end, center, arrow_angle + (fov / 2));
+    // // Calculate FOV endpoints
+    // t_point fov_left_end = rotate_point(line_end, center, arrow_angle_t - (fov / 2));
+    // t_point fov_right_end = rotate_point(line_end, center, arrow_angle_t + (fov / 2));
 
     // Draw FOV lines
-    draw_line(data, center.x, center.y, fov_left_end.x, fov_left_end.y, yellow_color);
-    draw_line(data, center.x, center.y, fov_right_end.x, fov_right_end.y, yellow_color);
+    //draw_line(data, center.x, center.y, fov_left_end.x, fov_left_end.y, yellow_color);
+    //draw_line(data, center.x, center.y, fov_right_end.x, fov_right_end.y, yellow_color);
 
     // Calculate start and end angles for the FOV
-    double start_angle = arrow_angle - (fov / 2);
+    double start_angle = arrow_angle_t - 135; // start point must be here - 135. arro_angle must be included here for key manipulation
     //double end_angle = arrow_angle + (fov / 2);
 
     // Calculate the angle step per pixel column
     double angle_step = fov / WIDTH;
-
-    printf("Starting raycasting...\n");
-
-    for (int x = 0; x < WIDTH; x++) {
+    
+    //printf("Starting raycasting...\n");
+    printf ("start_angle: %f\n", start_angle);
+    printf("arrow_angle_t: %f\n", arrow_angle_t);
+    printf("angle_step: %f\n", angle_step);
+    for (int x = 0; x < WIDTH; x++)
+    {
         // Calculate the ray angle for this column
         ray_angle = start_angle + (x * angle_step);
 
         // Convert angle to radians
         ray_angle = ray_angle * (M_PI / 180);
-
+       // printf("ray_angle: %f\n", ray_angle);
         ray_dir_x = cos(ray_angle);
         ray_dir_y = sin(ray_angle);
-
+        //printf("ray_dir_x: %f\n", ray_dir_x);
+        //printf("ray_dir_y: %f\n", ray_dir_y);
         double ray_x = data->player_x;
         double ray_y = data->player_y;
 
@@ -511,27 +501,32 @@ void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle)
         t_point ray_start = {data->player_x, data->player_y};
         t_point ray_end;
 
-        while (!hit) {
-            ray_x += ray_dir_x * 300.0; // Adjusted increment step for visibility
-            ray_y += ray_dir_y * 300.0;
+        while (!hit)
+        {
+            ray_x += ray_dir_x * 200.0; // Adjusted increment step for visibility
+            ray_y += ray_dir_y * 200.0;
 
             map_x = (int)(ray_x / TILE_SIZE);
             map_y = (int)(ray_y / TILE_SIZE);
 
             //printf("Ray coordinates: (%f, %f) -> Map cell: (%d, %d)\n", ray_x, ray_y, map_x, map_y);
 
-            if (map_x >= 0 && map_x < MAP_SIZE && map_y >= 0 && map_y < MAP_SIZE) {
-                if (map[map_y][map_x] == 1) {
+            if (map_x >= 0 && map_x < MAP_SIZE && map_y >= 0 && map_y < MAP_SIZE)
+            {
+                if (map[map_y][map_x] == 1)
+                {
                     hit = 1;
                     ray_end.x = ray_x;
                     ray_end.y = ray_y;
-                    printf("Ray hit wall at x: %d, y: %d\n", (int)ray_x, (int)ray_y);
+                    //printf("Ray hit wall at x: %d, y: %d\n", (int)ray_x, (int)ray_y);
                     // Draw the hit point as a small circle
                     draw_circle(data, (int)ray_x, (int)ray_y, 3, blue_color);
                 }
-            } else {
+            }
+            else
+            {
                 hit = 1; // Stop the ray if it goes out of map bounds
-                printf("Ray out of map bounds at x: %d, y: %d\n", (int)ray_x, (int)ray_y);
+                //printf("Ray out of map bounds at x: %d, y: %d\n", (int)ray_x, (int)ray_y);
                 ray_end.x = ray_x;
                 ray_end.y = ray_y;
             }
@@ -541,7 +536,7 @@ void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle)
         draw_line(data, ray_start.x, ray_start.y, ray_end.x, ray_end.y, magenta_color);
     }
 
-    printf("Raycasting completed.\n");
+    //printf("Raycasting completed.\n");
 }
 
 
