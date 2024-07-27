@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/24 21:52:03 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:40:03 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@
 # define TILE_SIZE 50
 # define FOV 90 // Field of view in degrees
 # define NUM_RAYS WIDTH // Number of rays (one per screen column)
-
+# define NORTH_FOV 0
+# define EAST_FOV 90
+# define SOUTH_FOV 180
+# define WEST_FOV 270
 typedef struct s_data {
 	float		x;
 	float		y;
@@ -53,6 +56,9 @@ typedef struct s_data {
     int map[MAP_SIZE][MAP_SIZE];
     void *map_img;
     char    *map_addr;
+    struct s_point		**player_pos;
+    struct s_point		**center_pos;
+    float start_angle;
     //t_point		**points;
     //t_vector		**vector;
 }				t_data;
@@ -100,6 +106,7 @@ void raycasting(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int
 //void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);
 //void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE]);
 void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle);
+void raycasting_v2(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle);
 /*utils.c*/
 void float_to_string(float value, char *buffer);
 

@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:18 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/20 19:55:06 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:56:43 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int key_hook_press(int keycode, t_data *data)
     
     else if (keycode == KEY_LEFTARROW)
     {
-        data->arrow_angle -= 0.05;
+        data->arrow_angle -= 0.35;
     }
     else if (keycode == KEY_RIGHTARROW)
     {
-        data->arrow_angle += 0.05;   
+        data->arrow_angle += 0.35;   
     }
 	//mlx_destroy_image(data->mlx, data->map_img);
     mlx_destroy_image(data->mlx, data->img);

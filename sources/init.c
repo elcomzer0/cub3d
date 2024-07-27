@@ -6,11 +6,37 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:35 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/21 00:42:21 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:41:58 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "./includes/cub3d.h"
+
+//void init_pos(t_data *data)
+void init_pos(t_data *data)
+{
+    data->center_pos = malloc(sizeof(t_point *));
+    if (data->center_pos)
+    {
+        *data->center_pos = malloc(sizeof(t_point));
+        if (*data->center_pos)
+        {
+            (*data->center_pos)->x = WIDTH / 2;
+            (*data->center_pos)->y = HEIGHT / 2;
+        }
+    }
+    data->player_pos = data->center_pos;
+    data->arrow_angle = NORTH_FOV;
+    data->start_angle = data->arrow_angle;
+}
+
+
+//void init_colors(t_data *data)
+
+//void init_textures(t_data *data)
+
+//void init_math(t_data *data)
+
 
 int ft_init(t_data *data)
 {

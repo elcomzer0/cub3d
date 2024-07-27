@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:33:07 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/24 21:55:09 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/27 16:58:02 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,13 +171,13 @@ void    cub_draw(t_data *data)
     int line_length = 100;
     int triangle_size = 30;
 
-
-    raycasting_2D(data, map, data->arrow_angle);
+    //raycasting_2D(data, map, data->arrow_angle);
     //raycasting(data, map, data->map_offset_x, data->map_offset_y);
     draw_circle(data, (WIDTH / 2), (HEIGHT / 2), 100, color); //0x248A8D8F);
     //raycasting_2D(data, map);
    
     draw_arrow(data, center, line_length, triangle_size, data->arrow_angle);
+    raycasting_v2(data, map, data->arrow_angle);
     //display_angle(data);
     //raycasting_2D(data, map, data->map_offset_x, data->map_offset_y);
 }
