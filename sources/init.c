@@ -6,15 +6,119 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:35 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/27 17:41:58 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:34:04 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "./includes/cub3d.h"
 
-//void init_pos(t_data *data)
+/*init of map coordinates and set center of the map
+Center of the map is the center of the map_img. Calculated
+by x and y coordinates of left upper most pos of pixel. This will define the position
+of the player accordingly where the pixel of the image is.
+First define center of map inside the image. create coordinates by size of map and tiles.
+then position player_pos at center pixel of the tile. Tiles correspond to 64px x 64 px. which
+again correspont to float 1.0 x 1.0 in math. 0.5 x 0.5 would be the center of tile and
+centered 32 x 32px. HOW?*/
+void (set_map_to_center)(t_data *data)
+{}
+
+void init_map_coord(t_data *data)
+{}
+
+/*init of position*/
+int open_map(t_data *data, char **buf)
+{
+    open()
+}
+
+int map_to_buf(t_data *data) //int map[MAP_SIZE][MAP_SIZE])
+{
+    char **buf;
+    
+    int map[MAP_SIZE][MAP_SIZE] = {
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    };
+
+
+    buf = (char **)malloc(sizeof(char *) * MAP_SIZE * MAP_SIZE);
+    if (!buf)
+    {
+        write(2, "Error: malloc failed\n", 20);
+        return (1);
+    }
+    open_map(data, buf);
+    
+    return (0);
+}
+
+void check_map_for_player(t_data *data, char **buf)
+{}
+void check_player_pos(t_data *data, char pos)
+{
+    if (pos == 'W')
+    {
+        data->player_pos = "W";
+    }
+    else if (pos == 'E')
+    {
+        data->player_pos = "E";
+    }
+    else if (pos == 'N')
+    {
+        data->player_pos = "N";
+    }
+    else if (pos == 'S')
+    {
+        data->player_pos = "S";
+    }
+    else
+    {
+        //ft_clean(data);
+        exit(1);
+    }
+}
+
+void switch_pos(t_data *data)
+{
+    if (strcmp(data->player_pos, "W") == 0)
+    {
+        data->arrow_angle = WEST_FOV;
+        data->start_angle = data->arrow_angle;
+    }
+    else if (strcmp(data->player_pos, "E") == 0)
+    {
+        data->arrow_angle = EAST_FOV;
+        data->start_angle = data->arrow_angle;
+    }
+    else if (strcmp(data->player_pos, "N") == 0)
+    {
+        data->arrow_angle = NORTH_FOV;
+        data->start_angle = data->arrow_angle;
+    }
+    else if (strcmp(data->player_pos, "S") == 0)
+    {
+        data->arrow_angle = SOUTH_FOV;
+        data->start_angle = data->arrow_angle;
+    }
+    else
+    {
+        //ft_clean(data);
+        exit(1);
+    }
+}
 void init_pos(t_data *data)
 {
+    //pre version of the variables will be changed later on. 
     data->center_pos = malloc(sizeof(t_point *));
     if (data->center_pos)
     {
@@ -25,9 +129,13 @@ void init_pos(t_data *data)
             (*data->center_pos)->y = HEIGHT / 2;
         }
     }
-    data->player_pos = data->center_pos;
+   /*  data->player_pos = data->center_pos;
     data->arrow_angle = NORTH_FOV;
-    data->start_angle = data->arrow_angle;
+    data->start_angle = data->arrow_angle; */
+
+    //define starting positions by player position and its directional view
+    //check_player_pos(data, data->player_pos);
+    switch_pos(data);
 }
 
 

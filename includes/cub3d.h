@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/27 17:40:03 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:10:54 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define EAST_FOV 90
 # define SOUTH_FOV 180
 # define WEST_FOV 270
+# define BUFFER_SIZE 1
+
 typedef struct s_data {
 	float		x;
 	float		y;
@@ -39,7 +41,10 @@ typedef struct s_data {
     float		arrow_angle;
 	int			**z_values;
     int			*line_z;
+    int map_height;
+    int map_width;
     int		color;
+    char *map_name;
 	//int		map;
 	int		fd;
     char    *addr;
@@ -109,6 +114,15 @@ void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle)
 void raycasting_v2(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle);
 /*utils.c*/
 void float_to_string(float value, char *buffer);
+char	**ft_split(char const *s, char c);
+char	*get_next_line(int fd);
+int	ft_wordcounter(char const *str, char c);
+
+
+
+/*read.c*/
+
+int	ft_open(char *file, int fd, t_data *data);
 
 
 # define KEY_ANSI_A			0X61
