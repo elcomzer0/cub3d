@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: AVP <AVP@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/29 19:10:54 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:55:13 by AVP              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <math.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include <endian.h>
-# include <mlx.h>
+//# include <endian.h>
+//# include <mlx.h>
 
 # define HEIGHT 720
 # define WIDTH  1280
@@ -45,6 +45,7 @@ typedef struct s_data {
     int map_width;
     int		color;
     char *map_name;
+    char **map_buf;
 	//int		map;
 	int		fd;
     char    *addr;
@@ -117,13 +118,20 @@ void float_to_string(float value, char *buffer);
 char	**ft_split(char const *s, char c);
 char	*get_next_line(int fd);
 int	ft_wordcounter(char const *str, char c);
-
-
+//int ft_strlen(const char *str);
+int ft_strchr(const char *s, int c);
+void *ft_calloc(size_t count, size_t size);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t ft_strlen(const char *str);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+size_t	ft_strlcat(char *dst, const char *src, size_t size);
+int	ft_atoi(const char *str);
 
 /*read.c*/
 
 int	ft_open(char *file, int fd, t_data *data);
-
+void	ft_info_read(char *file, t_data *data);
 
 # define KEY_ANSI_A			0X61
 # define KEY_ANSI_Q			0X71

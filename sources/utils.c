@@ -3,15 +3,198 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: AVP <AVP@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:00 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/29 18:48:34 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:55:03 by AVP              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "./includes/cub3d.h"
 
+int	ft_atoi(const char *str)
+{
+	int	sign;
+	int	i;
+	int	n;
+
+	sign = 1;
+	n = 0;
+	i = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	{
+		i++;
+	}
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+		{
+			sign = -1 * sign;
+		}
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		n = 10 * n + (str[i] - '0');
+		i++;
+	}
+	return (n * sign);
+}
+
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
+{
+	size_t	temp;
+	size_t	all;
+
+	temp = size;
+	all = ft_strlen(src) + ft_strlen(dst);
+	while (*dst != 0 && size > 0)
+	{
+		dst++;
+		size--;
+	}
+	if (size == 0)
+	{
+		return (ft_strlen(src) + temp);
+	}
+	while (*src != 0 && size > 1)
+	{
+		*dst++ = *src++;
+		size--;
+	}
+	*dst = '\0';
+	return (all);
+	return (0);
+}
+
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	long unsigned int	i;
+
+	i = 0;
+	if (size == 0)
+	{
+		while (src[i])
+			i++;
+		return (i);
+	}
+	while (src[i] && i < (size - 1))
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	if (i < size)
+		dst[i] = '\0';
+	while (src[i])
+		i++;
+	return (i);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*dest;
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (ft_strlen(s) < (size_t)start)
+		len = 0;
+	if (len > (ft_strlen(s) - start))
+	{
+		dest = (char *)malloc(ft_strlen(s) - start + 1);
+	}
+	else
+		dest = malloc(len + 1);
+	if (!dest)
+		return (NULL);
+	while (len > 0 && s[start + i])
+	{
+		dest[i] = s[start + i];
+		i++;
+		len--;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	char	*d;
+	int		i;
+
+	d = s;
+	i = 0;
+	while (n > 0)
+	{
+		d[i] = '\0';
+		i++;
+		n--;
+	}
+	return ;
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	unsigned int	len;
+	char			*dest;
+
+	len = ft_strlen(s1) + ft_strlen(s2);
+	dest = malloc(sizeof(char) * (len + 1));
+	if (!dest)
+	{
+		return (NULL);
+	}
+	ft_strlcpy(dest, s1, len + 1);
+	ft_strlcat(dest, s2, len + 1);
+	return (dest);
+}
+
+void *ft_calloc(size_t count, size_t size)
+{
+	void *ptr;
+	size_t total_size;
+
+	total_size = count * size;
+	ptr = malloc(total_size);
+	if (ptr)
+		ft_bzero(ptr, total_size);
+	return (ptr);
+}
+
+int ft_strchr(const char *s, int c)
+{
+	int i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+size_t ft_strlen(const char *str)
+{
+	size_t i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+/* int ft_strlen(const char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+} */
 
 int	ft_wordcounter(char const *str, char c)
 {

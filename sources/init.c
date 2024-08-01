@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: AVP <AVP@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:35 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/29 18:34:04 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:52:36 by AVP              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,25 @@ First define center of map inside the image. create coordinates by size of map a
 then position player_pos at center pixel of the tile. Tiles correspond to 64px x 64 px. which
 again correspont to float 1.0 x 1.0 in math. 0.5 x 0.5 would be the center of tile and
 centered 32 x 32px. HOW?*/
-void (set_map_to_center)(t_data *data)
+/* void (set_map_to_center)(t_data *data)
 {}
 
 void init_map_coord(t_data *data)
 {}
 
-/*init of position*/
+//init of position
 int open_map(t_data *data, char **buf)
 {
-    open()
+
+    //data->fd = open(data->map_name, O_RDONLY);
+    //ft_open(data->map_name, fd, buf);
+    ft_info_read(data->map_name, data);     
+    
+    return (0);
 }
 
 int map_to_buf(t_data *data) //int map[MAP_SIZE][MAP_SIZE])
 {
-    char **buf;
     
     int map[MAP_SIZE][MAP_SIZE] = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -50,20 +54,20 @@ int map_to_buf(t_data *data) //int map[MAP_SIZE][MAP_SIZE])
     };
 
 
-    buf = (char **)malloc(sizeof(char *) * MAP_SIZE * MAP_SIZE);
+    data->map_buf = (char **)malloc(sizeof(char *) * MAP_SIZE * MAP_SIZE);
     if (!buf)
     {
         write(2, "Error: malloc failed\n", 20);
         return (1);
     }
-    open_map(data, buf);
+    open_map(data, data->map_buf);
     
     return (0);
-}
+} */
 
-void check_map_for_player(t_data *data, char **buf)
-{}
-void check_player_pos(t_data *data, char pos)
+/* void check_map_for_player(t_data *data, char **buf)
+{} */
+/* void check_player_pos(t_data *data, char pos)
 {
     if (pos == 'W')
     {
@@ -86,9 +90,9 @@ void check_player_pos(t_data *data, char pos)
         //ft_clean(data);
         exit(1);
     }
-}
+} */
 
-void switch_pos(t_data *data)
+/* void switch_pos(t_data *data)
 {
     if (strcmp(data->player_pos, "W") == 0)
     {
@@ -115,8 +119,8 @@ void switch_pos(t_data *data)
         //ft_clean(data);
         exit(1);
     }
-}
-void init_pos(t_data *data)
+} */
+/* void init_pos(t_data *data)
 {
     //pre version of the variables will be changed later on. 
     data->center_pos = malloc(sizeof(t_point *));
@@ -128,15 +132,15 @@ void init_pos(t_data *data)
             (*data->center_pos)->x = WIDTH / 2;
             (*data->center_pos)->y = HEIGHT / 2;
         }
-    }
+    } */
    /*  data->player_pos = data->center_pos;
     data->arrow_angle = NORTH_FOV;
     data->start_angle = data->arrow_angle; */
 
     //define starting positions by player position and its directional view
     //check_player_pos(data, data->player_pos);
-    switch_pos(data);
-}
+   /* switch_pos(data);
+} */
 
 
 //void init_colors(t_data *data)
@@ -154,8 +158,14 @@ int ft_init(t_data *data)
     // data->player_y = 1;
     
     // center = (t_point){data->map_offset_x + data->player_x * TILE_SIZE + TILE_SIZE / 2, data->map_offset_y + data->player_y * TILE_SIZE + TILE_SIZE / 2};
-
-    data->mlx = mlx_init();
+    
+    
+    //map_to_buf(data);
+    //open_map(data, data->map_buf);
+    ft_info_read(data->map_name, data);
+    
+    
+/*     data->mlx = mlx_init();
     data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3d");
     data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
     data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->line_length, &data->endian);
@@ -173,6 +183,6 @@ int ft_init(t_data *data)
     cub_menu(data);
     
     mlx_hook(data->win, 17, 0, ft_destroy, data);
-    mlx_loop(data->mlx);
+    mlx_loop(data->mlx); */
     return (0);
 }
