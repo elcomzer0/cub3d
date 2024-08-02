@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AVP <AVP@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/31 15:55:13 by AVP              ###   ########.fr       */
+/*   Updated: 2024/08/02 17:23:52 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <math.h>
 # include <fcntl.h>
 # include <stdio.h>
-//# include <endian.h>
-//# include <mlx.h>
+# include <endian.h>
+# include <mlx.h>
 
 # define HEIGHT 720
 # define WIDTH  1280
@@ -64,6 +64,7 @@ typedef struct s_data {
     char    *map_addr;
     struct s_point		**player_pos;
     struct s_point		**center_pos;
+    struct s_point		**map_coord;
     float start_angle;
     //t_point		**points;
     //t_vector		**vector;

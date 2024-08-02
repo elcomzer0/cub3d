@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AVP <AVP@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:35 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/31 15:52:36 by AVP              ###   ########.fr       */
+/*   Updated: 2024/08/02 17:33:26 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,38 @@ int map_to_buf(t_data *data) //int map[MAP_SIZE][MAP_SIZE])
         exit(1);
     }
 } */
+
+/* void switch_pos(t_data *data)
+{
+    int i;
+    
+    i = 0;
+    while (i < 0)
+    {
+        if (strcmp(data->z_values[i], "W") == 0)
+        {
+            data->arrow_angle = WEST_FOV;
+            data->start_angle = data->arrow_angle;
+        }
+        else if (strcmp(data->z_values[i], "E") == 0)
+        {
+            data->arrow_angle = EAST_FOV;
+            data->start_angle = data->arrow_angle;
+        }
+        else if (strcmp(data->z_values[i], "N") == 0)
+        {
+            printf("1\n");
+            data->arrow_angle = NORTH_FOV;
+            data->start_angle = data->arrow_angle;
+        }
+        else if (strcmp(data->z_values[i], "S") == 0)
+        {
+            data->arrow_angle = SOUTH_FOV;
+            data->start_angle = data->arrow_angle;
+        }
+        i++;
+    }
+} */
 /* void init_pos(t_data *data)
 {
     //pre version of the variables will be changed later on. 
@@ -140,6 +172,11 @@ int map_to_buf(t_data *data) //int map[MAP_SIZE][MAP_SIZE])
     //define starting positions by player position and its directional view
     //check_player_pos(data, data->player_pos);
    /* switch_pos(data);
+} */
+
+/* int init_pos(t_data *data)
+{
+    switch_pos(data);
 } */
 
 
@@ -165,7 +202,7 @@ int ft_init(t_data *data)
     ft_info_read(data->map_name, data);
     
     
-/*     data->mlx = mlx_init();
+ /*    data->mlx = mlx_init();
     data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3d");
     data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
     data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->line_length, &data->endian);
