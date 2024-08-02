@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:11 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/02 17:35:39 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/02 19:37:47 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,43 @@ int	ft_open(char *file, int fd, t_data *data)
 	return (fd);
 }
 
+void find_player_pos(t_data *data, int  **z_values)
+{
+	int x;
+	int y;
+
+	y = 0;
+	while (y < data->map_height)
+	{
+		x = 0;
+		while (x < data->map_width)
+		{
+			if (z_values[y][x] == atoi("N") || z_values[y][x] == atoi("S") 
+			|| z_values[y][x] == atoi("E") || z_values[y][x] == atoi("W"))
+			{
+				data->player_x = x;
+				data->player_y = y;
+				data->z_values[y][x] = 0;
+				if (z_values[y][x] == atoi("N"))
+					data->start_angle = NORTH_FOV;
+				else if (z_values[y][x] == atoi("S"))
+					data->start_angle = SOUTH_FOV;
+				else if (z_values[y][x] == atoi("E"))
+					data->start_angle = EAST_FOV;
+				else if (z_values[y][x] == atoi("W"))
+					data->start_angle = WEST_FOV;
+				break;
+			}
+			x++;
+		}
+		printf("z_values[%d][%d] = %d\n", y, x, z_values[y][x]);
+		y++;
+	}
+	printf("data->player_x: %d\n", data->player_x);
+	printf("data->player_y: %d\n", data->player_y);
+	printf("data->start_angle: %f\n", data->start_angle);
+}
+
 void create_map_coord(t_data *data)
 {
 	int x;
@@ -142,7 +179,7 @@ void create_map_coord(t_data *data)
 		y++;
 	}
 	//print map_coord
-	int i = 0;
+	/* int i = 0;
 	while(i < data->map_height)
 	{
 		int j = 0;
@@ -153,8 +190,10 @@ void create_map_coord(t_data *data)
 		}
 		i++;
 	printf("\n");
-	}
+	} */
 }
+
+
 
 void	ft_info_read(char *file, t_data *data)
 {
@@ -181,6 +220,7 @@ void	ft_info_read(char *file, t_data *data)
 		i++;
 	}
 	create_map_coord(data);
+	find_player_pos(data, data->z_values);
 	free(line);
 	close(fd);
 }
