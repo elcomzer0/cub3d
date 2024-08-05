@@ -19,7 +19,7 @@ int main() {
     // Print the map
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            printf("%d ", map[i][j]);
+            printf("%d", map[i][j]);
         }
         printf("\n");
     }

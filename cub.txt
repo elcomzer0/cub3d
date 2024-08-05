@@ -1,0 +1,103 @@
+z_values[0][0]: 1
+
+z_values[1][0]: 1
+
+z_values[2][0]: 1
+
+z_values[3][0]: 1
+
+z_values[4][0]: 1
+
+z_values[5][0]: 1
+
+z_values[6][0]: 1
+
+z_values[7][0]: 1
+
+z_values[8][0]: 1
+
+z_values[9][0]: 1
+
+z_values[10][0]: 1
+
+z_values[11][0]: 1
+
+z_values[12][0]: 1
+
+z_values[13][0]: 1
+
+z_values[14][0]: 1
+
+z_values[15][0]: 1
+
+z_values[16][0]: 1
+
+z_values[17][0]: 1
+
+z_values[18][0]: 1
+
+z_values[19][0]: 1
+
+z_values[20][0]: 1
+
+z_values[21][0]: 1
+
+z_values[22][0]: 1
+
+z_values[23][0]: 1
+
+z_values[24][0]: 1
+
+z_values[25][0]: 1
+
+z_values[26][0]: 1
+
+z_values[27][0]: 1
+
+z_values[28][0]: 1
+
+z_values[29][0]: 1
+
+z_values[30][0]: 1
+
+z_values[31][0]: 1
+
+z_values[32][0]: 1
+
+z_values[33][0]: 1
+
+z_values[34][0]: 1
+
+z_values[35][0]: 1
+
+z_values[36][0]: 1
+
+z_values[37][0]: 1
+
+z_values[38][0]: 1
+
+z_values[39][0]: 1
+
+z_values[40][0]: 1
+
+z_values[41][0]: 1
+
+z_values[42][0]: 1
+
+z_values[43][0]: 1
+
+z_values[44][0]: 1
+
+z_values[45][0]: 1
+
+z_values[46][0]: 1
+
+z_values[47][0]: 1
+
+z_values[48][0]: 1
+
+z_values[49][0]: 1
+
+data->player_x: 0
+data->player_y: 0
+data->start_angle: 0.000000

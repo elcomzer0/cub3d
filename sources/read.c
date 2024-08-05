@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:11 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/02 19:37:47 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:54:35 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ int	read_height(char *file, t_data *data)
 	free(line);
 	return (height);
 }
-
+/* 
 void	fill_values(int *line_z, char *line, t_data *data)
 {
 	int		i;
 	char	**nums;
 
-	nums = ft_split(line, ' ');
+	nums = ft_split(line, NULL);
 	if (!nums)
 	{
 		free(data);
@@ -99,11 +99,38 @@ void	fill_values(int *line_z, char *line, t_data *data)
 	while (nums[i])
 	{
 		line_z[i] = ft_atoi(nums[i]);
+		//printf("line_z[%d]: %d\n", i, line_z[i]);
 		free(nums[i]);
 		i++;
 	}
 	free(nums);
+} */
+
+void fill_values(int *line_z, char *line, t_data *data)
+{
+    int i = 0;
+
+    while (line[i] && i < data->map_width)
+    {
+        if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+            line_z[i] = line[i];
+        else if (line[i] == '1')
+            line_z[i] = 1;
+        else if (line[i] == '0')
+            line_z[i] = 0;
+        else
+            line_z[i] = -1;  // For any unexpected characters
+        i++;
+    }
+    // Fill the rest with -1 if the line is shorter than map_width
+    while (i < data->map_width)
+    {
+        line_z[i] = -1;
+        i++;
+    }
 }
+
+
 
 
 int	ft_open(char *file, int fd, t_data *data)
@@ -151,7 +178,7 @@ void find_player_pos(t_data *data, int  **z_values)
 			}
 			x++;
 		}
-		printf("z_values[%d][%d] = %d\n", y, x, z_values[y][x]);
+		// printf("z_values[%d][%d] = %d\n", y, x, z_values[y][x]);
 		y++;
 	}
 	printf("data->player_x: %d\n", data->player_x);
@@ -193,6 +220,22 @@ void create_map_coord(t_data *data)
 	} */
 }
 
+void print_z_values(t_data *data)
+{
+	int i = 0;
+	int j = 0;
+	while(i < data->map_height)
+	{
+		j = 0;
+		while(j < data->map_width)
+		{
+			printf("z_values[%d][%d]: %d\n", i, j, data->z_values[i][j]);
+			j++;
+		}
+		i++;
+		printf("\n");
+	}
+}
 
 
 void	ft_info_read(char *file, t_data *data)
@@ -219,6 +262,7 @@ void	ft_info_read(char *file, t_data *data)
 		line = get_next_line(fd);
 		i++;
 	}
+	print_z_values(data);
 	create_map_coord(data);
 	find_player_pos(data, data->z_values);
 	free(line);

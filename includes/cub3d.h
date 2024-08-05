@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/02 17:23:52 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/05 16:34:18 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_data {
     int map[MAP_SIZE][MAP_SIZE];
     void *map_img;
     char    *map_addr;
+    struct s_player	**player;
     struct s_point		**player_pos;
     struct s_point		**center_pos;
     struct s_point		**map_coord;
@@ -69,6 +70,15 @@ typedef struct s_data {
     //t_point		**points;
     //t_vector		**vector;
 }				t_data;
+
+
+/*new player position with direction and angle*/
+typedef struct s_player {
+	struct s_point	**pos;
+    float			dx;
+	float			dy;
+	float			angle;
+}				t_player;
 
 typedef struct s_point {
 	float			x;
