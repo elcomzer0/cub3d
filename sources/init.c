@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:35 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/02 17:33:26 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:04:31 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,14 +202,14 @@ int ft_init(t_data *data)
     ft_info_read(data->map_name, data);
     
     
- /*    data->mlx = mlx_init();
+    data->mlx = mlx_init();
     data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3d");
     data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
     data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->line_length, &data->endian);
     //data->map_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
     //data->map_addr = mlx_get_data_addr(data->map_img, &data->bpp, &data->line_length, &data->endian);
 
-    map_test(data);
+    //map_test(data);
     cub_draw(data);
     //mlx_put_image_to_window(data->mlx, data->win, data->map_img, 0, 0);
     mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
@@ -220,6 +220,6 @@ int ft_init(t_data *data)
     cub_menu(data);
     
     mlx_hook(data->win, 17, 0, ft_destroy, data);
-    mlx_loop(data->mlx); */
+    mlx_loop(data->mlx);
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:11 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/06 16:42:06 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:40:05 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	ft_init_z(t_data *data)
 	if (data->z_values == NULL)
 	{
 		perror("Error: Failed to allocate memory for z_values");
-		//ft_printf("Error message: %s\n", strerror(12));
 		ft_destroy(data);
 		exit(1);
 	}
@@ -31,9 +30,7 @@ void	ft_init_z(t_data *data)
 		if (data->z_values[i] == NULL)
 		{
 			write(2, "Error: malloc failed\n", 20);
-			//ft_printf("Error: Failed to allocate memory for z_values[%d]: ", i);
 			perror("");
-			//ft_printf("Error message: %s\n", strerror(12));
 			ft_destroy(data);
 			exit(1);
 		}
@@ -93,27 +90,6 @@ int	read_height(char *file, t_data *data)
 	return (height);
 }
 
-/* void	fill_values(int *line_z, char *line, t_data *data)
-{
-	int		i;
-	char	**nums;
-
-	nums = ft_split(line, ' ');
-	if (!nums)
-	{
-		free(data);
-		exit(1);
-	}
-	i = 0;
-	while (nums[i])
-	{
-		line_z[i] = ft_atoi(nums[i]);
-		//printf("line_z[%d]: %d\n", i, line_z[i]);
-		free(nums[i]);
-		i++;
-	}
-	free(nums);
-} */
 
 void fill_values(int *z_values, char *line, t_data *data)
 {
@@ -171,76 +147,19 @@ void fill_values(int *z_values, char *line, t_data *data)
 }
 
 
-/* void find_player_pos(t_data *data, int **z_values)
-{
-    // Print the player's position and orientation
-    if (data->player)
-    {
-        printf("Player position: (%f, %f)\n", data->player[0]->pos[0]->x, data->player[0]->pos[0]->y);
-        printf("Player angle: %f\n", data->player[0]->angle);
-    }
-    else
-    {
-        printf("No player found in the map.\n");
-    }
-} */
-
-
-
-
-
 int	ft_open(char *file, int fd, t_data *data)
 {
-	//int	error_code;
-
-	//error_code = 2;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 	{
 		free(data);
-		//ft_printf("ERROR %s\n", strerror(error_code));
 		close(fd);
 		exit(1);
 	}
 	return (fd);
 }
 
-/* void find_player_pos(t_data *data, int  **z_values)
-{
-	int x;
-	int y;
 
-	y = 0;
-	while (y < data->map_height)
-	{
-		x = 0;
-		while (x < data->map_width)
-		{
-			if (z_values[y][x] == atoi("N") || z_values[y][x] == atoi("S") 
-			|| z_values[y][x] == atoi("E") || z_values[y][x] == atoi("W"))
-			{
-				data->player_x = x;
-				data->player_y = y;
-				data->z_values[y][x] = 0;
-				if (z_values[y][x] == atoi("N"))
-					data->start_angle = NORTH_FOV;
-				else if (z_values[y][x] == atoi("S"))
-					data->start_angle = SOUTH_FOV;
-				else if (z_values[y][x] == atoi("E"))
-					data->start_angle = EAST_FOV;
-				else if (z_values[y][x] == atoi("W"))
-					data->start_angle = WEST_FOV;
-				break;
-			}
-			x++;
-		}
-		// printf("z_values[%d][%d] = %d\n", y, x, z_values[y][x]);
-		y++;
-	}
-	printf("data->player_x: %d\n", data->player_x);
-	printf("data->player_y: %d\n", data->player_y);
-	printf("data->start_angle: %f\n", data->start_angle);
-} */
 
 void create_map_coord(t_data *data)
 {
@@ -326,8 +245,6 @@ void	ft_info_read(char *file, t_data *data)
 	{
 		data->current_line = i;
 		fill_values(data->z_values[i], line, data);
-		//printf("%s\n", line);
-		//printf("z_values[%d]: %d\n", i, data->z_values[i][i]);
 		free(line);
 		
 		line = get_next_line(fd);

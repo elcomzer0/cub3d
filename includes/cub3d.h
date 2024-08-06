@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/06 15:56:55 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:10:35 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle)
 void raycasting_v2(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle);
 /*utils.c*/
 void float_to_string(float value, char *buffer);
+void float_to_string_y(float value, char *buffer);
+void float_to_string_x(float value, char *buffer);
 char	**ft_split(char const *s, char c);
 char	*get_next_line(int fd);
 int	ft_wordcounter(char const *str, char c);
@@ -146,8 +148,13 @@ int	ft_atoi(const char *str);
 int	ft_open(char *file, int fd, t_data *data);
 void	ft_info_read(char *file, t_data *data);
 
-# define KEY_ANSI_A			0X61
 # define KEY_ANSI_Q			0X71
+
+# define KEY_ANSI_A			0X61
+# define KEY_ANSI_S			0X73
+# define KEY_ANSI_D			0X64
+# define KEY_ANSI_W			0X77
+
 # define KEY_ESCAPE			0xff1b
 # define KEY_LEFTARROW		0XFF51
 # define KEY_RIGHTARROW		0XFF53
