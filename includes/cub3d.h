@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/05 16:34:18 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:56:55 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef struct s_data {
     int		color;
     char *map_name;
     char **map_buf;
+
+    int current_line;
 	//int		map;
 	int		fd;
     char    *addr;

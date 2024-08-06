@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:11 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/05 17:54:35 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:42:06 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_init_z(t_data *data)
 {
 	int	i;
 
-	data->z_values = (int **)malloc(sizeof(int *) * (data->map_height + 1));
+	data->z_values = (int **)malloc(sizeof(int *) * (data->map_height));
 	if (data->z_values == NULL)
 	{
 		perror("Error: Failed to allocate memory for z_values");
@@ -27,7 +27,7 @@ void	ft_init_z(t_data *data)
 	i = 0;
 	while (i < data->map_height)
 	{
-		data->z_values[i] = (int *)malloc(sizeof(int) * (data->map_width + 1));
+		data->z_values[i] = (int *)malloc(sizeof(int) * (data->map_width));
 		if (data->z_values[i] == NULL)
 		{
 			write(2, "Error: malloc failed\n", 20);
@@ -46,6 +46,15 @@ void	ft_init_z(t_data *data)
 		i--;
 	}*/
 }
+int count_characters(char *line)
+{
+    int count = 0;
+    while (line[count] != '\0' && line[count] != '\n')
+    {
+        count++;
+    }
+    return count;
+}
 
 int	read_width(char *file, t_data *data)
 {
@@ -57,7 +66,7 @@ int	read_width(char *file, t_data *data)
 	fd = 0;
 	fd = ft_open(file, fd, data);
 	line = get_next_line(fd);
-	width = ft_wordcounter(line, ' ');
+	width = count_characters(line);
 	free(line);
 	return (width);
 }
@@ -83,13 +92,13 @@ int	read_height(char *file, t_data *data)
 	free(line);
 	return (height);
 }
-/* 
-void	fill_values(int *line_z, char *line, t_data *data)
+
+/* void	fill_values(int *line_z, char *line, t_data *data)
 {
 	int		i;
 	char	**nums;
 
-	nums = ft_split(line, NULL);
+	nums = ft_split(line, ' ');
 	if (!nums)
 	{
 		free(data);
@@ -106,29 +115,76 @@ void	fill_values(int *line_z, char *line, t_data *data)
 	free(nums);
 } */
 
-void fill_values(int *line_z, char *line, t_data *data)
+void fill_values(int *z_values, char *line, t_data *data)
 {
-    int i = 0;
+    int i;
 
-    while (line[i] && i < data->map_width)
+    i = 0;
+    while (/* line[i] &&  */i < data->map_width)
     {
-        if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
-            line_z[i] = line[i];
-        else if (line[i] == '1')
-            line_z[i] = 1;
-        else if (line[i] == '0')
-            line_z[i] = 0;
+        if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
+        {
+            z_values[i] = -1; // Use -1 or any other special value to denote the player's position
+            data->player_x = i;
+            data->player_y = data->current_line;
+
+            // Ensure the player struct is allocated
+            if (!data->player)
+            {
+                data->player = (t_player **)malloc(sizeof(t_player *));
+                data->player[0] = (t_player *)malloc(sizeof(t_player));
+            }
+            if (!data->player[0]->pos)
+            {
+                data->player[0]->pos = (t_point **)malloc(sizeof(t_point *));
+                data->player[0]->pos[0] = (t_point *)malloc(sizeof(t_point));
+            }
+
+            data->player[0]->pos[0]->x = i;
+            data->player[0]->pos[0]->y = data->current_line;
+
+            if (line[i] == 'N')
+                data->player[0]->angle = 90;
+            else if (line[i] == 'S')
+                data->player[0]->angle = 270;
+            else if (line[i] == 'W')
+                data->player[0]->angle = 180;
+            else if (line[i] == 'E')
+                data->player[0]->angle = 0;
+        }
+        else if (line[i] == '1' || line[i] == '0')
+        {
+            z_values[i] = line[i] - '0'; // Convert '1' or '0' character to integer 1 or 0
+        }
         else
-            line_z[i] = -1;  // For any unexpected characters
+        {
+            // Handle unexpected characters
+            z_values[i] = 0; // Default to 0 for unexpected characters
+        }
         i++;
     }
-    // Fill the rest with -1 if the line is shorter than map_width
-    while (i < data->map_width)
+    /* while (i < data->map_width)
     {
-        line_z[i] = -1;
+        z_values[i] = 0; // Ensure the rest of the values are set to 0 if the line is shorter than map_width
         i++;
-    }
+    } */
 }
+
+
+/* void find_player_pos(t_data *data, int **z_values)
+{
+    // Print the player's position and orientation
+    if (data->player)
+    {
+        printf("Player position: (%f, %f)\n", data->player[0]->pos[0]->x, data->player[0]->pos[0]->y);
+        printf("Player angle: %f\n", data->player[0]->angle);
+    }
+    else
+    {
+        printf("No player found in the map.\n");
+    }
+} */
+
 
 
 
@@ -149,7 +205,7 @@ int	ft_open(char *file, int fd, t_data *data)
 	return (fd);
 }
 
-void find_player_pos(t_data *data, int  **z_values)
+/* void find_player_pos(t_data *data, int  **z_values)
 {
 	int x;
 	int y;
@@ -184,7 +240,7 @@ void find_player_pos(t_data *data, int  **z_values)
 	printf("data->player_x: %d\n", data->player_x);
 	printf("data->player_y: %d\n", data->player_y);
 	printf("data->start_angle: %f\n", data->start_angle);
-}
+} */
 
 void create_map_coord(t_data *data)
 {
@@ -237,6 +293,20 @@ void print_z_values(t_data *data)
 	}
 }
 
+void find_player_pos(t_data *data, int **z_values)
+{
+	(void)z_values;
+    // Print the player's position and orientation
+    if (data->player)
+    {
+        printf("Player position: (%f, %f)\n", data->player[0]->pos[0]->x, data->player[0]->pos[0]->y);
+        printf("Player angle: %f\n", data->player[0]->angle);
+    }
+    else
+    {
+        printf("No player found in the map.\n");
+    }
+}
 
 void	ft_info_read(char *file, t_data *data)
 {
@@ -252,8 +322,9 @@ void	ft_info_read(char *file, t_data *data)
 	ft_init_z(data);
 	line = get_next_line(fd);
 	i = 0;
-	while (line)
+	while (line && i < data->map_height)
 	{
+		data->current_line = i;
 		fill_values(data->z_values[i], line, data);
 		//printf("%s\n", line);
 		//printf("z_values[%d]: %d\n", i, data->z_values[i][i]);
