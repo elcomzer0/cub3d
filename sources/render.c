@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/27 17:06:49 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:52:23 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,12 @@ void map_test(t_data *data)
     }
 } */
 
+
+void raycasting(t_data *data)
+{
+    
+}
+
 void raycasting_v2(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle)
 {
     //t_point player_center = {map_offset_x + data->player_x * TILE_SIZE + TILE_SIZE / 2, map_offset_y + data->player_y * TILE_SIZE + TILE_SIZE / 2};
@@ -143,7 +149,7 @@ void raycasting_v2(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle)
     for (int x = 0; x < WIDTH; x++)
     {
         ray_angle = start_angle + x * angle_step;
-       ray_angle = data->arrow_angle + (FOV / 2) + ((double)x / WIDTH) * FOV;
+       ray_angle = data->player[0]->angle + (FOV / 2) + ((double)x / WIDTH) * FOV;
         ray_dir_x = cos(ray_angle * (M_PI / 180));
         ray_dir_y = sin(ray_angle * (M_PI / 180));
         

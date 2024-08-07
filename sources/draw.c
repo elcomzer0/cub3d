@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:33:07 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/06 19:05:51 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:15:10 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ void  draw_arrow(t_data *data, t_point center, int line_length, int triangle_siz
     int yellow_color = create_trgb(255, 255, 255, 0);
     int cyan_color = create_trgb(255, 0, 255, 255);
     //calculate the end point of the line
-    t_point line_end = {center.x, center.y - line_length};
+    center.x = data->player[0]->pos[0]->x;
+    center.y = data->player[0]->pos[0]->y;
+    t_point line_end = {data->player[0]->pos[0]->x, data->player[0]->pos[0]->y - line_length};
     t_point rotated_line_end = rotate_point(line_end, center, angle);
 
     //calculate the vertices of the triangle
@@ -88,10 +90,10 @@ void  draw_arrow(t_data *data, t_point center, int line_length, int triangle_siz
     triangle_right = rotate_point(triangle_right, triangle_tip, angle);
     
     //draw the circle
-    draw_circle(data, center.x, center.y, 5, red_color);
+    draw_circle(data, data->player[0]->pos[0]->x, data->player[0]->pos[0]->y, 5, red_color);
     
     //draw the line
-    draw_line(data, center.x, center.y, rotated_line_end.x, rotated_line_end.y, red_color);
+    draw_line(data, data->player[0]->pos[0]->x, data->player[0]->pos[0]->y, rotated_line_end.x, rotated_line_end.y, red_color);
 
     //draw the triangle
     draw_line(data, triangle_tip.x, triangle_tip.y, triangle_left.x, triangle_left.y, green_color); // color is green
@@ -101,14 +103,14 @@ void  draw_arrow(t_data *data, t_point center, int line_length, int triangle_siz
     //draw the field of view lines
     t_point fov_left_end = rotate_point(line_end, center, angle - 67.5);
     t_point fov_right_end = rotate_point(line_end, center, angle + 67.5);
-    draw_line(data, center.x, center.y, fov_left_end.x, fov_left_end.y, yellow_color); // color is yellow
-    draw_line(data, center.x, center.y, fov_right_end.x, fov_right_end.y, yellow_color);
+    draw_line(data, data->player[0]->pos[0]->x, data->player[0]->pos[0]->y, fov_left_end.x, fov_left_end.y, yellow_color); // color is yellow
+    draw_line(data, data->player[0]->pos[0]->x, data->player[0]->pos[0]->y, fov_right_end.x, fov_right_end.y, yellow_color);
 
     //draw diagonal line
     t_point diagonal_left_end  = rotate_point(line_end, center, angle - 45);
     t_point diagonal_right_end = rotate_point(line_end, center, angle + 45);
-    draw_line(data, center.x, center.y, diagonal_left_end.x, diagonal_left_end.y, cyan_color); // color is cyan
-    draw_line(data, center.x, center.y, diagonal_right_end.x, diagonal_right_end.y, cyan_color);
+    draw_line(data, data->player[0]->pos[0]->x, data->player[0]->pos[0]->y, diagonal_left_end.x, diagonal_left_end.y, cyan_color); // color is cyan
+    draw_line(data, data->player[0]->pos[0]->x, data->player[0]->pos[0]->y, diagonal_right_end.x, diagonal_right_end.y, cyan_color);
 }
 
 void draw_map(t_data *data, int map[MAP_SIZE][MAP_SIZE], int offset_x, int offset_y)
@@ -142,7 +144,7 @@ void draw_map(t_data *data, int map[MAP_SIZE][MAP_SIZE], int offset_x, int offse
 
 void    cub_draw(t_data *data)
 {
-    int map[MAP_SIZE][MAP_SIZE] = {
+    /* int map[MAP_SIZE][MAP_SIZE] = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
@@ -153,7 +155,7 @@ void    cub_draw(t_data *data)
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-    };
+    }; */
     
  
     
@@ -162,7 +164,7 @@ void    cub_draw(t_data *data)
     //calculate player position at the center of the map
     
 
-    int color = create_trgb(50, 128, 128, 128); // 0xAARRGGBB (alpha, red, green, blue), grey = (128, 128, 128)
+    //int color = create_trgb(50, 128, 128, 128); // 0xAARRGGBB (alpha, red, green, blue), grey = (128, 128, 128)
     //Define arrow inputs
     t_point center = {WIDTH / 2 , HEIGHT / 2};
     data->player_x = 1;
@@ -173,11 +175,11 @@ void    cub_draw(t_data *data)
 
     //raycasting_2D(data, map, data->arrow_angle);
     //raycasting(data, map, data->map_offset_x, data->map_offset_y);
-    draw_circle(data, (WIDTH / 2), (HEIGHT / 2), 100, color); //0x248A8D8F);
+   // draw_circle(data, (WIDTH / 2), (HEIGHT / 2), 100, color); //0x248A8D8F);
     //raycasting_2D(data, map);
    
-    draw_arrow(data, center, line_length, triangle_size, data->arrow_angle);
-    raycasting_v2(data, map, data->arrow_angle);
+    //draw_arrow(data, center, line_length, triangle_size, data->player[0]->angle);
+    raycasting_v2(data, data->z_values, data->player[0]->angle);
     //display_angle(data);
     //raycasting_2D(data, map, data->map_offset_x, data->map_offset_y);
 }

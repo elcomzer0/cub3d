@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/06 19:10:35 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:35:37 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,16 @@ typedef struct s_data {
     void		*mlx;
     void		*win;
     void		*img;
-    int			player_x;
-    int			player_y;
+   /*  int			player_x;
+    int			player_y; */
     int map_offset_x;
     int map_offset_y;
     int map[MAP_SIZE][MAP_SIZE];
     void *map_img;
     char    *map_addr;
     struct s_player	**player;
-    struct s_point		**player_pos;
-    struct s_point		**center_pos;
+    /* struct s_point		**player_pos;
+    struct s_point		**center_pos; */
     struct s_point		**map_coord;
     float start_angle;
     //t_point		**points;
