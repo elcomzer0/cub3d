@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: AVP <AVP@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:37:43 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/31 15:58:18 by AVP              ###   ########.fr       */
+/*   Updated: 2024/08/09 00:19:58 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,24 @@
 
 int ft_clean(t_data *data)
 {
+    if (data->raycast)
+    {
+        free(data->raycast);
+        data->raycast = NULL;
+        return (0);
+    }
+    if (data->color)
+    {
+        free(data->color);
+        data->color = NULL;
+        return (0);
+    }
+    if (data->z_values)
+    {
+        free(data->z_values);
+        data->z_values = NULL;
+        return (0);
+    }
     if(data)
     {
         free(data);

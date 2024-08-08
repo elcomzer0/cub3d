@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/07 14:52:23 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/09 00:35:13 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,199 @@ void map_test(t_data *data)
 } */
 
 
+void rc_delta_dist(t_data *data)
+{
+    if (data->raycast->ray_dir[0] == NULL || data->raycast->delta_dist[0] == NULL)
+    {
+        write(2, "Error: ray_dir[0]->x is NULL\n", 30);
+        return ;
+    }
+    if (data->raycast->ray_dir[0]->x == 0)
+        data->raycast->delta_dist[0]->x = 1e30;
+    else
+        data->raycast->delta_dist[0]->x = fabs(1 / data->raycast->ray_dir[0]->x);
+    
+    if (data->raycast->ray_dir[0]->y == 0)
+        data->raycast->delta_dist[0]->y = 1e30;
+    else
+        data->raycast->delta_dist[0]->y = fabs(1 / data->raycast->ray_dir[0]->y);
+}
+
+void rc_side_step(t_data *data)
+{
+    if (data->raycast->ray_dir[0] == NULL 
+        || data->raycast->step[0] == NULL
+        || data->raycast->side_dist[0] == NULL || data->player[0]->pos[0] == NULL)
+    {
+        write(2, "Error: ray_dir[0] or step[0] or side_dist[0] or player[0]->pos[0] is NULL\n", 100);
+        return ;
+    }
+    if (data->raycast->ray_dir[0]->x < 0)
+    {
+        data->raycast->step[0]->x = -1;
+        data->raycast->side_dist[0]->x = (data->player[0]->pos[0]->x - data->raycast->map_x) * data->raycast->delta_dist[0]->x;
+    }
+    else
+    {
+        data->raycast->step[0]->x = 1;
+        data->raycast->side_dist[0]->x = (data->raycast->map_x + 1.0 - data->player[0]->pos[0]->x) * data->raycast->delta_dist[0]->x;
+    }
+    if (data->raycast->ray_dir[0]->y < 0)
+    {
+        data->raycast->step[0]->y = -1;
+        data->raycast->side_dist[0]->y = (data->player[0]->pos[0]->y - data->raycast->map_y) * data->raycast->delta_dist[0]->y;
+    }
+    else
+    {
+        data->raycast->step[0]->y = 1;
+        data->raycast->side_dist[0]->y = (data->raycast->map_y + 1.0 - data->player[0]->pos[0]->y) * data->raycast->delta_dist[0]->y;
+    }
+}
+
+void rc_loop_hit(t_data *data)
+{
+    if (data->raycast->side_dist[0] == NULL
+        || data->raycast->delta_dist[0] == NULL || data->raycast->step[0] == NULL)
+    {
+        write(2, "Error: side_dist[0] or delta_dist[0] or step[0] is NULL\n", 60);
+        return ;    
+    }
+    while (data->raycast->hit == 0)
+    {
+        if (data->raycast->side_dist[0]->x < data->raycast->side_dist[0]->y)
+        {
+            data->raycast->side_dist[0]->x += data->raycast->delta_dist[0]->x;
+            data->raycast->map_x += data->raycast->step[0]->x;
+            data->raycast->side = 0;
+        }
+        else
+        {
+            data->raycast->side_dist[0]->y += data->raycast->delta_dist[0]->y;
+            data->raycast->map_y += data->raycast->step[0]->y;
+            data->raycast->side = 1;
+        }
+        if (data->z_values[data->raycast->map_y][data->raycast->map_x] > 0)
+        {
+            data->raycast->hit = 1;
+        }
+    }
+}
+
 void raycasting(t_data *data)
 {
-    
+    int x;
+
+    if (data == NULL || data->raycast == NULL
+        || data->player == NULL
+        || data->raycast->ray_dir[0] == NULL || data->player[0]->pos[0] == NULL)
+        {
+            write(2, "Error: One or more pointers are NULL\n", 40);
+            return ;
+        }
+    for (x = 0; x < WIDTH; x++)
+    {
+        /* carmera_x and ray_dir */
+        data->raycast->camera_x = 2 * x / (float)WIDTH - 1;
+        data->raycast->ray_dir[0]->x = data->player[0]->dx + data->raycast->camera_x * data->raycast->plane[0]->x;
+        data->raycast->ray_dir[0]->y = data->player[0]->dy + data->raycast->camera_x * data->raycast->plane[0]->y;
+
+    /* int map_x and map_y */
+        data->raycast->map_x = (int)data->player[0]->pos[0]->x;
+        data->raycast->map_y = (int)data->player[0]->pos[0]->y;
+        
+    /* delta_dist */
+        rc_delta_dist(data);
+    /*     if (data->raycast->ray_dir[0]->x == 0)
+            data->raycast->delta_dist[0]->x = 1e30;
+        else
+            data->raycast->delta_dist[0]->x = fabs(1 / data->raycast->ray_dir[0]->x);
+        
+        if (data->raycast->ray_dir[0]->y == 0)
+            data->raycast->delta_dist[0]->y = 1e30;
+        else
+            data->raycast->delta_dist[0]->y = fabs(1 / data->raycast->ray_dir[0]->y); */
+
+    /* side_dist and step */
+
+        rc_side_step(data);
+    /*  if (data->raycast->ray_dir[0]->x < 0)
+        {
+            data->raycast->step[0]->x = -1;
+            data->raycast->side_dist[0]->x = (data->player[0]->pos[0]->x - data->raycast->map_x) * data->raycast->delta_dist[0]->x;
+        }
+        else
+        {
+            data->raycast->step[0]->x = 1;
+            data->raycast->side_dist[0]->x = (data->raycast->map_x + 1.0 - data->player[0]->pos[0]->x) * data->raycast->delta_dist[0]->x;
+        }
+        if (data->raycast->ray_dir[0]->y < 0)
+        {
+            data->raycast->step[0]->y = -1;
+            data->raycast->side_dist[0]->y = (data->player[0]->pos[0]->y - data->raycast->map_y) * data->raycast->delta_dist[0]->y;
+        }
+        else
+        {
+            data->raycast->step[0]->y = 1;
+            data->raycast->side_dist[0]->y = (data->raycast->map_y + 1.0 - data->player[0]->pos[0]->y) * data->raycast->delta_dist[0]->y;
+        } */
+        
+        /* while loop hit */
+        rc_loop_hit(data);
+        /* while (data->raycast->hit == 0)
+        {
+            if (data->raycast->side_dist[0]->x < data->raycast->side_dist[0]->y)
+            {
+                data->raycast->side_dist[0]->x += data->raycast->delta_dist[0]->x;
+                data->raycast->map_x += data->raycast->step[0]->x;
+                data->raycast->side = 0;
+            }
+            else
+            {
+                data->raycast->side_dist[0]->y += data->raycast->delta_dist[0]->y;
+                data->raycast->map_y += data->raycast->step[0]->y;
+                data->raycast->side = 1;
+            }
+            if (data->z_values[data->raycast->map_y][data->raycast->map_x] > 0)
+            {
+                data->raycast->hit = 1;
+            } */
+        /* draw */
+
+        if (data->raycast->side == 0)
+            data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->x - data->raycast->delta_dist[0]->x);
+        else
+            data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->y - data->raycast->delta_dist[0]->y);
+        
+        data->raycast->line_height = (int)(HEIGHT / data->raycast->perp_wall_dist);
+        
+        data->raycast->draw_start = -data->raycast->line_height / 2 + HEIGHT / 2;
+        data->raycast->draw_end = data->raycast->line_height / 2 + HEIGHT / 2;
+        
+        switch (data->z_values[data->raycast->map_y][data->raycast->map_x])
+        {
+            case COLOR_RED:
+                data->raycast->color = data->color->red;
+                break;
+            case COLOR_GREEN:
+                data->raycast->color = data->color->green;
+                break;
+            case COLOR_BLUE:
+                data->raycast->color = data->color->blue;
+                break;
+            case COLOR_MAGENTA:
+                data->raycast->color = data->color->magenta;
+                break;     
+            default:
+                data->raycast->color = data->color->yellow;
+                break;
+        }
+
+        for  (int y = 0; y < HEIGHT; y++)
+        {
+            my_mlx_pixel_put(data, x, y, data->raycast->color);
+        }
+
+    }
 }
 
 void raycasting_v2(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle)

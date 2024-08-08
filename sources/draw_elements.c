@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:30:52 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/23 00:31:02 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/08 19:38:38 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ int create_trgb(int t, int r, int g, int b)
 {
     return (t << 24 | r << 16 | g << 8 | b);
 }
+/* t_color create_trgb(int t, int r, int g, int b)
+{
+    return (t << 24 | r << 16 | g << 8 | b);
+} */
 
 void map_draw_line(t_data *data, int x0, int y0, int x1, int y1, int color)
 {

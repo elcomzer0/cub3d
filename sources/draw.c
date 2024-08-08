@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:33:07 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/07 14:15:10 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/08 23:34:24 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,8 +157,8 @@ void    cub_draw(t_data *data)
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     }; */
     
- 
     
+    raycasting(data);
     /* data->player_x = 1;
     data->player_y = 1; */
     //calculate player position at the center of the map
@@ -166,12 +166,12 @@ void    cub_draw(t_data *data)
 
     //int color = create_trgb(50, 128, 128, 128); // 0xAARRGGBB (alpha, red, green, blue), grey = (128, 128, 128)
     //Define arrow inputs
-    t_point center = {WIDTH / 2 , HEIGHT / 2};
-    data->player_x = 1;
-    data->player_y = 1;
+    //t_point center = {WIDTH / 2 , HEIGHT / 2};
+    /* data->player_x = 1;
+    data->player_y = 1; */
     //data->map_offset_x = (WIDTH / 2) - (MAP_SIZE * TILE_SIZE / 2)
-    int line_length = 100;
-    int triangle_size = 30;
+    /* int line_length = 100;
+    int triangle_size = 30; */
 
     //raycasting_2D(data, map, data->arrow_angle);
     //raycasting(data, map, data->map_offset_x, data->map_offset_y);
@@ -179,7 +179,7 @@ void    cub_draw(t_data *data)
     //raycasting_2D(data, map);
    
     //draw_arrow(data, center, line_length, triangle_size, data->player[0]->angle);
-    raycasting_v2(data, data->z_values, data->player[0]->angle);
+    //raycasting_v2(data, data->z_values, data->player[0]->angle);
     //display_angle(data);
     //raycasting_2D(data, map, data->map_offset_x, data->map_offset_y);
 }

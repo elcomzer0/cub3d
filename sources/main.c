@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:31 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/07/29 19:11:05 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/09 00:21:30 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ int main(int ac, char **av)
     if (ac == 2)
     {
         data->map_name = av[1];
-        ft_init(data);
-        
+        if (ft_init(data) == 1)
+        {
+            ft_clean(data);
+            return (1);
+        }
     }
         //ft_init(data);
     return (0);

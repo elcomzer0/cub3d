@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/07 15:35:37 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/08 23:42:27 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,26 @@
 
 # define HEIGHT 720
 # define WIDTH  1280
+
 # define MAP_SIZE 10
 # define TILE_SIZE 50
+
 # define FOV 90 // Field of view in degrees
+
 # define NUM_RAYS WIDTH // Number of rays (one per screen column)
+
 # define NORTH_FOV 0
 # define EAST_FOV 90
 # define SOUTH_FOV 180
 # define WEST_FOV 270
+
 # define BUFFER_SIZE 1
+
+# define COLOR_RED 1
+# define COLOR_GREEN 2
+# define COLOR_BLUE 3
+# define COLOR_MAGENTA 4
+# define COLOR_YELLOW 5
 
 typedef struct s_data {
 	float		x;
@@ -43,12 +54,12 @@ typedef struct s_data {
     int			*line_z;
     int map_height;
     int map_width;
-    int		color;
+    //int		color;
     char *map_name;
     char **map_buf;
 
     int current_line;
-	//int		map;
+
 	int		fd;
     char    *addr;
     int     endian;
@@ -57,22 +68,50 @@ typedef struct s_data {
     void		*mlx;
     void		*win;
     void		*img;
-   /*  int			player_x;
-    int			player_y; */
+ 
     int map_offset_x;
     int map_offset_y;
     int map[MAP_SIZE][MAP_SIZE];
     void *map_img;
     char    *map_addr;
     struct s_player	**player;
-    /* struct s_point		**player_pos;
-    struct s_point		**center_pos; */
+    struct s_color		*color;
+    struct s_rc	    *raycast;
     struct s_point		**map_coord;
     float start_angle;
-    //t_point		**points;
-    //t_vector		**vector;
+
+    int player_x;
+    int player_y;
+
 }				t_data;
 
+typedef struct s_rc {
+    float camera_x;
+    float perp_wall_dist;
+    struct s_point	**ray_dir;
+    struct s_point	**step;
+    struct s_point	**side_dist;
+    struct s_point	**delta_dist;
+    //struct s_point	**perp_wall_dist;
+    struct s_point  **plane;
+    int hit;
+    int		side;
+    int		map_x;
+    int		map_y;
+    int draw_start;
+    int draw_end;
+    int line_height;
+    int color;
+} t_rc;
+
+typedef struct s_color {
+	int			red;
+	int			green;
+	int			blue;
+    int			magenta;
+    int			yellow;
+    int			grey;
+}				t_color;
 
 /*new player position with direction and angle*/
 typedef struct s_player {
@@ -81,6 +120,8 @@ typedef struct s_player {
 	float			dy;
 	float			angle;
 }				t_player;
+
+
 
 typedef struct s_point {
 	float			x;
@@ -98,6 +139,8 @@ int ft_destroy(t_data *data);
 int key_hook_press(int keycode, t_data *data);
 int key_hook_release(int keycode, t_data *data);
 int create_trgb(int t, int r, int g, int b);
+//t_color create_trgb(int t, int r, int g, int b)
+
 void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void    draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 void    draw_square(t_data *data, int x, int y, int size, int color);
@@ -121,11 +164,15 @@ void my_map_pixel_put(t_data *data, int x, int y, int color);
 void map_draw_rectangle(t_data *data, int x, int y, int width, int height, int color);
 void   map_draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 void draw_filled_rectangle(t_data *data, int x, int y, int width, int height, int color);
-void raycasting(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);
+
+/* render */
+void raycasting(t_data *data);
+//void raycasting(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);
 //void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);
 //void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE]);
-void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle);
-void raycasting_v2(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle);
+//void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle);
+//void raycasting_v2(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle);
+
 /*utils.c*/
 void float_to_string(float value, char *buffer);
 void float_to_string_y(float value, char *buffer);

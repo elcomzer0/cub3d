@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:11 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/06 17:40:05 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/09 00:15:02 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ void	ft_init_z(t_data *data)
 		if (data->z_values[i] == NULL)
 		{
 			write(2, "Error: malloc failed\n", 20);
-			perror("");
+			//perror("");
+			while (i-- > 0)
+				free(data->z_values[i]);
 			ft_destroy(data);
 			exit(1);
 		}
 		i++;
 	}
-	data->z_values[i] = NULL;
+	//data->z_values[i] = NULL;
 	/* while(i > 0)
 	{
 		printf("data->z_values[%d] = %p\n", i, data->z_values[i]);
@@ -108,13 +110,39 @@ void fill_values(int *z_values, char *line, t_data *data)
             if (!data->player)
             {
                 data->player = (t_player **)malloc(sizeof(t_player *));
+				if (!data->player)
+				{
+					perror("Error: Failed to allocate memory for player");
+					ft_destroy(data);
+					exit(1);
+				}
                 data->player[0] = (t_player *)malloc(sizeof(t_player));
-            }
+            	if (!data->player[0])
+				{
+					perror("Error: Failed to allocate memory for player");
+					ft_destroy(data);
+					exit(1);
+				}
+				data->player[0]->pos = NULL;
+			}
             if (!data->player[0]->pos)
             {
                 data->player[0]->pos = (t_point **)malloc(sizeof(t_point *));
-                data->player[0]->pos[0] = (t_point *)malloc(sizeof(t_point));
-            }
+                if (!data->player[0]->pos)
+				{
+					perror("Error: Failed to allocate memory for player");
+					ft_destroy(data);
+					exit(1);
+				}
+				data->player[0]->pos[0] = (t_point *)malloc(sizeof(t_point));
+				if (!data->player[0]->pos[0])
+				{
+					perror("Error: Failed to allocate memory for player");
+					ft_destroy(data);
+					exit(1);
+				}
+
+			}
 
             data->player[0]->pos[0]->x = i;
             data->player[0]->pos[0]->y = data->current_line;
@@ -128,7 +156,7 @@ void fill_values(int *z_values, char *line, t_data *data)
             else if (line[i] == 'E')
                 data->player[0]->angle = 0;
         }
-        else if (line[i] == '1' || line[i] == '0')
+        else if (line[i] == '1' || line[i] == '0' || line[i] == '2' || line[i] == '3' || line[i] == '4')
         {
             z_values[i] = line[i] - '0'; // Convert '1' or '0' character to integer 1 or 0
         }
