@@ -16,6 +16,11 @@ int ft_clean(t_data *data)
 {
     if (data->raycast)
     {
+        free(data->raycast->ray_dir);
+        free(data->raycast->step);
+        free(data->raycast->side_dist);
+        free(data->raycast->delta_dist);
+        free(data->raycast->plane);
         free(data->raycast);
         data->raycast = NULL;
         return (0);

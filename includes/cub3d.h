@@ -19,11 +19,12 @@
 # include <math.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <limits.h>
 # include <endian.h>
 # include <mlx.h>
 
-# define HEIGHT 720
-# define WIDTH  1280
+# define HEIGHT 24
+# define WIDTH  24
 
 # define MAP_SIZE 10
 # define TILE_SIZE 50

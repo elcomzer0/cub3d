@@ -146,15 +146,32 @@ void fill_values(int *z_values, char *line, t_data *data)
 
             data->player[0]->pos[0]->x = i;
             data->player[0]->pos[0]->y = data->current_line;
-
+// dx and dy needs to be initialized here
             if (line[i] == 'N')
+			{
                 data->player[0]->angle = 90;
+				data->player[0]->dx = 0;
+				data->player[0]->dy = -1;
+			}
+
             else if (line[i] == 'S')
+			{
                 data->player[0]->angle = 270;
+				data->player[0]->dx = 0;
+				data->player[0]->dy = 1;
+			}
             else if (line[i] == 'W')
+			{
                 data->player[0]->angle = 180;
+				data->player[0]->dx = -1;
+				data->player[0]->dy = 0;
+			}
             else if (line[i] == 'E')
+			{
                 data->player[0]->angle = 0;
+				data->player[0]->dx = 1;
+				data->player[0]->dy = 0;
+			}
         }
         else if (line[i] == '1' || line[i] == '0' || line[i] == '2' || line[i] == '3' || line[i] == '4')
         {
@@ -278,7 +295,7 @@ void	ft_info_read(char *file, t_data *data)
 		line = get_next_line(fd);
 		i++;
 	}
-	print_z_values(data);
+	//print_z_values(data);
 	create_map_coord(data);
 	find_player_pos(data, data->z_values);
 	free(line);
