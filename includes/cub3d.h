@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/08 23:42:27 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:20:15 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@
 # include <limits.h>
 # include <endian.h>
 # include <mlx.h>
+# include <float.h>
 
-# define HEIGHT 24
-# define WIDTH  24
+# define HEIGHT 640
+# define WIDTH  640
 
 # define MAP_SIZE 10
 # define TILE_SIZE 50

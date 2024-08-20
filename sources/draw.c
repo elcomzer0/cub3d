@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:33:07 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/08 23:34:24 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:23:09 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 int blend_colors(int src_color, int dest_color)
 {
+    //write(1, "7\n", 2);
     int src_a = (src_color >> 24) & 0xFF;
     int src_r = (src_color >> 16) & 0xFF;
     int src_g = (src_color >> 8) & 0xFF;
@@ -44,12 +45,21 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
     char *dst;
     unsigned int *dst_color;
+    
 
+   // write(1, "3\n", 2);
     dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+   /*  printf("data->addr: %p\n", data->addr);
+    printf("data->line_length: %d\n", data->line_length);
+    printf("data->bpp: %d\n", data->bpp);
+    printf("dst: %p\n", dst); */
+    /* write (1, "4\n", 2); */
     dst_color = (unsigned int*)dst;
-
+   /*  printf("dst_color: %p\n", dst_color);
+    write (1, "5\n", 2); */
     // Blend the new color with the existing color at the pixel
     *dst_color = blend_colors(color, *dst_color);
+   /*  write (1, "6\n", 2); */
 }
 
 

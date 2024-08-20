@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/09 00:35:13 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/20 18:02:19 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,12 +130,12 @@ void rc_delta_dist(t_data *data)
         return ;
     }
     if (data->raycast->ray_dir[0]->x == 0)
-        data->raycast->delta_dist[0]->x = INT_MAX;// 1e30;
+        data->raycast->delta_dist[0]->x = FLT_MAX;// 1e30;
     else
         data->raycast->delta_dist[0]->x = fabs(1 / data->raycast->ray_dir[0]->x);
     
     if (data->raycast->ray_dir[0]->y == 0)
-        data->raycast->delta_dist[0]->y = INT_MAX; // 1e30;
+        data->raycast->delta_dist[0]->y = FLT_MAX; // 1e30;
     else
         data->raycast->delta_dist[0]->y = fabs(1 / data->raycast->ray_dir[0]->y);
  //   printf( "ray_dir x: %f\n", data->raycast->ray_dir[0]->x);
@@ -227,7 +227,13 @@ void raycasting(t_data *data)
         printf("plane[0]->x: %f\n", data->raycast->plane[0]->x);
     /* int map_x and map_y */
         data->raycast->map_x = (int)data->player[0]->pos[0]->x;
-        data->raycast->map_y = (int)data->player[0]->pos[0]->y;      
+        data->raycast->map_y = (int)data->player[0]->pos[0]->y;
+        printf("data->player[0]->pos[0]->x: %f\n", data->player[0]->pos[0]->x);
+        printf("data->player[0]->pos[0]->y: %f\n", data->player[0]->pos[0]->y);
+        printf("map_x: %d\n", data->raycast->map_x);
+        printf("map_y: %d\n", data->raycast->map_y);
+        printf("plane[0]->y: %f\n", data->raycast->plane[0]->y);
+        printf("ray_dir[0]->y: %f\n", data->raycast->ray_dir[0]->y);
     /* delta_dist */
         rc_delta_dist(data);
     /* side_dist and step */
@@ -244,28 +250,35 @@ void raycasting(t_data *data)
         data->raycast->draw_start = -data->raycast->line_height / 2 + HEIGHT / 2;
         data->raycast->draw_end = data->raycast->line_height / 2 + HEIGHT / 2;
         
-        switch (data->z_values[data->raycast->map_y][data->raycast->map_x])
+        printf("z_values: %d\n", data->z_values[data->raycast->map_y][data->raycast->map_x]);
+        if (data->z_values[data->raycast->map_y][data->raycast->map_x] == COLOR_RED)
         {
-            case COLOR_RED:
-                data->raycast->color = data->color->red;
-                break;
-            case COLOR_GREEN:
-                data->raycast->color = data->color->green;
-                break;
-            case COLOR_BLUE:
-                data->raycast->color = data->color->blue;
-                break;
-            case COLOR_MAGENTA:
-                data->raycast->color = data->color->magenta;
-                break;     
-            default:
-                data->raycast->color = data->color->yellow;
-                break;
+            data->raycast->color = data->color->red;
+            //write(2, "Error: z_values is not a valid color\n", 37);
         }
-        /* for  (int y = 0; y < HEIGHT; y++)
+        else if (data->z_values[data->raycast->map_y][data->raycast->map_x] == COLOR_GREEN)
         {
+            data->raycast->color = data->color->green;
+        }
+        else if (data->z_values[data->raycast->map_y][data->raycast->map_x] == COLOR_BLUE)
+        {
+            data->raycast->color = data->color->blue;
+        }
+        else if (data->z_values[data->raycast->map_y][data->raycast->map_x] == COLOR_MAGENTA)
+        {
+            data->raycast->color = data->color->magenta;
+        }
+        else
+        {
+            data->raycast->color = data->color->yellow;
+        }
+        printf("color: %d\n", data->raycast->color);
+        for  (int y = 0; y < HEIGHT; y++)
+        {
+            //write(1, "1\n", 2);
             my_mlx_pixel_put(data, x, y, data->raycast->color);
-        } */
+            //write(1, "2\n", 2);
+        }
     }
 }
 
