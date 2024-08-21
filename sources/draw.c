@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:33:07 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/20 16:23:09 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:36:53 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 int blend_colors(int src_color, int dest_color)
 {
-    //write(1, "7\n", 2);
     int src_a = (src_color >> 24) & 0xFF;
+    
     int src_r = (src_color >> 16) & 0xFF;
     int src_g = (src_color >> 8) & 0xFF;
     int src_b = src_color & 0xFF;
@@ -33,6 +33,7 @@ int blend_colors(int src_color, int dest_color)
     {
         return (0 << 24 | 0 << 16 | 0 << 8 | 0); // Fully transparent
     }
+    write(1, "7\n", 2);
 
     int out_r = (src_r * src_a + dest_r * dest_a * (255 - src_a) / 255) / out_a;
     int out_g = (src_g * src_a + dest_g * dest_a * (255 - src_a) / 255) / out_a;
