@@ -69,7 +69,7 @@ void rc_side_step(t_data *data)
     }
 }
 
-void rc_loop_hit(t_data *data)
+/* void rc_loop_hit(t_data *data)
 {
     if (data->raycast->side_dist[0] == NULL
         || data->raycast->delta_dist[0] == NULL || data->raycast->step[0] == NULL)
@@ -96,7 +96,40 @@ void rc_loop_hit(t_data *data)
             data->raycast->hit = 1;
         }
     }
+} */
+
+void rc_loop_hit(t_data *data)
+{
+    if (data->raycast->side_dist[0] == NULL
+        || data->raycast->delta_dist[0] == NULL || data->raycast->step[0] == NULL)
+    {
+        write(2, "Error: side_dist[0] or delta_dist[0] or step[0] is NULL\n", 57);
+        return ;
+    }
+    while (data->raycast->hit == 0)
+    {
+        if (data->raycast->side_dist[0]->x < data->raycast->side_dist[0]->y)
+        {
+            data->raycast->side_dist[0]->x += data->raycast->delta_dist[0]->x;
+            data->raycast->map_x += data->raycast->step[0]->x;
+            data->raycast->side = 0;
+        }
+        else
+        {
+            data->raycast->side_dist[0]->y += data->raycast->delta_dist[0]->y;
+            data->raycast->map_y += data->raycast->step[0]->y;
+            data->raycast->side = 1;
+        }
+        int wall_type = data->z_values[data->raycast->map_y][data->raycast->map_x];
+        if (wall_type > 0)
+        {
+            data->raycast->hit = 1;
+            data->raycast->wall_type = wall_type;  // Store the wall type
+        }
+    }
 }
+
+
 
 void raycasting(t_data *data)
 {
@@ -113,13 +146,108 @@ void raycasting(t_data *data)
     {
     /* carmera_x and ray_dir */
         data->raycast->camera_x = 2 * x / (float)WIDTH - 1;
+
+        data->raycast->ray_dir[0]->x = data->player[0]->dx + data->raycast->camera_x * data->raycast->plane[0]->x;
+        data->raycast->ray_dir[0]->y = data->player[0]->dy + data->raycast->camera_x * data->raycast->plane[0]->y;
+
+    /* int map_x and map_y */
+        data->raycast->map_x = (int)data->player[0]->pos[0]->x;
+        data->raycast->map_y = (int)data->player[0]->pos[0]->y;
+
+    /* delta_dist */
+        rc_delta_dist(data);
+    /* side_dist and step */
+        rc_side_step(data);
+    /* while loop hit */
+        rc_loop_hit(data);
+    /* draw */
+        if (data->raycast->side == 0)
+            data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->x - data->raycast->delta_dist[0]->x);
+        else
+            data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->y - data->raycast->delta_dist[0]->y);
+        data->raycast->line_height = (int)(HEIGHT / data->raycast->perp_wall_dist);    
+        data->raycast->draw_start = -data->raycast->line_height / 2 + HEIGHT / 2;
+        data->raycast->draw_end = data->raycast->line_height / 2 + HEIGHT / 2;
+        
+/*         if (data->z_values[data->raycast->map_y][data->raycast->map_x] == COLOR_RED)
+        {
+            data->raycast->color = data->color->red;
+            //write(2, "Error: z_values is not a valid color\n", 37);
+        }
+        else if (data->z_values[data->raycast->map_y][data->raycast->map_x] == COLOR_GREEN)
+        {
+            data->raycast->color = data->color->green;
+        }
+        else if (data->z_values[data->raycast->map_y][data->raycast->map_x] == COLOR_BLUE)
+        {
+            data->raycast->color = data->color->blue;
+        }
+        else if (data->z_values[data->raycast->map_y][data->raycast->map_x] == COLOR_MAGENTA)
+        {
+            data->raycast->color = data->color->magenta;
+        }
+        else
+        {
+            data->raycast->color = data->color->yellow;
+        } */
+
+       /* int z_value = data->z_values[data->raycast->map_y][data->raycast->map_x];
+
+        if (z_value == COLOR_RED)
+            data->raycast->color = data->color->red;
+        else if (z_value == COLOR_GREEN)
+            data->raycast->color = data->color->green;
+        else if (z_value == COLOR_BLUE)
+            data->raycast->color = data->color->blue;
+        else if (z_value == COLOR_MAGENTA)
+            data->raycast->color = data->color->magenta;
+        else
+            data->raycast->color = data->color->yellow;
+        printf("z_value: %d\n", z_value); */
+        int wall_type = data->raycast->wall_type;
+
+        if (wall_type == 1)
+            data->raycast->color = data->color->red;
+        else if (wall_type == 2)
+            data->raycast->color = data->color->green;
+        else if (wall_type == 3)
+            data->raycast->color = data->color->blue;
+        else if (wall_type == 4)
+            data->raycast->color = data->color->magenta;
+        else
+            data->raycast->color = data->color->yellow;
+
+        printf("Wall type: %d\n", wall_type);
+
+        for  (int y = 0; y < HEIGHT; y++)
+        {
+            //write(1, "1\n", 2);
+            my_mlx_pixel_put(data, x, y, data->raycast->color);
+            //write(1, "2\n", 2);
+        }
+    }
+}
+
+/* void raycasting(t_data *data)
+{
+    int x;
+
+    if (data == NULL || data->raycast == NULL
+        || data->player == NULL
+        || data->raycast->ray_dir[0] == NULL || data->player[0]->pos[0] == NULL)
+        {
+            write(2, "Error: One or more pointers are NULL\n", 38);
+            return ;
+        }
+    for (x = 0; x < WIDTH; x++)
+    {
+        data->raycast->camera_x = 2 * x / (float)WIDTH - 1;
         printf("camera_x: %f\n", data->raycast->camera_x);
         data->raycast->ray_dir[0]->x = data->player[0]->dx + data->raycast->camera_x * data->raycast->plane[0]->x;
         data->raycast->ray_dir[0]->y = data->player[0]->dy + data->raycast->camera_x * data->raycast->plane[0]->y;
         printf("player[0]->dx: %f\n", data->player[0]->dx);
         printf("ray_dir[0]->x: %f\n", data->raycast->ray_dir[0]->x);
         printf("plane[0]->x: %f\n", data->raycast->plane[0]->x);
-    /* int map_x and map_y */
         data->raycast->map_x = (int)data->player[0]->pos[0]->x;
         data->raycast->map_y = (int)data->player[0]->pos[0]->y;
         printf("data->player[0]->pos[0]->x: %f\n", data->player[0]->pos[0]->x);
@@ -130,13 +258,9 @@ void raycasting(t_data *data)
         printf("ray_dir[0]->y: %f\n", data->raycast->ray_dir[0]->y);
         printf("(int)data->player[0]->pos[0]->x: %d\n", (int)data->player[0]->pos[0]->x);
         printf("(int)data->player[0]->pos[0]->y: %d\n", (int)data->player[0]->pos[0]->y);
-    /* delta_dist */
         rc_delta_dist(data);
-    /* side_dist and step */
         rc_side_step(data);
-    /* while loop hit */
         rc_loop_hit(data);
-    /* draw */
         if (data->raycast->side == 0)
             data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->x - data->raycast->delta_dist[0]->x);
         else
@@ -176,8 +300,7 @@ void raycasting(t_data *data)
             //write(1, "2\n", 2);
         }
     }
-}
-
+} */
 
 
 

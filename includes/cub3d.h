@@ -104,6 +104,7 @@ typedef struct s_rc {
     int draw_end;
     int line_height;
     int color;
+    int wall_type;
 } t_rc;
 
 typedef struct s_color {

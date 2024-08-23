@@ -17,7 +17,7 @@
 int blend_colors(int src_color, int dest_color)
 {
     int src_a = (src_color >> 24) & 0xFF;
-    
+    //printf("src_a: %d\n", src_a);
     int src_r = (src_color >> 16) & 0xFF;
     int src_g = (src_color >> 8) & 0xFF;
     int src_b = src_color & 0xFF;
@@ -28,12 +28,12 @@ int blend_colors(int src_color, int dest_color)
     int dest_b = dest_color & 0xFF;
 
     int out_a = src_a + dest_a * (255 - src_a) / 255;
-    
+   // printf("src_a: %d, dest_a: %d, out_a: %d\n", src_a, dest_a, out_a);
     if (out_a == 0)
     {
         return (0 << 24 | 0 << 16 | 0 << 8 | 0); // Fully transparent
     }
-    write(1, "7\n", 2);
+    write(1, "HELLO\n", 6);
 
     int out_r = (src_r * src_a + dest_r * dest_a * (255 - src_a) / 255) / out_a;
     int out_g = (src_g * src_a + dest_g * dest_a * (255 - src_a) / 255) / out_a;
@@ -42,34 +42,64 @@ int blend_colors(int src_color, int dest_color)
     return (out_a << 24 | out_r << 16 | out_g << 8 | out_b);
 }
 
-void my_mlx_pixel_put(t_data *data, int x, int y, int color)
+#include <stdint.h>
+
+/**
+ * Draws a pixel on the image data with the specified color, blending it with the existing pixel color.
+ *
+ * @param data The image data structure.
+ * @param x The x-coordinate of the pixel to draw.
+ * @param y The y-coordinate of the pixel to draw.
+ * @param color The color to draw the pixel in.
+ */
+/* void my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+    // Use WIDTH and HEIGHT constants for bounds checking
+    if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+        return;  // Silently return if out of bounds
+
+    char *dst;
+    unsigned int *dst_color;
+
+    dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+    
+    if (((uintptr_t)dst % sizeof(unsigned int)) == 0) {
+        dst_color = (unsigned int*)dst;
+        *dst_color = blend_colors(color, *dst_color);
+    } else {
+        // Handle unaligned access
+        unsigned int existing_color;
+        memcpy(&existing_color, dst, sizeof(unsigned int));
+        unsigned int blended_color = blend_colors(color, existing_color);
+        memcpy(dst, &blended_color, sizeof(unsigned int));
+    }
+} */
+
+
+
+/* void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
     char *dst;
     unsigned int *dst_color;
     
 
-   // write(1, "3\n", 2);
     dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
-   /*  printf("data->addr: %p\n", data->addr);
-    printf("data->line_length: %d\n", data->line_length);
-    printf("data->bpp: %d\n", data->bpp);
-    printf("dst: %p\n", dst); */
-    /* write (1, "4\n", 2); */
+
     dst_color = (unsigned int*)dst;
-   /*  printf("dst_color: %p\n", dst_color);
-    write (1, "5\n", 2); */
     // Blend the new color with the existing color at the pixel
     *dst_color = blend_colors(color, *dst_color);
-   /*  write (1, "6\n", 2); */
-}
+} */
 
 
-/* void my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
+
+    if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+        return;  // Silently return if out of bounds
     char    *dst;
     dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
     *(unsigned int*)dst = color;
-} */
+}
 
 void my_map_pixel_put(t_data *data, int x, int y, int color)
 {

@@ -205,6 +205,7 @@ int rc_init(t_data *data)
     data->raycast->color = 0;
     data->raycast->perp_wall_dist = 0;
     data->raycast->camera_x = 0;
+    data->raycast->wall_type = 0;
     write(1, "hello\n", 6);
     return (0);
 }
