@@ -260,7 +260,7 @@ char	**ft_split(char const *s, char c)
 	return (dest);
 }
 
-void float_to_string(float value, char *buffer)
+void double_to_string(double value, char *buffer)
 {
     int whole_part;
     int fractional_part;
@@ -309,7 +309,7 @@ void float_to_string(float value, char *buffer)
     
 }
 
-void float_to_string_x(float value, char *buffer)
+void double_to_string_x(double value, char *buffer)
 {
     int whole_part;
     int fractional_part;
@@ -353,7 +353,7 @@ void float_to_string_x(float value, char *buffer)
     *ptr++ = '\0';
     
 }
-void float_to_string_y(float value, char *buffer)
+void double_to_string_y(double value, char *buffer)
 {
     int whole_part;
     int fractional_part;

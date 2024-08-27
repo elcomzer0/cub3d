@@ -109,7 +109,7 @@ void my_map_pixel_put(t_data *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-void  draw_arrow(t_data *data, t_point center, int line_length, int triangle_size, float angle)
+void  draw_arrow(t_data *data, t_point center, int line_length, int triangle_size, double angle)
 {
     int red_color = create_trgb(255, 255, 0, 0);
     int green_color = create_trgb(255, 0, 255, 0);

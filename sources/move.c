@@ -14,8 +14,8 @@
 
 int key_hook_press(int keycode, t_data *data)
 {
-    float move_speed = 0.35;
-    float rotation_speed = 0.35;
+    double move_speed = 0.35;
+    double rotation_speed = 0.35;
 
     if (keycode == KEY_ESCAPE)
     {
@@ -62,8 +62,8 @@ int key_hook_press(int keycode, t_data *data)
 
 int key_hook_release(int keycode, t_data *data)
 {
-    float move_speed = 0.1;
-    float rotation_speed = 0.35;
+    double move_speed = 0.1;
+    double rotation_speed = 0.35;
 
     if (keycode == KEY_LEFTARROW)
     {

@@ -209,10 +209,10 @@ void map_draw_rectangle(t_data *data, int x, int y, int width, int height, int c
     map_draw_line(data, x, y + height, x + width, y + height, color);
 }
 
-t_point rotate_point(t_point p, t_point center, float angle)
+t_point rotate_point(t_point p, t_point center, double angle)
 {
     t_point rotated;
-    float radians = angle * M_PI / 180;
+    double radians = angle * M_PI / 180;
 
     rotated.x = (p.x - center.x) * cos(radians) - (p.y - center.y) * sin(radians) + center.x;
     rotated.y = (p.x - center.x) * sin(radians) + (p.y - center.y) * cos(radians) + center.y;
@@ -220,7 +220,7 @@ t_point rotate_point(t_point p, t_point center, float angle)
     return (rotated);
 }
 
-void rot_draw_triangle(t_data *data, t_point p1, t_point p2, t_point p3, float angle)
+void rot_draw_triangle(t_data *data, t_point p1, t_point p2, t_point p3, double angle)
 {
     // Calculate the middpoint of the hypotenuse
     t_point hypotenuse_mid = {(p1.x + p2.x) / 2, (p1.y + p2.y) / 2};

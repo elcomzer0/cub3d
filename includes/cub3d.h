@@ -27,6 +27,8 @@
 # define HEIGHT 640
 # define WIDTH  640
 
+# define TEXTURE_SIZE 64
+
 # define MAP_SIZE 10
 # define TILE_SIZE 50
 
@@ -47,11 +49,14 @@
 # define COLOR_MAGENTA 4
 # define COLOR_YELLOW 5
 
+#define EPSILON 1e-6
+
+
 typedef struct s_data {
-	float		x;
-	float		y;
-	float		z;
-    float		arrow_angle;
+    double		x;
+    double		y;
+    double		z;
+    double		arrow_angle;
 	int			**z_values;
     int			*line_z;
     int map_height;
@@ -80,7 +85,7 @@ typedef struct s_data {
     struct s_color		*color;
     struct s_rc	    *raycast;
     struct s_point		**map_coord;
-    float start_angle;
+    double start_angle;
 
     int player_x;
     int player_y;
@@ -88,8 +93,8 @@ typedef struct s_data {
 }				t_data;
 
 typedef struct s_rc {
-    float camera_x;
-    float perp_wall_dist;
+    double camera_x;
+    double perp_wall_dist;
     struct s_point	**ray_dir;
     struct s_point	**step;
     struct s_point	**side_dist;
@@ -100,6 +105,10 @@ typedef struct s_rc {
     int		side;
     int		map_x;
     int		map_y;
+    int     texture_x;
+    int     texture_y;
+    double  texture_pos;
+    double  step_n;
     int draw_start;
     int draw_end;
     int line_height;
@@ -119,21 +128,21 @@ typedef struct s_color {
 /*new player position with direction and angle*/
 typedef struct s_player {
 	struct s_point	**pos;
-    float			dx;
-	float			dy;
-	float			angle;
+    double			dx;
+    double			dy;
+    double			angle;
 }				t_player;
 
 
 
 typedef struct s_point {
-	float			x;
-	float			y;
+	double			x;
+	double			y;
 }				t_point;
 
 typedef struct s_vector {
-	float			x;
-	float			y;
+    double			x;
+    double			y;
 }				t_vector;
 
 /*main.c*/
@@ -152,10 +161,10 @@ void draw_triangle(t_data *data, int x, int y, int size, int color);
 void draw_hexagon(t_data *data, int xc, int yc, int size, int color);
 void    draw_gradient(t_data *data);
 void    draw_rainbow(t_data *data);
-t_point rotate_point(t_point p, t_point center, float angle);
-void rot_draw_triangle(t_data *data, t_point p1, t_point p2, t_point p3, float angle);
+t_point rotate_point(t_point p, t_point center, double angle);
+void rot_draw_triangle(t_data *data, t_point p1, t_point p2, t_point p3, double angle);
 void draw_rectangle(t_data *data, int x, int y, int width, int height, int color);
-void  draw_arrow(t_data *data, t_point center, int line_length, int triangle_size, float angle);
+void  draw_arrow(t_data *data, t_point center, int line_length, int triangle_size, double angle);
 void    cub_draw(t_data *data);
 void map_test(t_data *data);
 void draw_map(t_data *data, int map[MAP_SIZE][MAP_SIZE], int offset_x, int offset_y);
@@ -173,13 +182,13 @@ void raycasting(t_data *data);
 //void raycasting(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);
 //void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);
 //void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE]);
-//void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle);
-//void raycasting_v2(t_data *data, int map[MAP_SIZE][MAP_SIZE], float arrow_angle);
+//void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], double arrow_angle);
+//void raycasting_v2(t_data *data, int map[MAP_SIZE][MAP_SIZE], double arrow_angle);
 
 /*utils.c*/
-void float_to_string(float value, char *buffer);
-void float_to_string_y(float value, char *buffer);
-void float_to_string_x(float value, char *buffer);
+void    double_to_string(double value, char *buffer);
+void    double_to_string_y(double value, char *buffer);
+void    double_to_string_x(double value, char *buffer);
 char	**ft_split(char const *s, char c);
 char	*get_next_line(int fd);
 int	ft_wordcounter(char const *str, char c);

@@ -16,16 +16,16 @@ void display_angle(t_data *data)
 {
     char angle_str[50];
 
-    float_to_string(data->player[0]->angle, angle_str);
+    double_to_string(data->player[0]->angle, angle_str);
     mlx_string_put(data->mlx, data->win, 10, 90, 0x00FFFFFF, angle_str);
 }
 void display_player_position(t_data *data)
 {
     char pos_str[50];
     
-    float_to_string_x(data->player[0]->pos[0]->x, pos_str);
+    double_to_string_x(data->player[0]->pos[0]->x, pos_str);
     mlx_string_put(data->mlx, data->win, 10, 110, 0x00FFFFFF, pos_str);
-    float_to_string_y(data->player[0]->pos[0]->y, pos_str);
+    double_to_string_y(data->player[0]->pos[0]->y, pos_str);
     mlx_string_put(data->mlx, data->win, 10, 130, 0x00FFFFFF, pos_str);
 }
 
