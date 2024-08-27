@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:35 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/20 16:41:53 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/28 00:42:29 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int init_color(t_color **color)
     if (!*color)
     {
         write(2, "Error: alloc color failed\n", 27);
+        free(*color);
         return (1);
     }
     return (0);
@@ -141,48 +142,92 @@ int init_color(t_color **color)
     return (0);
 } */
 
-int rc_init(t_data *data)
-{
-    // Allocate memory for raycast structure
-    data->raycast = malloc(sizeof(t_rc));
-    if (!data->raycast)
-        return (-1); // Handle allocation failure
 
-    // Allocate memory for each t_point structure in raycast
+void free_raycast(t_rc *raycast)
+{
+    if (raycast) {
+        if (raycast->ray_dir) {
+            if (raycast->ray_dir[0]) free(raycast->ray_dir[0]);
+            free(raycast->ray_dir);
+        }
+        if (raycast->step) {
+            if (raycast->step[0]) free(raycast->step[0]);
+            free(raycast->step);
+        }
+        if (raycast->side_dist) {
+            if (raycast->side_dist[0]) free(raycast->side_dist[0]);
+            free(raycast->side_dist);
+        }
+        if (raycast->delta_dist) {
+            if (raycast->delta_dist[0]) free(raycast->delta_dist[0]);
+            free(raycast->delta_dist);
+        }
+        if (raycast->plane) {
+            if (raycast->plane[0]) free(raycast->plane[0]);
+            free(raycast->plane);
+        }
+        free(raycast);
+    }
+}
+
+int rc_init(t_data *data) {
+    data->raycast = malloc(sizeof(t_rc));
+    if (!data->raycast) return -1; // Handle allocation failure
+
     data->raycast->ray_dir = malloc(sizeof(t_point *));
-    if (!data->raycast->ray_dir)
-        return (-1); // Handle allocation failure
+    if (!data->raycast->ray_dir) {
+        free_raycast(data->raycast);
+        return -1; // Handle allocation failure
+    }
     data->raycast->ray_dir[0] = malloc(sizeof(t_point));
-    if (!data->raycast->ray_dir[0])
-        return (-1); // Handle allocation failure
+    if (!data->raycast->ray_dir[0]) {
+        free_raycast(data->raycast);
+        return -1; // Handle allocation failure
+    }
 
     data->raycast->step = malloc(sizeof(t_point *));
-    if (!data->raycast->step)
-        return (-1); // Handle allocation failure
+    if (!data->raycast->step) {
+        free_raycast(data->raycast);
+        return -1; // Handle allocation failure
+    }
     data->raycast->step[0] = malloc(sizeof(t_point));
-    if (!data->raycast->step[0])
-        return (-1); // Handle allocation failure
+    if (!data->raycast->step[0]) {
+        free_raycast(data->raycast);
+        return -1; // Handle allocation failure
+    }
 
     data->raycast->side_dist = malloc(sizeof(t_point *));
-    if (!data->raycast->side_dist)
-        return (-1); // Handle allocation failure
+    if (!data->raycast->side_dist) {
+        free_raycast(data->raycast);
+        return -1; // Handle allocation failure
+    }
     data->raycast->side_dist[0] = malloc(sizeof(t_point));
-    if (!data->raycast->side_dist[0])
-        return (-1); // Handle allocation failure
+    if (!data->raycast->side_dist[0]) {
+        free_raycast(data->raycast);
+        return -1; // Handle allocation failure
+    }
 
     data->raycast->delta_dist = malloc(sizeof(t_point *));
-    if (!data->raycast->delta_dist)
-        return (-1); // Handle allocation failure
+    if (!data->raycast->delta_dist) {
+        free_raycast(data->raycast);
+        return -1; // Handle allocation failure
+    }
     data->raycast->delta_dist[0] = malloc(sizeof(t_point));
-    if (!data->raycast->delta_dist[0])
-        return (-1); // Handle allocation failure
+    if (!data->raycast->delta_dist[0]) {
+        free_raycast(data->raycast);
+        return -1; // Handle allocation failure
+    }
 
     data->raycast->plane = malloc(sizeof(t_point *));
-    if (!data->raycast->plane)
-        return (-1); // Handle allocation failure
+    if (!data->raycast->plane) {
+        free_raycast(data->raycast);
+        return -1; // Handle allocation failure
+    }
     data->raycast->plane[0] = malloc(sizeof(t_point));
-    if (!data->raycast->plane[0])
-        return (-1); // Handle allocation failure
+    if (!data->raycast->plane[0]) {
+        free_raycast(data->raycast);
+        return -1; // Handle allocation failure
+    }
 
     // Initialize values
     data->raycast->ray_dir[0]->x = 0;
@@ -206,8 +251,10 @@ int rc_init(t_data *data)
     data->raycast->perp_wall_dist = 0;
     data->raycast->camera_x = 0;
     data->raycast->wall_type = 0;
+
     write(1, "hello\n", 6);
-    return (0);
+
+    return 0;
 }
 
 /* int init_point(t_point ***point)
@@ -224,42 +271,27 @@ int rc_init(t_data *data)
 int ft_init(t_data *data)
 {
 
-    //t_rc *rc;
-    //t_color *color;
-   // t_point **point;
-    
-    //rc = NULL;
-    //color = NULL;
-    //map_to_buf(data);
-    //open_map(data, data->map_buf);
-    /* if (init_point(&point) == 1)
-        return (1); */
+
     if (init_color(&data->color) == 1)
         return (1);
-    /* if (init_rc(&rc) == 1)
-        return (1); */
+
     init_colors_test(data);
     if (rc_init(data) == -1)
         return (1);
-    //rc_init(data);
+
     
     ft_info_read(data->map_name, data);
     
-    //return (0);
+
 
     data->mlx = mlx_init();
     data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3d");
     data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
     data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->line_length, &data->endian);
-    //data->map_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-    //data->map_addr = mlx_get_data_addr(data->map_img, &data->bpp, &data->line_length, &data->endian);
 
-    //cub_draw(data);
-    //map_test(data);
-    //mlx_put_image_to_window(data->mlx, data->win, data->map_img, 0, 0);
     cub_draw(data);
     mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-    //mlx_key_hook(data->win, key_hook, data);
+   
     mlx_hook(data->win, 2, 1L<<0, key_hook_press, data);
     mlx_hook(data->win, 3, 1L<<1, key_hook_release, data);
 

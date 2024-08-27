@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:11 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/20 16:50:30 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/28 01:03:12 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	ft_init_z(t_data *data)
 	if (data->z_values == NULL)
 	{
 		perror("Error: Failed to allocate memory for z_values");
-		ft_destroy(data);
+		ft_clean(data);
+		//ft_destroy(data);
 		exit(1);
 	}
 	i = 0;
@@ -33,6 +34,7 @@ void	ft_init_z(t_data *data)
 			//perror("");
 			while (i-- > 0)
 				free(data->z_values[i]);
+			ft_clean(data);
 			ft_destroy(data);
 			exit(1);
 		}
@@ -113,14 +115,16 @@ void fill_values(int *z_values, char *line, t_data *data)
 				if (!data->player)
 				{
 					perror("Error: Failed to allocate memory for player");
-					ft_destroy(data);
+					ft_clean(data);
+					//ft_destroy(data);
 					exit(1);
 				}
                 data->player[0] = (t_player *)malloc(sizeof(t_player));
             	if (!data->player[0])
 				{
 					perror("Error: Failed to allocate memory for player");
-					ft_destroy(data);
+					ft_clean(data);
+					//ft_destroy(data);
 					exit(1);
 				}
 				data->player[0]->pos = NULL;
@@ -131,14 +135,16 @@ void fill_values(int *z_values, char *line, t_data *data)
                 if (!data->player[0]->pos)
 				{
 					perror("Error: Failed to allocate memory for player");
-					ft_destroy(data);
+					ft_clean(data);
+					//ft_destroy(data);
 					exit(1);
 				}
 				data->player[0]->pos[0] = (t_point *)malloc(sizeof(t_point));
 				if (!data->player[0]->pos[0])
 				{
 					perror("Error: Failed to allocate memory for player");
-					ft_destroy(data);
+					ft_clean(data);
+					//ft_destroy(data);
 					exit(1);
 				}
 
@@ -296,7 +302,7 @@ void	ft_info_read(char *file, t_data *data)
 		i++;
 	}
 	//print_z_values(data);
-	create_map_coord(data);
+	//create_map_coord(data);
 	find_player_pos(data, data->z_values);
 	free(line);
 	close(fd);

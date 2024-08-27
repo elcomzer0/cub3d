@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/28 00:01:25 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/28 00:06:44 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,7 @@
  *
  * @param data The main data structure containing the game state.
  */
-/* void rc_delta_dist(t_data *data)
-{
-    if (data->raycast->ray_dir[0] == NULL || data->raycast->delta_dist[0] == NULL)
-    {
-        write(2, "Error: ray_dir[0]->x is NULL\n", 30);
-        return ;
-    }
-    printf("before calc of delta_dist data->raycast->ray_dir[0]->x = %f\n", data->raycast->ray_dir[0]->x);
-    printf("before calc of delta_dist data->raycast->ray_dir[0]->y = %f\n", data->raycast->ray_dir[0]->y);
-    //if (data->raycast->ray_dir[0]->x == 0)
-    if (fabs(data->raycast->ray_dir[0]->x) < EPSILON)
-        data->raycast->delta_dist[0]->x = DBL_MAX;// 1e30;
-    else
-        data->raycast->delta_dist[0]->x = fabs(1 / data->raycast->ray_dir[0]->x);
-//    if (data->raycast->ray_dir[0]->y == 0)
-    if (fabs(data->raycast->ray_dir[0]->y) < EPSILON)
-        data->raycast->delta_dist[0]->y = DBL_MAX; // 1e30;
-    else
-        data->raycast->delta_dist[0]->y = fabs(1 / data->raycast->ray_dir[0]->y);
-} */
+
 
 void rc_delta_dist(t_data *data)
 {
@@ -110,46 +91,7 @@ void rc_side_step(t_data *data)
  *
  * @param data The main data structure containing the game state.
  */
-/* void rc_loop_hit(t_data *data)
-{
-    if (data->raycast->side_dist[0] == NULL
-        || data->raycast->delta_dist[0] == NULL || data->raycast->step[0] == NULL)
-    {
-        write(2, "Error: side_dist[0] or delta_dist[0] or step[0] is NULL\n", 57);
-        return ;
-    }
-            //printf("before rc_loop_hit side_dist_x: %f, side_dist_y: %f\n", data->raycast->side_dist[0]->x, data->raycast->side_dist[0]->y);
 
-    while (data->raycast->hit == 0)
-    {
-        if (data->raycast->side_dist[0]->x < data->raycast->side_dist[0]->y)
-        {
-            data->raycast->side_dist[0]->x += data->raycast->delta_dist[0]->x;
-            data->raycast->map_x += data->raycast->step[0]->x;
-            data->raycast->side = 0;
-            printf("@ here 2\n");
-        }
-        else
-        {
-            data->raycast->side_dist[0]->y += data->raycast->delta_dist[0]->y;
-            data->raycast->map_y += data->raycast->step[0]->y;
-            data->raycast->side = 1;
-        }
-        if (data->raycast->map_x < 0 || data->raycast->map_x >= MAP_SIZE ||
-            data->raycast->map_y < 0 || data->raycast->map_y >= MAP_SIZE)
-        {
-            // Handle out-of-bounds case
-            printf("Out of bounds: %d, %d\n", data->raycast->map_x, data->raycast->map_y);
-            break;
-        }
-        int wall_type = data->z_values[data->raycast->map_y][data->raycast->map_x];
-        if (wall_type > 0)
-        {
-            data->raycast->hit = 1;
-            data->raycast->wall_type = wall_type;  // Store the wall type
-        }
-    }
-} */
 
 void rc_loop_hit(t_data *data)
 {
@@ -187,9 +129,7 @@ void rc_loop_hit(t_data *data)
             break;
         }
         //only the first if is important for the wall type later
-       // printf("data->z_values[][]: %d", data->z_values[data->raycast->map_y][data->raycast->map_x]);
        printf("data->raycast->map_x: %d, data->raycast->map_y: %d\n", data->raycast->map_x, data->raycast->map_y);
-       //printf("data->z_values[][]: %d\n", data->z_values[data->raycast->map_y][data->raycast->map_x]);
        if (data->z_values[data->raycast->map_y][data->raycast->map_x] == '1')
        {
             data->raycast->hit = 1;
@@ -197,36 +137,6 @@ void rc_loop_hit(t_data *data)
         }
     }
 }
-/*        if (data->z_values[data->raycast->map_y][data->raycast->map_x] == '1')
-        {
-            data->raycast->hit = 1;
-            data->raycast->wall_type = data->z_values[data->raycast->map_y][data->raycast->map_x];  // Store the wall type. will we need this?
-            printf("1 wall_type: %c\n", data->raycast->wall_type);
-        }
-        else if (data->z_values[data->raycast->map_y][data->raycast->map_x] == '2')
-        {
-            data->raycast->hit = 1;
-            data->raycast->wall_type = data->z_values[data->raycast->map_y][data->raycast->map_x];  // Store the wall type. will we need this?
-         printf("2 wall_type: %c\n", data->raycast->wall_type);
-        }
-        else if (data->z_values[data->raycast->map_y][data->raycast->map_x] == '3')
-        {
-            data->raycast->hit = 1;
-            data->raycast->wall_type = data->z_values[data->raycast->map_y][data->raycast->map_x];  // Store the wall type. will we need this?
-            printf("3 wall_type: %c\n", data->raycast->wall_type);
-        }
-        else if (data->z_values[data->raycast->map_y][data->raycast->map_x] == '4')
-        {
-            data->raycast->hit = 1;
-            data->raycast->wall_type = data->z_values[data->raycast->map_y][data->raycast->map_x];  // Store the wall type. will we need this?
-            printf("4 wall_type: %c\n", data->raycast->wall_type);       
-        }
-        else if (data->z_values[data->raycast->map_y][data->raycast->map_x] == '5')
-        {
-            data->raycast->hit = 1;
-            data->raycast->wall_type = data->z_values[data->raycast->map_y][data->raycast->map_x];  // Store the wall type. will we need this?
-            printf("5 wall_type: %c\n", data->raycast->wall_type);    
-        } */
 
 /**
  * Determines the color to use for a given wall type.
@@ -394,240 +304,21 @@ void raycasting(t_data *data)
         }
     for (x = 0; x < WIDTH; x++)
     {
-    /* carmera_x and ray_dir */
         calculate_ray_direction(data, x);
-    /* int map_x and map_y */
         calculate_map_position(data);
-    /* delta_dist */
         rc_delta_dist(data);
-    /* side_dist and step */
         rc_side_step(data);
-    /* while loop hit */
         rc_loop_hit(data);
-    /* draw */
         if (data->raycast->side == 0)
             data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->x - data->raycast->delta_dist[0]->x);
         else
             data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->y - data->raycast->delta_dist[0]->y);
-        
-   /*      if (data->raycast->perp_wall_dist < EPSILON)
-        {
-            data->raycast->perp_wall_dist = EPSILON; // Avoid division by zero or negative values
-        } */
         int line_height, draw_start, draw_end;
         line_height = 0;
         draw_start = 0;
-        draw_end    = 0;
+        draw_end = 0;
         draw_end_to_start(data, &line_height, &draw_start, &draw_end);
-        //draw_end_to_start(data, &data->raycast->line_height, &data->raycast->draw_start, &data->raycast->draw_end);
-//        draw_texture(data, data->raycast->draw_start, data->raycast->line_height);
         draw_texture(data, draw_start, line_height);
-
-       // int wall_type = data->raycast->wall_type;
-        //int color = get_color(data, wall_type);
-        //int color;
-
-        /* printf("ray_dir_x: %f, ray_dir_y: %f\n", data->raycast->ray_dir[0]->x, data->raycast->ray_dir[0]->y);
-        printf("after rc_loop_hit side_dist_x: %f, side_dist_y: %f\n", data->raycast->side_dist[0]->x, data->raycast->side_dist[0]->y);
-        printf("delta_dist_x: %f, delta_dist_y: %f\n", data->raycast->delta_dist[0]->x, data->raycast->delta_dist[0]->y);
-
-        printf("perp_wall_dist: %f\n", data->raycast->perp_wall_dist); */
-
-       // printf("Wall type: %d\n", wall_type);
-        //printf("draw_start: %d, draw_end: %d\n", draw_start, draw_end);
-       // printf("data->raycast->draw_start: %d, data->raycast->draw_end: %d", data->raycast->draw_start, data->raycast->draw_end);
-        /* draw_start = 1;
-        draw_end = 10; */
-        draw_loop(data, x, draw_start, draw_end);//, line_height);
-        // while (draw_start < draw_end)
-        // {
-        //     data->raycast->texture_y = (int)data->raycast->texture_pos & (TEXTURE_SIZE - 1);
-        //     data->raycast->texture_pos += data->raycast->step_n;
-        //     if (data->raycast->side == 1 && data->raycast->ray_dir[0]->y < 0)
-        //         draw_world(data, x);
-        //     else if (data->raycast->side == 1 && data->raycast->ray_dir[0]->y > 0)
-        //         draw_world(data, x);
-        //     else if (data->raycast->side == 0 && data->raycast->ray_dir[0]->x < 0)
-        //         draw_world(data, x);
-        //     else if (data->raycast->side == 0 && data->raycast->ray_dir[0]->x > 0)
-        //         draw_world(data, x);
-        //     draw_start++;
-        // }
-
-    /*    for (int y = draw_start; y < draw_end; y++)
-        {
-            my_mlx_pixel_put(data, x, y, color);
-        } */
-
+        draw_loop(data, x, draw_start, draw_end);
     }
 }
-
-// void raycasting(t_data *data)
-// {
-//     int x;
-
-//     if (data == NULL || data->raycast == NULL
-//         || data->player == NULL
-//         || data->raycast->ray_dir[0] == NULL || data->player[0]->pos[0] == NULL)
-//         {
-//             write(2, "Error: One or more pointers are NULL\n", 38);
-//             return ;
-//         }
-//     for (x = 0; x < WIDTH; x++)
-//     {
-//     /* carmera_x and ray_dir */
-//         calculate_ray_direction(data, x);
-//     /* int map_x and map_y */
-//         calculate_map_position(data);
-//     /* delta_dist */
-//         rc_delta_dist(data);
-//     /* side_dist and step */
-//         rc_side_step(data);
-//     /* while loop hit */
-//         rc_loop_hit(data);
-//     /* draw */
-//         if (data->raycast->side == 0)
-//             data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->x - data->raycast->delta_dist[0]->x);
-//         else
-//             data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->y - data->raycast->delta_dist[0]->y);
-        
-//         if (data->raycast->perp_wall_dist < EPSILON)
-//         {
-//             data->raycast->perp_wall_dist = EPSILON; // Avoid division by zero or negative values
-//         }
-
-//        /*  data->raycast->line_height = (int)(HEIGHT / data->raycast->perp_wall_dist);    
-//         data->raycast->draw_start = -data->raycast->line_height / 2 + HEIGHT / 2;
-//         data->raycast->draw_end = data->raycast->line_height / 2 + HEIGHT / 2;  */
-//         int line_height, draw_start, draw_end;
-//         draw_end_to_start(data, &line_height, &draw_start, &draw_end);
-
-//         int wall_type = data->raycast->wall_type;
-//         //int color = get_color(data, wall_type);
-//         int color;
-
-//         printf("ray_dir_x: %f, ray_dir_y: %f\n", data->raycast->ray_dir[0]->x, data->raycast->ray_dir[0]->y);
-//         printf("after rc_loop_hit side_dist_x: %f, side_dist_y: %f\n", data->raycast->side_dist[0]->x, data->raycast->side_dist[0]->y);
-//         printf("delta_dist_x: %f, delta_dist_y: %f\n", data->raycast->delta_dist[0]->x, data->raycast->delta_dist[0]->y);
-
-//         printf("perp_wall_dist: %f\n", data->raycast->perp_wall_dist);
-
-//         printf("Wall type: %d\n", wall_type);
-//         printf("draw_start: %d, draw_end: %d\n", data->raycast->draw_start, data->raycast->draw_end);
-        
-//         if (data->raycast->side == 1 && data->raycast->ray_dir[0]->y < 0)
-//             color = COLOR_RED;
-//         else if (data->raycast->side == 1 && data->raycast->ray_dir[0]->y > 0)
-//             color = COLOR_BLUE;
-//         else if (data->raycast->side == 0 && data->raycast->ray_dir[0]->x < 0)
-//             color = COLOR_GREEN;
-//         else if (data->raycast->side == 0 && data->raycast->ray_dir[0]->x > 0)
-//             color = COLOR_YELLOW;
-//         /* for  (int y = 0; y < HEIGHT; y++)
-//         {
-//             my_mlx_pixel_put(data, x, y, color);
-//         } */
-//             /*      for (int y = 0; y < HEIGHT; y++)
-//                     {
-//                         if (y >= data->raycast->draw_start && y <= data->raycast->draw_end)
-//                         {
-//                             // Draw the wall slice
-//                             my_mlx_pixel_put(data, x, y, color);
-//                         }
-//                         else
-//                         {
-//                              // Optionally, draw the ceiling and floor
-//                             if (y < data->raycast->draw_start)
-//                             {
-//                                 // Draw ceiling (you can choose a different color for the ceiling)
-//                                 my_mlx_pixel_put(data, x, y, COLOR_BLUE);
-//                             }
-//                             else
-//                             {
-//                                 // Draw floor (you can choose a different color for the floor)
-//                                 my_mlx_pixel_put(data, x, y, COLOR_MAGENTA);
-//                             }
-//                         }
-//                     } */
-
-//        for (int y = draw_start; y < draw_end; y++)
-//         {
-//             my_mlx_pixel_put(data, x, y, color);
-//         }
-
-//     }
-// }
-
-/* void raycasting(t_data *data)
-{
-    int x;
-
-    if (data == NULL || data->raycast == NULL
-        || data->player == NULL
-        || data->raycast->ray_dir[0] == NULL || data->player[0]->pos[0] == NULL)
-        {
-            write(2, "Error: One or more pointers are NULL\n", 38);
-            return ;
-        }
-    for (x = 0; x < WIDTH; x++)
-    {
-        data->raycast->camera_x = 2 * x / (float)WIDTH - 1;
-        printf("camera_x: %f\n", data->raycast->camera_x);
-        data->raycast->ray_dir[0]->x = data->player[0]->dx + data->raycast->camera_x * data->raycast->plane[0]->x;
-        data->raycast->ray_dir[0]->y = data->player[0]->dy + data->raycast->camera_x * data->raycast->plane[0]->y;
-        printf("player[0]->dx: %f\n", data->player[0]->dx);
-        printf("ray_dir[0]->x: %f\n", data->raycast->ray_dir[0]->x);
-        printf("plane[0]->x: %f\n", data->raycast->plane[0]->x);
-        data->raycast->map_x = (int)data->player[0]->pos[0]->x;
-        data->raycast->map_y = (int)data->player[0]->pos[0]->y;
-        printf("data->player[0]->pos[0]->x: %f\n", data->player[0]->pos[0]->x);
-        printf("data->player[0]->pos[0]->y: %f\n", data->player[0]->pos[0]->y);
-        printf("map_x: %d\n", data->raycast->map_x);
-        printf("map_y: %d\n", data->raycast->map_y);
-        printf("plane[0]->y: %f\n", data->raycast->plane[0]->y);
-        printf("ray_dir[0]->y: %f\n", data->raycast->ray_dir[0]->y);
-        printf("(int)data->player[0]->pos[0]->x: %d\n", (int)data->player[0]->pos[0]->x);
-        printf("(int)data->player[0]->pos[0]->y: %d\n", (int)data->player[0]->pos[0]->y);
-        rc_delta_dist(data);
-        rc_side_step(data);
-        rc_loop_hit(data);
-        if (data->raycast->side == 0)
-            data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->x - data->raycast->delta_dist[0]->x);
-        else
-            data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->y - data->raycast->delta_dist[0]->y);
-        printf("perp_wall_dist: %f\n", data->raycast->perp_wall_dist);
-        data->raycast->line_height = (int)(HEIGHT / data->raycast->perp_wall_dist);    
-        data->raycast->draw_start = -data->raycast->line_height / 2 + HEIGHT / 2;
-        data->raycast->draw_end = data->raycast->line_height / 2 + HEIGHT / 2;
-        
-        printf("z_values: %d\n", data->z_values[data->raycast->map_y][data->raycast->map_x]);
-        if (data->z_values[data->raycast->map_y][data->raycast->map_x] == COLOR_RED)
-        {
-            data->raycast->color = data->color->red;
-            //write(2, "Error: z_values is not a valid color\n", 37);
-        }
-        else if (data->z_values[data->raycast->map_y][data->raycast->map_x] == COLOR_GREEN)
-        {
-            data->raycast->color = data->color->green;
-        }
-        else if (data->z_values[data->raycast->map_y][data->raycast->map_x] == COLOR_BLUE)
-        {
-            data->raycast->color = data->color->blue;
-        }
-        else if (data->z_values[data->raycast->map_y][data->raycast->map_x] == COLOR_MAGENTA)
-        {
-            data->raycast->color = data->color->magenta;
-        }
-        else
-        {
-            data->raycast->color = data->color->yellow;
-        }
-        printf("color: %d\n", data->raycast->color);
-        for  (int y = 0; y < HEIGHT; y++)
-        {
-            //write(1, "1\n", 2);
-            my_mlx_pixel_put(data, x, y, data->raycast->color);
-            //write(1, "2\n", 2);
-        }
-    }
-} */

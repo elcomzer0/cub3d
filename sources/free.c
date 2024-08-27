@@ -6,11 +6,48 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:37:43 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/09 00:19:58 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/28 01:03:52 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/cub3d.h"
+
+
+void free_z_values(t_data *data)
+{
+    if (data->z_values) {
+        for (int i = 0; i < data->map_height; i++) {
+            free(data->z_values[i]);
+        }
+        free(data->z_values);
+    }
+}
+
+void free_player(t_data *data)
+{
+    if (data->player) {
+        if (data->player[0]) {
+            if (data->player[0]->pos) {
+                if (data->player[0]->pos[0]) {
+                    free(data->player[0]->pos[0]);
+                }
+                free(data->player[0]->pos);
+            }
+            free(data->player[0]);
+        }
+        free(data->player);
+    }
+}
+
+void free_map_coord(t_data *data)
+{
+    if (data->map_coord) {
+        for (int i = 0; i < data->map_height; i++) {
+            free(data->map_coord[i]);
+        }
+        free(data->map_coord);
+    }
+}
 
 int ft_clean(t_data *data)
 {
@@ -33,10 +70,23 @@ int ft_clean(t_data *data)
     }
     if (data->z_values)
     {
-        free(data->z_values);
+        //free(data->z_values);
+        free_z_values(data);
         data->z_values = NULL;
         return (0);
     }
+    if (data->player)
+    {
+        free_player(data);
+        data->player = NULL;
+        return (0);
+    }
+/*     if (data->map_coord)
+    {
+        free_map_coord(data);
+        data->map_coord = NULL;
+        return (0);
+    } */
     if(data)
     {
         free(data);
@@ -55,7 +105,7 @@ int ft_clean(t_data *data)
 int	ft_destroy(t_data *data)
 {
 	mlx_destroy_image(data->mlx, data->img);
-    mlx_destroy_image(data->mlx, data->map_img);
+  //  mlx_destroy_image(data->mlx, data->map_img);
 	mlx_clear_window(data->mlx, data->win);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
