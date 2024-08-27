@@ -12,7 +12,7 @@ RESET = \033[0m
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -g -Wall -Werror -Wextra
 RM = rm -rf
 
 # Libraries and Includes
@@ -93,7 +93,7 @@ re:
 debug: CFLAGS += -g
 debug: re
 	@echo "$(GREEN) Starting gdb for $(NAME)... $(RESET)"
-	@gdb ./$(NAME)
+	@gdb --args ./$(NAME) maps/sq_map_50x50.cub
 
 # Valgrind target to check memory leaks
 valgrind: $(NAME)
