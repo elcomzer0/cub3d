@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:30:52 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/08 19:38:38 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:29:03 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int create_trgb(int t, int r, int g, int b)
     return (t << 24 | r << 16 | g << 8 | b);
 } */
 
-void map_draw_line(t_data *data, int x0, int y0, int x1, int y1, int color)
+/* void map_draw_line(t_data *data, int x0, int y0, int x1, int y1, int color)
 {
     int dx = abs(x1 - x0);
     int dy = -abs(y1 - y0);
@@ -235,4 +235,4 @@ void rot_draw_triangle(t_data *data, t_point p1, t_point p2, t_point p3, double 
     draw_line(data, rp2.x, rp2.y, rp3.x, rp3.y, 0x0000FF00);
     draw_line(data, rp3.x, rp3.y, rp1.x, rp1.y, 0x000000FF);
     
-}
+} */

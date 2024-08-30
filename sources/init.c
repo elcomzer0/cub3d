@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:35 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/28 00:42:29 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/29 20:31:19 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,12 +207,22 @@ int rc_init(t_data *data) {
         return -1; // Handle allocation failure
     }
 
-    data->raycast->delta_dist = malloc(sizeof(t_point *));
+    /* data->raycast->delta_dist = malloc(sizeof(t_point *));
+    if (!data->raycast->delta_dist) {
+        free_raycast(data->raycast);
+        return -1; // Handle allocation failure
+    } */
+    data->raycast->delta_dist = malloc(sizeof(t_vector *));
     if (!data->raycast->delta_dist) {
         free_raycast(data->raycast);
         return -1; // Handle allocation failure
     }
-    data->raycast->delta_dist[0] = malloc(sizeof(t_point));
+    /* data->raycast->delta_dist[0] = malloc(sizeof(t_point));
+    if (!data->raycast->delta_dist[0]) {
+        free_raycast(data->raycast);
+        return -1; // Handle allocation failure
+    } */
+    data->raycast->delta_dist[0] = malloc(sizeof(t_vector));
     if (!data->raycast->delta_dist[0]) {
         free_raycast(data->raycast);
         return -1; // Handle allocation failure
@@ -267,7 +277,12 @@ int rc_init(t_data *data) {
     }
     return (0);
 } */
-
+int key_loop(t_data *data)
+{
+    //mlx_loop_hook(data->mlx, key_loop, data);
+    handle_movement(data);
+    return (0);
+}
 int ft_init(t_data *data)
 {
 
@@ -294,7 +309,8 @@ int ft_init(t_data *data)
    
     mlx_hook(data->win, 2, 1L<<0, key_hook_press, data);
     mlx_hook(data->win, 3, 1L<<1, key_hook_release, data);
-
+    mlx_loop_hook(data->mlx, key_loop, data);
+        
     cub_menu(data);
     
     mlx_hook(data->win, 17, 0, ft_destroy, data);

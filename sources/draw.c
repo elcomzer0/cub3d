@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:33:07 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/21 18:36:53 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:28:27 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,17 +91,17 @@ int blend_colors(int src_color, int dest_color)
 } */
 
 
-void my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void my_mlx_pixel_put(t_data *data, int x, int y, int draw_end, int color)
 {
 
     if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
         return;  // Silently return if out of bounds
     char    *dst;
-    dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+    dst = data->addr + (y * draw_end + x * (data->bpp / 8));
     *(unsigned int*)dst = color;
 }
 
-void my_map_pixel_put(t_data *data, int x, int y, int color)
+/* void my_map_pixel_put(t_data *data, int x, int y, int color)
 {
     char    *dst;
     
@@ -180,47 +180,10 @@ void draw_map(t_data *data, int map[MAP_SIZE][MAP_SIZE], int offset_x, int offse
         }
     }
     //write(1, "2\n", 2);
-}
+} */
 
 
 void    cub_draw(t_data *data)
-{
-    /* int map[MAP_SIZE][MAP_SIZE] = {
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 1, 1, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-    }; */
-    
-    
+{ 
     raycasting(data);
-    /* data->player_x = 1;
-    data->player_y = 1; */
-    //calculate player position at the center of the map
-    
-
-    //int color = create_trgb(50, 128, 128, 128); // 0xAARRGGBB (alpha, red, green, blue), grey = (128, 128, 128)
-    //Define arrow inputs
-    //t_point center = {WIDTH / 2 , HEIGHT / 2};
-    /* data->player_x = 1;
-    data->player_y = 1; */
-    //data->map_offset_x = (WIDTH / 2) - (MAP_SIZE * TILE_SIZE / 2)
-    /* int line_length = 100;
-    int triangle_size = 30; */
-
-    //raycasting_2D(data, map, data->arrow_angle);
-    //raycasting(data, map, data->map_offset_x, data->map_offset_y);
-   // draw_circle(data, (WIDTH / 2), (HEIGHT / 2), 100, color); //0x248A8D8F);
-    //raycasting_2D(data, map);
-   
-    //draw_arrow(data, center, line_length, triangle_size, data->player[0]->angle);
-    //raycasting_v2(data, data->z_values, data->player[0]->angle);
-    //display_angle(data);
-    //raycasting_2D(data, map, data->map_offset_x, data->map_offset_y);
 }

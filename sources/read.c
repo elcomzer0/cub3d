@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:11 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/28 01:03:12 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/28 16:51:51 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,7 @@ void find_player_pos(t_data *data, int **z_values)
 {
 	(void)z_values;
     // Print the player's position and orientation
+	//write(1, "Player position: ", 18);
     if (data->player)
     {
         printf("Player position: (%f, %f)\n", data->player[0]->pos[0]->x, data->player[0]->pos[0]->y);
@@ -303,6 +304,7 @@ void	ft_info_read(char *file, t_data *data)
 	}
 	//print_z_values(data);
 	//create_map_coord(data);
+	
 	find_player_pos(data, data->z_values);
 	free(line);
 	close(fd);

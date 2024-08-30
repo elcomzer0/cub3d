@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/20 16:20:15 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/29 20:35:33 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@
 
 #define EPSILON 1e-6
 
+#define KEY_COUNT 256
 
 typedef struct s_data {
     double		x;
@@ -87,6 +88,7 @@ typedef struct s_data {
     struct s_point		**map_coord;
     double start_angle;
 
+    int key_states[KEY_COUNT];
     int player_x;
     int player_y;
 
@@ -98,7 +100,8 @@ typedef struct s_rc {
     struct s_point	**ray_dir;
     struct s_point	**step;
     struct s_point	**side_dist;
-    struct s_point	**delta_dist;
+    //struct s_point	**delta_dist;
+    struct s_vector	**delta_dist;
     //struct s_point	**perp_wall_dist;
     struct s_point  **plane;
     int hit;
@@ -140,9 +143,10 @@ typedef struct s_point {
 	double			y;
 }				t_point;
 
+
 typedef struct s_vector {
-    double			x;
-    double			y;
+    int			x;
+    int			y;
 }				t_vector;
 
 /*main.c*/
@@ -150,21 +154,23 @@ int ft_clean(t_data *data);
 int ft_destroy(t_data *data);
 int key_hook_press(int keycode, t_data *data);
 int key_hook_release(int keycode, t_data *data);
+void handle_movement(t_data *data);
 int create_trgb(int t, int r, int g, int b);
 //t_color create_trgb(int t, int r, int g, int b)
 
-void my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void    draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
-void    draw_square(t_data *data, int x, int y, int size, int color);
-void    draw_circle(t_data *data, int xc, int yc, int radius, int color);
-void draw_triangle(t_data *data, int x, int y, int size, int color);
-void draw_hexagon(t_data *data, int xc, int yc, int size, int color);
-void    draw_gradient(t_data *data);
-void    draw_rainbow(t_data *data);
-t_point rotate_point(t_point p, t_point center, double angle);
-void rot_draw_triangle(t_data *data, t_point p1, t_point p2, t_point p3, double angle);
-void draw_rectangle(t_data *data, int x, int y, int width, int height, int color);
-void  draw_arrow(t_data *data, t_point center, int line_length, int triangle_size, double angle);
+void my_mlx_pixel_put(t_data *data, int x, int y, int draw_end, int color);
+//void my_mlx_pixel_put(t_data *data, int x, int y, int color);
+// void    draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
+// void    draw_square(t_data *data, int x, int y, int size, int color);
+// void    draw_circle(t_data *data, int xc, int yc, int radius, int color);
+// void draw_triangle(t_data *data, int x, int y, int size, int color);
+// void draw_hexagon(t_data *data, int xc, int yc, int size, int color);
+// void    draw_gradient(t_data *data);
+// void    draw_rainbow(t_data *data);
+//t_point rotate_point(t_point p, t_point center, double angle);
+// void rot_draw_triangle(t_data *data, t_point p1, t_point p2, t_point p3, double angle);
+// void draw_rectangle(t_data *data, int x, int y, int width, int height, int color);
+// void  draw_arrow(t_data *data, t_point center, int line_length, int triangle_size, double angle);
 void    cub_draw(t_data *data);
 void map_test(t_data *data);
 void draw_map(t_data *data, int map[MAP_SIZE][MAP_SIZE], int offset_x, int offset_y);
