@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:18 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/31 19:03:34 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:24:11 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void handle_movement(t_data *data)
     }
 
     // Movement with Collision Detection
-    if (data->key_states[map_keycode(KEY_ANSI_W)]) {
+/*     if (data->key_states[map_keycode(KEY_ANSI_W)]) {
         double new_x = data->player[0]->pos[0]->x + cos(data->player[0]->angle) * move_speed;
         double new_y = data->player[0]->pos[0]->y + sin(data->player[0]->angle) * move_speed;
 
@@ -110,25 +110,45 @@ void handle_movement(t_data *data)
             data->player[0]->pos[0]->x = new_x;
             data->player[0]->pos[0]->y = new_y;
         }
-    }
-    if (data->key_states[map_keycode(KEY_ANSI_A)]) {
-        double new_x = data->player[0]->pos[0]->x + cos(data->player[0]->angle - M_PI / 2) * move_speed;
-        double new_y = data->player[0]->pos[0]->y + sin(data->player[0]->angle - M_PI / 2) * move_speed;
+    } */
 
-        if (data->z_values[(int)new_y][(int)new_x] == 0) {
-            data->player[0]->pos[0]->x = new_x;
-            data->player[0]->pos[0]->y = new_y;
+     if (data->key_states[map_keycode(KEY_ANSI_W)]) {
+        double newX = data->player[0]->pos[0]->x + data->player[0]->dx * move_speed;
+        double newY = data->player[0]->pos[0]->y + data->player[0]->dy * move_speed;
+
+        if (data->z_values[(int)newY][(int)newX] == 0) {
+            data->player[0]->pos[0]->x = newX;
+            data->player[0]->pos[0]->y = newY;
         }
     }
-    if (data->key_states[map_keycode(KEY_ANSI_D)]) {
-        double new_x = data->player[0]->pos[0]->x + cos(data->player[0]->angle + M_PI / 2) * move_speed;
-        double new_y = data->player[0]->pos[0]->y + sin(data->player[0]->angle + M_PI / 2) * move_speed;
+    if (data->key_states[map_keycode(KEY_ANSI_S)]) {
+        double newX = data->player[0]->pos[0]->x - data->player[0]->dx * move_speed;
+        double newY = data->player[0]->pos[0]->y - data->player[0]->dy * move_speed;
 
-        if (data->z_values[(int)new_y][(int)new_x] == 0) {
-            data->player[0]->pos[0]->x = new_x;
-            data->player[0]->pos[0]->y = new_y;
+        if (data->z_values[(int)newY][(int)newX] == 0) {
+            data->player[0]->pos[0]->x = newX;
+            data->player[0]->pos[0]->y = newY;
         }
     }
+if (data->key_states[map_keycode(KEY_ANSI_A)]) { // Strafe Left (A key)
+    double newX = data->player[0]->pos[0]->x - move_speed; // Move left along X-axis
+    double newY = data->player[0]->pos[0]->y; // Y-coordinate remains unchanged
+
+    if (data->z_values[(int)newY][(int)newX] == 0) {
+        data->player[0]->pos[0]->x = newX;
+        // data->player[0]->pos[0]->y = newY;  // No need to update Y
+    }
+}
+
+if (data->key_states[map_keycode(KEY_ANSI_D)]) { // Strafe Right (D key)
+    double newX = data->player[0]->pos[0]->x + move_speed; // Move right along X-axis
+    double newY = data->player[0]->pos[0]->y; // Y-coordinate remains unchanged
+
+    if (data->z_values[(int)newY][(int)newX] == 0) {
+        data->player[0]->pos[0]->x = newX;
+        // data->player[0]->pos[0]->y = newY;  // No need to update Y
+    }
+}
 
 
     mlx_destroy_image(data->mlx, data->img);

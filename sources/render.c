@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/31 18:58:28 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:58:17 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void rc_delta_dist(t_data *data)
         data->raycast->delta_dist[0]->y = INT_MAX;
     else
         data->raycast->delta_dist[0]->y = fabs(1 / data->raycast->ray_dir[0]->y);
+    // data->raycast->delta_dist[0]->x = fabs(1 / data->raycast->ray_dir[0]->x);
+    // data->raycast->delta_dist[0]->y = fabs(1 / data->raycast->ray_dir[0]->y);
     //printf("after delta_dist calc side_dist_x: %f, side_dist_y: %f\n", data->raycast->side_dist[0]->x, data->raycast->side_dist[0]->y);
     //printf("delta_dist_x: %f, delta_dist_y: %f\n", data->raycast->delta_dist[0]->x, data->raycast->delta_dist[0]->y);
    // printf("ray_dir_x: %f, ray_dir_y: %f\n", data->raycast->ray_dir[0]->x, data->raycast->ray_dir[0]->y);
@@ -128,7 +130,8 @@ void rc_loop_hit(t_data *data)
         if (map_value >= 1 && map_value <= 4)
         {
             data->raycast->hit = 1;
-            data->raycast->wall_type = map_value;  // Store the wall type
+            data->raycast->wall_type = map_value;
+            break;  // Store the wall type
         }
         
   
@@ -182,6 +185,11 @@ int get_color(t_data *data, int wall_type)
  */
 void calculate_ray_direction(t_data *data, int x)
 {
+    //needs to be added to the init PART!!!!!!!!!!!!!!!!!!!!!!!!
+    data->raycast->plane[0]->x = 0;
+    data->raycast->plane[0]->y = 0.66;
+
+    
     data->raycast->camera_x = 2 * x /(double)WIDTH - 1;
     data->raycast->ray_dir[0]->x = data->player[0]->dx + data->raycast->camera_x * data->raycast->plane[0]->x;
     data->raycast->ray_dir[0]->y = data->player[0]->dy + data->raycast->camera_x * data->raycast->plane[0]->y;
@@ -196,7 +204,7 @@ void calculate_ray_direction(t_data *data, int x)
  *
  * @param data The main data structure containing the game state.
  */
-void calculate_map_position(t_data *data)
+void  calculate_map_position(t_data *data)
 {
     data->raycast->map_x = (int)data->player[0]->pos[0]->x;
     data->raycast->map_y = (int)data->player[0]->pos[0]->y;
@@ -262,8 +270,8 @@ void draw_world(t_data *data, int x, int draw_start, int draw_end)
     
             color = get_color(data, wall_type);
             //color = data->color->red;
-            // if (data->raycast->side == 1)
-            //     color = color / 2;
+            if (data->raycast->side == 1)
+                color = color / 2;
             my_mlx_pixel_put(data, x, draw_start, color);
     
 
@@ -301,22 +309,21 @@ void draw_loop(t_data *data, int x, int draw_start, int draw_end)
             draw_start++;
         }
 }
-void perp_wall_dist(t_data *data)
+/* void perp_wall_dist(t_data *data)
 {
     if (data->raycast->side == 0)
         data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->x - data->raycast->delta_dist[0]->x);
     else
         data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->y - data->raycast->delta_dist[0]->y);
-}
+} */
 
-/* void perp_wall_dist(t_data *data)
+void perp_wall_dist(t_data *data)
 {
     if (data->raycast->side == 0)
         data->raycast->perp_wall_dist = (data->raycast->map_x - data->player[0]->pos[0]->x + (1 - data->raycast->step[0]->x) / 2) / data->raycast->ray_dir[0]->x;
     else
         data->raycast->perp_wall_dist = (data->raycast->map_y - data->player[0]->pos[0]->y + (1 - data->raycast->step[0]->y) / 2) / data->raycast->ray_dir[0]->y;
-} */
-
+}
 void raycasting(t_data *data)
 {
     int x;
