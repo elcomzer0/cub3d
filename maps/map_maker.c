@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define SIZE 50
+#define SIZE 20
 
 int main() {
     int map[SIZE][SIZE];
