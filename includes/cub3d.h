@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/29 20:35:33 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/31 13:11:43 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,8 @@ void handle_movement(t_data *data);
 int create_trgb(int t, int r, int g, int b);
 //t_color create_trgb(int t, int r, int g, int b)
 
-void my_mlx_pixel_put(t_data *data, int x, int y, int draw_end, int color);
+// void my_mlx_pixel_put(t_data *data, int x, int y, int draw_end, int color);
+void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 //void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 // void    draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 // void    draw_square(t_data *data, int x, int y, int size, int color);

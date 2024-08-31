@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/29 20:18:39 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:30:36 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,20 +121,36 @@ void rc_loop_hit(t_data *data)
            // printf("step_x: %f, step_y: %f\n", data->raycast->step[0]->x, data->raycast->step[0]->y);
             data->raycast->side = 1;
         }
-        /* if (data->raycast->map_x < 0 || data->raycast->map_x >= MAP_SIZE ||
-            data->raycast->map_y < 0 || data->raycast->map_y >= MAP_SIZE)
-        {
-            // Handle out-of-bounds case
-            printf("Out of bounds: %d, %d\n", data->raycast->map_x, data->raycast->map_y);
-            break;
-        } */
         //only the first if is important for the wall type later
        printf("data->raycast->map_x: %d, data->raycast->map_y: %d\n", data->raycast->map_x, data->raycast->map_y);
-       if (data->z_values[data->raycast->map_y][data->raycast->map_x] > 0)
+       if (data->z_values[data->raycast->map_y][data->raycast->map_x] == 1)
        {
             data->raycast->hit = 1;
             data->raycast->wall_type = 1;  // Store the wall type
         }
+        if (data->z_values[data->raycast->map_y][data->raycast->map_x] == 2)
+        {
+            data->raycast->hit = 1;
+            data->raycast->wall_type = 2;  // Store the wall type
+        }
+        if (data->z_values[data->raycast->map_y][data->raycast->map_x] == 3)
+        {
+            data->raycast->hit = 1;
+            data->raycast->wall_type = 3;  // Store the wall type
+        }
+        if (data->z_values[data->raycast->map_y][data->raycast->map_x] == 4)
+        {
+            data->raycast->hit = 1;
+            data->raycast->wall_type = 4;  // Store the wall type
+        }
+        // printf("wall_type: %d\n", data->raycast->wall_type);
+        // if (data->raycast->map_x < 0 || data->raycast->map_x >= MAP_SIZE ||
+        //     data->raycast->map_y < 0 || data->raycast->map_y >= MAP_SIZE)
+        // {
+        //     // Handle out-of-bounds case
+        //     printf("Out of bounds: %d, %d\n", data->raycast->map_x, data->raycast->map_y);
+        //     break;
+        // }
     }
 }
 
@@ -274,21 +290,56 @@ void draw_texture(t_data *data, int draw_start, int line_height)
 
 // }
 
+// void draw_world(t_data *data, int x, int draw_start, int draw_end)
+// {
+//  //   int x;
+    
+//     int color;
+
+    
+//             color = get_color(data, 1);
+//             //color = data->color->red;
+//             if (data->raycast->side == 1)
+//                 color = color / 2;
+//             my_mlx_pixel_put(data, x, draw_start, draw_end, color);
+    
+
+// }
+
 void draw_world(t_data *data, int x, int draw_start, int draw_end)
 {
  //   int x;
-    
+    (void)draw_end;
     int color;
+    int wall_type = data->raycast->wall_type;
 
     
-            color = get_color(data, 1);
+            color = get_color(data, wall_type);
             //color = data->color->red;
             if (data->raycast->side == 1)
                 color = color / 2;
-            my_mlx_pixel_put(data, x, draw_start, draw_end, color);
+            my_mlx_pixel_put(data, x, draw_start, color);
     
 
 }
+
+// void draw_loop(t_data *data, int x, int draw_start, int draw_end)
+// {
+//      while (draw_start <= draw_end)
+//         {
+//             data->raycast->texture_y = (int)data->raycast->texture_pos & (TEXTURE_SIZE - 1);
+//             data->raycast->texture_pos += data->raycast->step_n;
+//             if (data->raycast->side == 1 && data->raycast->ray_dir[0]->y < 0)
+//                 draw_world(data, x, draw_start, draw_end);
+//             else if (data->raycast->side == 1 && data->raycast->ray_dir[0]->y > 0)
+//                 draw_world(data, x, draw_start, draw_end);
+//             else if (data->raycast->side == 0 && data->raycast->ray_dir[0]->x < 0)
+//                 draw_world(data, x, draw_start, draw_end);
+//             else if (data->raycast->side == 0 && data->raycast->ray_dir[0]->x > 0)
+//                 draw_world(data, x, draw_start, draw_end);
+//             draw_start++;
+//         }
+// }
 
 void draw_loop(t_data *data, int x, int draw_start, int draw_end)
 {
@@ -306,6 +357,13 @@ void draw_loop(t_data *data, int x, int draw_start, int draw_end)
                 draw_world(data, x, draw_start, draw_end);
             draw_start++;
         }
+}
+void perp_wall_dist(t_data *data)
+{
+    if (data->raycast->side == 0)
+        data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->x - data->raycast->delta_dist[0]->x);
+    else
+        data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->y - data->raycast->delta_dist[0]->y);
 }
 
 void raycasting(t_data *data)
@@ -328,10 +386,7 @@ void raycasting(t_data *data)
         rc_delta_dist(data);
         rc_side_step(data);
         rc_loop_hit(data);
-        if (data->raycast->side == 0)
-            data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->x - data->raycast->delta_dist[0]->x);
-        else
-            data->raycast->perp_wall_dist = (data->raycast->side_dist[0]->y - data->raycast->delta_dist[0]->y);
+        perp_wall_dist(data);
         int line_height, draw_start, draw_end;
         line_height = 0;
         draw_start = 0;

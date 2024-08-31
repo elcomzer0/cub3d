@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:18 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/29 20:47:04 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/08/31 13:27:05 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,14 @@ void handle_movement(t_data *data)
     if (data->key_states[map_keycode(KEY_LEFTARROW)])
     {
         data->player[0]->angle -= rotation_speed;
+        data->player[0]->pos[0]->x += cos(data->player[0]->angle) * move_speed;
+        data->player[0]->pos[0]->y += sin(data->player[0]->angle) * move_speed;
     }
     if (data->key_states[map_keycode(KEY_RIGHTARROW)])
     {
         data->player[0]->angle += rotation_speed;
+        data->player[0]->pos[0]->x += cos(data->player[0]->angle);
+        data->player[0]->pos[0]->y += sin(data->player[0]->angle);
     }
     if (data->key_states[map_keycode(KEY_ANSI_W)])
     {
