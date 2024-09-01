@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:11 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/28 16:51:51 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/01 16:26:50 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,8 @@ void fill_values(int *z_values, char *line, t_data *data)
                 data->player[0]->angle = 90;
 				data->player[0]->dx = 0;
 				data->player[0]->dy = -1;
+				data->raycast->plane[0]->x = 0.66; // Camera plane for facing North
+    			data->raycast->plane[0]->y = 0; 
 			}
 
             else if (line[i] == 'S')
@@ -165,18 +167,24 @@ void fill_values(int *z_values, char *line, t_data *data)
                 data->player[0]->angle = 270;
 				data->player[0]->dx = 0;
 				data->player[0]->dy = 1;
+				data->raycast->plane[0]->x = -0.66; // Camera plane for facing South
+    			data->raycast->plane[0]->y = 0;
 			}
             else if (line[i] == 'W')
 			{
                 data->player[0]->angle = 180;
 				data->player[0]->dx = -1;
 				data->player[0]->dy = 0;
+				data->raycast->plane[0]->x = 0; 
+    			data->raycast->plane[0]->y = -0.66;
 			}
             else if (line[i] == 'E')
 			{
                 data->player[0]->angle = 0;
 				data->player[0]->dx = 1;
 				data->player[0]->dy = 0;
+				data->raycast->plane[0]->x = 0;
+    			data->raycast->plane[0]->y = 0.66;
 			}
         }
         else if (line[i] == '1' || line[i] == '0' || line[i] == '2' || line[i] == '3' || line[i] == '4')

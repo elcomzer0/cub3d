@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/31 13:11:43 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/01 20:06:04 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <endian.h>
 # include <mlx.h>
 # include <float.h>
+# include <sys/time.h>
+# include <time.h>
 
 # define HEIGHT 640
 # define WIDTH  640
@@ -87,6 +89,13 @@ typedef struct s_data {
     struct s_rc	    *raycast;
     struct s_point		**map_coord;
     double start_angle;
+    
+    double time;
+    double old_time;
+    double frame_time;
+    double fps;
+    double rotation_speed;
+    double move_speed;
 
     int key_states[KEY_COUNT];
     int player_x;

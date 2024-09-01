@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:18 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/31 20:24:11 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/01 20:57:08 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int key_hook_release(int keycode, t_data *data)
 
 void handle_movement(t_data *data)
 {
-    double move_speed = 0.15;
-    double rotation_speed = 0.15;
+    double move_speed =  0.025; // data->move_speed;
+    double rotation_speed = 0.02; // data->rotation_speed;
 
       // Rotation
        if (data->key_states[map_keycode(KEY_LEFTARROW)]) {

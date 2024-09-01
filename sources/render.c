@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/31 20:58:17 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/01 16:30:33 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void rc_loop_hit(t_data *data)
             data->raycast->map_x += data->raycast->step[0]->x;
             data->raycast->side = 0;
             //printf("step_x: %f, step_y: %f\n", data->raycast->step[0]->x, data->raycast->step[0]->y);
-           printf("@ here 0\n");
+           //printf("@ here 0\n");
         }
         else
         {
@@ -122,7 +122,7 @@ void rc_loop_hit(t_data *data)
             data->raycast->map_y += data->raycast->step[0]->y;
            // printf("step_x: %f, step_y: %f\n", data->raycast->step[0]->x, data->raycast->step[0]->y);
             data->raycast->side = 1;
-                       printf("@ here 1\n");
+            //           printf("@ here 1\n");
 
         }
 
@@ -186,8 +186,7 @@ int get_color(t_data *data, int wall_type)
 void calculate_ray_direction(t_data *data, int x)
 {
     //needs to be added to the init PART!!!!!!!!!!!!!!!!!!!!!!!!
-    data->raycast->plane[0]->x = 0;
-    data->raycast->plane[0]->y = 0.66;
+    
 
     
     data->raycast->camera_x = 2 * x /(double)WIDTH - 1;
@@ -327,6 +326,8 @@ void perp_wall_dist(t_data *data)
 void raycasting(t_data *data)
 {
     int x;
+  /*   data->raycast->plane[0]->x = 0;
+    data->raycast->plane[0]->y = 0.66; */
 
     if (data == NULL || data->raycast == NULL
         || data->player == NULL

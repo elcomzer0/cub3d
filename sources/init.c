@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:35 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/29 20:31:19 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/01 20:57:30 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,68 @@ int key_loop(t_data *data)
     handle_movement(data);
     return (0);
 }
+long long get_time(void)
+{
+    struct timeval tv;
+    if (gettimeofday(&tv, NULL) == -1)
+        return (-1);
+    return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+int init_fps(t_data *data)
+{
+    if ((data->time = get_time()) == -1)
+        return (1);
+    data->frame_time = (data->time - data->old_time) / 1000.0;
+    data->old_time = data->time;
+    return (0);
+}
+
+
+
+int fps_count(t_data *data)
+{
+    // int x = 0;
+    // int y = 0;
+   // int *img_data = (int *)data->addr;     
+
+        if (init_fps(data) == 1)   
+                return 1;
+
+        data->fps = 1.0 / data->frame_time;
+        /* printf("FPS: %f\n", data->fps); */
+        
+     /*    for (int y = 0; y < HEIGHT; y++)
+        {
+            for (int x = 0; x < WIDTH; x++)
+            {
+                img_data[y * (data->line_length / 4) + x] = 0x000000;
+            }
+        } */
+        
+        //    cub_draw(data);
+        data->move_speed = data->frame_time * 5.0;
+        data->rotation_speed = data->frame_time * 3.0;
+        //handle_movement(data);
+        cub_draw(data);
+        mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+
+            // Frame Rate Limiting with nanosleep (More Accurate)
+   /*  struct timespec remaining_time;
+    long long nanoseconds_per_frame = (long long)(1.0 / 60.0 * 1e9); // Target 60 FPS
+    long long elapsed_nanoseconds = (long long)(data->frame_time * 1e9);
+
+    remaining_time.tv_sec = 0;
+    remaining_time.tv_nsec = nanoseconds_per_frame - elapsed_nanoseconds; 
+
+    if (remaining_time.tv_nsec > 0) {
+        nanosleep(&remaining_time, NULL); 
+    }   */  
+   usleep(16000);
+    
+    return (0);
+
+}
 int ft_init(t_data *data)
 {
 
@@ -296,22 +358,27 @@ int ft_init(t_data *data)
 
     
     ft_info_read(data->map_name, data);
+    /* if (init_fps(data) == 1)
+        return (1); */
     
-
 
     data->mlx = mlx_init();
     data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3d");
     data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
     data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->line_length, &data->endian);
 
+    data->old_time = get_time();
     cub_draw(data);
+    /* if (fps_count(data)== 1)
+        return (1); */
+    //mlx_loop_hook(data->mlx, fps_count, data);
     mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
    
     mlx_hook(data->win, 2, 1L<<0, key_hook_press, data);
     mlx_hook(data->win, 3, 1L<<1, key_hook_release, data);
     mlx_loop_hook(data->mlx, key_loop, data);
         
-    cub_menu(data);
+    //cub_menu(data);
     
     mlx_hook(data->win, 17, 0, ft_destroy, data);
     mlx_loop(data->mlx);
