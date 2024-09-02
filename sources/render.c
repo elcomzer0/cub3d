@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/02 13:17:06 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:39:10 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 void rc_delta_dist(t_data *data)
 {
     if(data->raycast->ray_dir[0]->x == 0)
-        data->raycast->delta_dist[0]->x = DBL_MAX;//DBL_MAX;
+        data->raycast->delta_dist[0]->x = DBL_MAX;
     else
         data->raycast->delta_dist[0]->x = fabs(1 / data->raycast->ray_dir[0]->x);
     if(data->raycast->ray_dir[0]->y == 0)

@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:35 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/01 20:57:30 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:29:19 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -378,7 +378,7 @@ int ft_init(t_data *data)
     mlx_hook(data->win, 3, 1L<<1, key_hook_release, data);
     mlx_loop_hook(data->mlx, key_loop, data);
         
-    //cub_menu(data);
+    cub_menu(data);
     
     mlx_hook(data->win, 17, 0, ft_destroy, data);
     mlx_loop(data->mlx);
