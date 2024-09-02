@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/01 20:06:04 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:00:02 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ typedef struct s_rc {
     struct s_point	**ray_dir;
     struct s_point	**step;
     struct s_point	**side_dist;
-    //struct s_point	**delta_dist;
-    struct s_vector	**delta_dist;
+    struct s_point	**delta_dist;
+    //struct s_vector	**delta_dist;
     //struct s_point	**perp_wall_dist;
     struct s_point  **plane;
     int hit;
