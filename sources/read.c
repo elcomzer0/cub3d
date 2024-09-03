@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:11 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/01 16:26:50 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:00:20 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void fill_values(int *z_values, char *line, t_data *data)
 // dx and dy needs to be initialized here
             if (line[i] == 'N')
 			{
-                data->player[0]->angle = 90;
+                data->player[0]->angle = 270;
 				data->player[0]->dx = 0;
 				data->player[0]->dy = -1;
 				data->raycast->plane[0]->x = 0.66; // Camera plane for facing North
@@ -164,7 +164,7 @@ void fill_values(int *z_values, char *line, t_data *data)
 
             else if (line[i] == 'S')
 			{
-                data->player[0]->angle = 270;
+                data->player[0]->angle = 90;
 				data->player[0]->dx = 0;
 				data->player[0]->dy = 1;
 				data->raycast->plane[0]->x = -0.66; // Camera plane for facing South

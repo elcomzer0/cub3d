@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:18 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/03 14:44:44 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:29:12 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int map_keycode(int keycode)
     else if (keycode == KEY_ANSI_D)
         return 5;
     else
-        return -1; // Invalid key
+        return -1;
 }
 
 
@@ -109,6 +109,9 @@ void right_rot_key(t_data *data, double rotation_speed)
     data->player[0]->dy = old_dir_x * sin(rotation_speed) + data->player[0]->dy * cos(rotation_speed);
     data->raycast->plane[0]->x = old_plane_x * cos(rotation_speed) - data->raycast->plane[0]->y * sin(rotation_speed);
     data->raycast->plane[0]->y = old_plane_x * sin(rotation_speed) + data->raycast->plane[0]->y * cos(rotation_speed);
+    data->player[0]->angle = atan2(data->player[0]->dy, data->player[0]->dx) * 180 / M_PI;
+    if (data->player[0]->angle < 0)
+        data->player[0]->angle += 360;
 }
 
 void left_rot_key(t_data *data, double rotation_speed)
@@ -122,6 +125,9 @@ void left_rot_key(t_data *data, double rotation_speed)
     data->player[0]->dy = old_dir_x * sin(-rotation_speed) + data->player[0]->dy * cos(-rotation_speed);
     data->raycast->plane[0]->x = old_plane_x * cos(-rotation_speed) - data->raycast->plane[0]->y * sin(-rotation_speed);
     data->raycast->plane[0]->y = old_plane_x * sin(-rotation_speed) + data->raycast->plane[0]->y * cos(-rotation_speed);
+    data->player[0]->angle = atan2(data->player[0]->dy, data->player[0]->dx) * 180 / M_PI;
+    if (data->player[0]->angle < 0)
+        data->player[0]->angle += 360;
 }
 
 void handle_movement(t_data *data)
