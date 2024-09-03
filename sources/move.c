@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:18 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/02 18:21:41 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:44:44 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,51 +15,39 @@
 int map_keycode(int keycode)
 {
     if (keycode == KEY_LEFTARROW)
-    {
         return 0;
-    }
     else if (keycode == KEY_RIGHTARROW)
-    {
         return 1;
-    }
     else if (keycode == KEY_ANSI_W)
-    {
         return 2;
-    }
     else if (keycode == KEY_ANSI_S)
-    {
         return 3;
-    }
     else if (keycode == KEY_ANSI_A)
-    {
         return 4;
-    }
     else if (keycode == KEY_ANSI_D)
-    {
         return 5;
-    }
     else
-    {
         return -1; // Invalid key
-    }
 }
 
 
 int key_hook_press(int keycode, t_data *data)
 {
-    int mapped_key = map_keycode(keycode);
+    int mapped_key;
+    
+    mapped_key = map_keycode(keycode);
     if (mapped_key >= 0 && mapped_key < KEY_COUNT)
         data->key_states[mapped_key] = 1;
     if (keycode == KEY_ESCAPE)
-    {
         ft_destroy(data);
-    }
     return (0);
 }
 
 int key_hook_release(int keycode, t_data *data)
 {
-    int mapped_key = map_keycode(keycode);
+    int mapped_key;
+     
+    mapped_key = map_keycode(keycode);
     if (mapped_key >= 0 && mapped_key < KEY_COUNT)
         data->key_states[mapped_key] = 0;
     return (0);
@@ -67,12 +55,15 @@ int key_hook_release(int keycode, t_data *data)
 
 void strafe(t_data *data, int direction, double move_speed)
 {
-    double strafe_dx = data->raycast->plane[0]->x * direction * move_speed;
-    double strafe_dy = data->raycast->plane[0]->y * direction * move_speed;
-
-    double new_x = data->player[0]->pos[0]->x + strafe_dx;
-    double new_y = data->player[0]->pos[0]->y + strafe_dy;
-
+    double strafe_dx;
+    double strafe_dy;
+    double new_x;
+    double new_y;
+        
+    strafe_dx = data->raycast->plane[0]->x * direction * move_speed;
+    strafe_dy = data->raycast->plane[0]->y * direction * move_speed;
+    new_x = data->player[0]->pos[0]->x + strafe_dx;
+    new_y = data->player[0]->pos[0]->y + strafe_dy;
     if (data->z_values[(int)new_y][(int)new_x] == 0)
     {
         data->player[0]->pos[0]->x = new_x;
@@ -80,52 +71,74 @@ void strafe(t_data *data, int direction, double move_speed)
     }
 }
 
+void down_key(t_data *data, double move_speed)
+{
+    double new_x;
+    double new_y;
+    
+    new_x = data->player[0]->pos[0]->x - data->player[0]->dx * move_speed;
+    new_y = data->player[0]->pos[0]->y - data->player[0]->dy * move_speed;
+    if (data->z_values[(int)new_y][(int)new_x] == 0)
+    {
+        data->player[0]->pos[0]->x = new_x;
+        data->player[0]->pos[0]->y = new_y;
+    }
+}
+
+void up_key(t_data *data, double move_speed)
+{
+    double new_x;
+    double new_y; 
+
+    new_x = data->player[0]->pos[0]->x + data->player[0]->dx * move_speed;
+    new_y = data->player[0]->pos[0]->y + data->player[0]->dy * move_speed;
+    if (data->z_values[(int)new_y][(int)new_x] == 0)
+    {
+        data->player[0]->pos[0]->x = new_x;
+        data->player[0]->pos[0]->y = new_y;
+    }
+}
+void right_rot_key(t_data *data, double rotation_speed)
+{
+    double old_dir_x;
+    double old_plane_x;
+    
+    old_dir_x = data->player[0]->dx;
+    old_plane_x = data->raycast->plane[0]->x;
+    data->player[0]->dx = old_dir_x * cos(rotation_speed) - data->player[0]->dy * sin(rotation_speed);
+    data->player[0]->dy = old_dir_x * sin(rotation_speed) + data->player[0]->dy * cos(rotation_speed);
+    data->raycast->plane[0]->x = old_plane_x * cos(rotation_speed) - data->raycast->plane[0]->y * sin(rotation_speed);
+    data->raycast->plane[0]->y = old_plane_x * sin(rotation_speed) + data->raycast->plane[0]->y * cos(rotation_speed);
+}
+
+void left_rot_key(t_data *data, double rotation_speed)
+{
+    double old_dir_x;
+    double old_plane_x;
+
+    old_dir_x = data->player[0]->dx;
+    old_plane_x = data->raycast->plane[0]->x;
+    data->player[0]->dx = old_dir_x * cos(-rotation_speed) - data->player[0]->dy * sin(-rotation_speed);
+    data->player[0]->dy = old_dir_x * sin(-rotation_speed) + data->player[0]->dy * cos(-rotation_speed);
+    data->raycast->plane[0]->x = old_plane_x * cos(-rotation_speed) - data->raycast->plane[0]->y * sin(-rotation_speed);
+    data->raycast->plane[0]->y = old_plane_x * sin(-rotation_speed) + data->raycast->plane[0]->y * cos(-rotation_speed);
+}
+
 void handle_movement(t_data *data)
 {
-    double move_speed =  0.015; // data->move_speed;
-    double rotation_speed = 0.01; // data->rotation_speed;
+    double move_speed;
+    double rotation_speed;
 
-      // Rotation
-       if (data->key_states[map_keycode(KEY_LEFTARROW)])
-       {
-        double oldDirX = data->player[0]->dx;
-        data->player[0]->dx = oldDirX * cos(-rotation_speed) - data->player[0]->dy * sin(-rotation_speed);
-        data->player[0]->dy = oldDirX * sin(-rotation_speed) + data->player[0]->dy * cos(-rotation_speed);
-
-        double oldPlaneX = data->raycast->plane[0]->x;
-        data->raycast->plane[0]->x = oldPlaneX * cos(-rotation_speed) - data->raycast->plane[0]->y * sin(-rotation_speed);
-        data->raycast->plane[0]->y = oldPlaneX * sin(-rotation_speed) + data->raycast->plane[0]->y * cos(-rotation_speed);
-    }
+    move_speed =  0.008;
+    rotation_speed = 0.008;
+    if (data->key_states[map_keycode(KEY_LEFTARROW)])
+        left_rot_key(data, rotation_speed);
     if (data->key_states[map_keycode(KEY_RIGHTARROW)])
-    {
-        // Rotate right
-        // Rotate left
-        double oldDirX = data->player[0]->dx;
-        data->player[0]->dx = oldDirX * cos(rotation_speed) - data->player[0]->dy * sin(rotation_speed);
-        data->player[0]->dy = oldDirX * sin(rotation_speed) + data->player[0]->dy * cos(rotation_speed);
-
-        double oldPlaneX = data->raycast->plane[0]->x;
-        data->raycast->plane[0]->x = oldPlaneX * cos(rotation_speed) - data->raycast->plane[0]->y * sin(rotation_speed);
-        data->raycast->plane[0]->y = oldPlaneX * sin(rotation_speed) + data->raycast->plane[0]->y * cos(rotation_speed);
-    }
-     if (data->key_states[map_keycode(KEY_ANSI_W)]) {
-        double newX = data->player[0]->pos[0]->x + data->player[0]->dx * move_speed;
-        double newY = data->player[0]->pos[0]->y + data->player[0]->dy * move_speed;
-
-        if (data->z_values[(int)newY][(int)newX] == 0) {
-            data->player[0]->pos[0]->x = newX;
-            data->player[0]->pos[0]->y = newY;
-        }
-    }
-    if (data->key_states[map_keycode(KEY_ANSI_S)]) {
-        double newX = data->player[0]->pos[0]->x - data->player[0]->dx * move_speed;
-        double newY = data->player[0]->pos[0]->y - data->player[0]->dy * move_speed;
-
-        if (data->z_values[(int)newY][(int)newX] == 0) {
-            data->player[0]->pos[0]->x = newX;
-            data->player[0]->pos[0]->y = newY;
-        }
-    }
+        right_rot_key(data, rotation_speed);
+    if (data->key_states[map_keycode(KEY_ANSI_W)])
+        up_key(data, move_speed);
+    if (data->key_states[map_keycode(KEY_ANSI_S)])
+        down_key(data, move_speed);
     if (data->key_states[map_keycode(KEY_ANSI_A)])
         strafe(data, -1, move_speed);
     if (data->key_states[map_keycode(KEY_ANSI_D)])
