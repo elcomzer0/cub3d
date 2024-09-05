@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:33:07 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/01 16:33:13 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/05 03:05:02 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,21 @@ int blend_colors(int src_color, int dest_color)
     *dst_color = blend_colors(color, *dst_color);
 } */
 
+void my_xpm_pixel_put(t_data *data, int x, int y, int color)
+{
+    char *dst;  
+    //unsigned int *dst_color;
+
+    if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+        return;
+   // printf("line_length: %d\n", data->raycast->texture[3].line_length);
+   // printf("bpp: %d\n", data->raycast->texture[3].bpp);
+    dst = data->raycast->texture[4].tex_addr + (y * data->raycast->texture[4].line_length + x * (data->raycast->texture[4].bpp / 8));
+   // printf("dst: %p\n", dst);
+    //printf("color: %d\n", color);
+    *(int *)dst = color;
+}
+    
 
 void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -193,7 +208,53 @@ void draw_map(t_data *data, int map[MAP_SIZE][MAP_SIZE], int offset_x, int offse
 } */
 
 
-void    cub_draw(t_data *data)
+/* void    cub_draw(t_data *data)
 { 
     raycasting(data);
+    mlx_put_image_to_window(data->mlx, data->win, data->raycast->texture[4].tex_img, 0, 0);
+} */
+
+void    ceiling_floor(t_data *data)
+{
+    int x;
+    int y;
+    int color1;
+    int color2;
+    int color_floor;
+    int color_ceiling;
+    
+    color_ceiling = data->color->blue;
+    color_floor = data->color->magenta;
+
+    x = 0;
+    while (x < WIDTH)
+    {
+        y = 0;
+        while (y <= HEIGHT)
+        {
+            if (y < HEIGHT / 2)
+            {
+            color1 = color_ceiling;
+            my_xpm_pixel_put(data, x, y, color1);
+                
+            }
+            else
+            {
+                color2 = color_floor;
+                my_xpm_pixel_put(data, x, y, color2);
+            }
+            y++;
+        }
+        x++;
+    }
+}
+
+
+int    cub_draw(t_data *data)
+{ 
+    ceiling_floor(data);
+    raycasting(data);
+    //mlx_put_image_to_window(data->mlx, data->win) 
+    mlx_put_image_to_window(data->mlx, data->win, data->raycast->texture[4].tex_img, 0, 0);
+    return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:35 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/02 17:29:19 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/05 02:58:23 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,37 @@ void free_raycast(t_rc *raycast)
     }
 }
 
+void init_textures(t_data *data) {
+    int i = 0;
+    while (i < 5) {
+        data->raycast->texture[i] = (t_tex){
+            .path = NULL,
+            .tex_img = NULL,
+            .tex_addr = NULL,
+            .width = 0,
+            .height = 0,
+            .bpp = 0,
+            .line_length = 0,
+            .endian = 0
+        };
+
+        // Print the texture information for the current index (i)
+        printf("Texture %d: path: %p, tex_img: %p, tex_addr %p, width %d, height %d, bpp %d, line_length %d, endian %d\n", 
+               i,
+               data->raycast->texture[i].path, 
+               data->raycast->texture[i].tex_img, 
+               data->raycast->texture[i].tex_addr, 
+               data->raycast->texture[i].width, 
+               data->raycast->texture[i].height, 
+               data->raycast->texture[i].bpp, 
+               data->raycast->texture[i].line_length, 
+               data->raycast->texture[i].endian);
+
+        i++;
+    }
+}
+
+
 int rc_init(t_data *data) {
     data->raycast = malloc(sizeof(t_rc));
     if (!data->raycast) return -1; // Handle allocation failure
@@ -261,6 +292,7 @@ int rc_init(t_data *data) {
     data->raycast->perp_wall_dist = 0;
     data->raycast->camera_x = 0;
     data->raycast->wall_type = 0;
+    init_textures(data);
 
     write(1, "hello\n", 6);
 
@@ -345,6 +377,69 @@ int fps_count(t_data *data)
     return (0);
 
 }
+
+void init_xpm(t_data *data)
+{
+    int i;
+     const char *texture_paths[5] = {
+        "textures/WARN_1A.xpm",
+        "textures/WOOD_1C.xpm", 
+        "textures/WARN_1A.xpm", 
+        "textures/WOOD_1C.xpm"  
+    };
+
+    
+
+    i = 0;
+    while(i < 4)
+    {
+         data->raycast->texture[i].path = malloc(strlen(texture_paths[i])); // +1 for null terminator
+        if (!data->raycast->texture[i].path)
+        {
+            // Handle malloc error
+            fprintf(stderr, "Error: Memory allocation failed\n");
+            // Free previously allocated resources if any and exit
+            return; 
+        }
+        strcpy(data->raycast->texture[i].path, texture_paths[i]);
+        data->raycast->texture[i].tex_img = mlx_xpm_file_to_image(data->mlx, data->raycast->texture[i].path, &data->raycast->texture[i].width, &data->raycast->texture[i].height);
+        if (!data->raycast->texture[i].tex_img)
+        {
+            fprintf(stderr, "Error: Failed to load image at path: %s\n", data->raycast->texture[i].path);
+            // Handle error: Free previously loaded textures and exit or use a default texture
+            for (int j = 0; j < i; j++) {
+                mlx_destroy_image(data->mlx, data->raycast->texture[j].tex_img);
+            }
+            return; // Exit the function after error handling
+        }
+        i++;
+    }
+    
+    data->raycast->texture[4].tex_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+    for (i = 0; i < 5; i++) {
+        data->raycast->texture[i].tex_addr = mlx_get_data_addr(data->raycast->texture[i].tex_img,
+            &data->raycast->texture[i].bpp, &data->raycast->texture[i].line_length, &data->raycast->texture[i].endian);
+        if (!data->raycast->texture[i].tex_addr) {
+            fprintf(stderr, "Error: Failed to get data address for texture: %s\n", data->raycast->texture[i].path);
+            // Handle error: Free loaded image and potentially exit
+            mlx_destroy_image(data->mlx, data->raycast->texture[i].tex_img); 
+            // Additional error handling as needed
+        }
+        printf("Texture %d: path: %s, tex_img: %p, tex_addr %p, width %d, height %d, bpp %d, line_length %d, endian %d\n", 
+               i,
+               data->raycast->texture[i].path, 
+               data->raycast->texture[i].tex_img, 
+               data->raycast->texture[i].tex_addr, 
+               data->raycast->texture[i].width, 
+               data->raycast->texture[i].height, 
+               data->raycast->texture[i].bpp, 
+               data->raycast->texture[i].line_length, 
+               data->raycast->texture[i].endian);
+    }
+    printf("addr: %p\n", data->raycast->texture[0].tex_addr);
+    //
+}
+
 int ft_init(t_data *data)
 {
 
@@ -365,15 +460,19 @@ int ft_init(t_data *data)
     data->mlx = mlx_init();
     data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3d");
     data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+    init_xpm(data);
     data->addr = mlx_get_data_addr(data->img, &data->bpp, &data->line_length, &data->endian);
 
     data->old_time = get_time();
-    cub_draw(data);
+    //cub_draw(data);
     /* if (fps_count(data)== 1)
         return (1); */
     //mlx_loop_hook(data->mlx, fps_count, data);
-    mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-   
+    //for(int i = 0; i < 5; i++)
+       //  mlx_put_image_to_window(data->mlx, data->win, data->raycast->texture[4].tex_img, 0, 0);
+    //mlx_put_image_to_window(data->mlx, data->win, data->raycast->texture[4].tex_img, 0, 0);
+    ceiling_floor(data);
+    mlx_loop_hook(data->mlx, &cub_draw, data);
     mlx_hook(data->win, 2, 1L<<0, key_hook_press, data);
     mlx_hook(data->win, 3, 1L<<1, key_hook_release, data);
     mlx_loop_hook(data->mlx, key_loop, data);

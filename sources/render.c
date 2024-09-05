@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/02 14:39:10 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/05 02:29:13 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void rc_loop_hit(t_data *data)
  * @param wall_type The integer value representing the wall type.
  * @return The color value to use for the given wall type.
  */
-int get_color(t_data *data, int wall_type)
+/* int  get_color(t_data *data, int wall_type)
 {
     if (wall_type == 1)
         return data->color->red;
@@ -137,8 +137,98 @@ int get_color(t_data *data, int wall_type)
         return data->color->yellow;
     else 
         return 0; // Default color if wall type is not recognized
+} */
+
+/* int test_color(t_data *data, int x, int y, int texture_index)
+{
+     if (x < 0 || x >= data->raycast->texture[texture_index].width || 
+        y < 0 || y >= data->raycast->texture[texture_index].height) {
+        return 0; // Or a default color for out-of-bounds pixels
+    }
+
+    int pixel_index = (y * data->raycast->texture[texture_index].line_length) + 
+                      (x * (data->raycast->texture[texture_index].bpp / 8));
+
+    char *pixel_data = data->raycast->texture[texture_index].tex_addr + pixel_index;
+
+    // Assuming XRGB format (little-endian)
+    int color = (pixel_data[3] << 24) | 
+                (pixel_data[2] << 16) | 
+                (pixel_data[1] << 8) | 
+                pixel_data[0];
+
+    return color;
+    //return (*(int *)data->raycast->texture[i].tex_addr + (y * data->raycast->texture[i].line_length + x * (data->raycast->texture[i].bpp / 8)));
+} */
+
+int texture_info(t_data *data, int x, int y, int texture_index)
+{
+    return (*(int *)data->raycast->texture[texture_index].tex_addr + (y * data->raycast->texture[texture_index].line_length + x * (data->raycast->texture[texture_index].bpp / 8)));
+}
+int  xpm_switcher(t_data *data, int wall_type)
+{
+    (void)data;
+    if (wall_type == 1)
+    {
+        //strcpy(&data->raycast->texture->path[0], ".textures/WARN_1A.xpm");
+        return 0;
+    }
+    else if (wall_type == 2)
+    {
+     //   strcpy(&data->raycast->texture->path[0], ".textures/WOOD_1C.xpm");
+        return 1;
+    }
+    else if (wall_type == 3)
+    {
+       // strcpy(&data->raycast->texture->path[0], ".textures/WARN_1A.xpm");
+        return 2;
+    }
+    else// (wall_type == 4)
+    {
+        //strcpy(&data->raycast->texture->path[0], ".textures/WOOD_1C.xpm");
+        return 3;
+    }
+    // else 
+    // {
+    //     //strcpy(&data->raycast->texture->path[0], ".textures/WOOD_1C.xpm");
+    //     return 4;
+    // }
+    // else 
+    //     return -1; // Default color if wall type is not recognized
+    /* else if (wall_type == 4)
+    {
+        //strcpy(&data->raycast->texture->path[0], ".textures/WOOD_1C.xpm");
+        return 4;
+    }
+    else if (wall_type == 5)
+        return data->color->yellow; */
 }
 
+// void draw_world(t_data *data, int x, int draw_start, int draw_end)
+// {
+//     (void)draw_end;
+//     int color = 0;
+//     int wall_type = data->raycast->wall_type;
+//     int texture_index = xpm_switcher(data, wall_type);
+//     //color = get_color(data, wall_type);
+//     //color = test_color(data, data->raycast->texture_x, data->raycast->texture_y, texture_index);
+//     // if (data->raycast->side == 1)
+//     //     color = color / 2;
+//     //my_mlx_pixel_put(data, x, draw_start, color);
+//     my_xpm_pixel_put(data, x, draw_start, color);
+
+// }
+
+void draw_world_v2(t_data *data, int x, int draw_start, int compass)
+{
+    int color = 0;
+    int wall_type = xpm_switcher(data, compass);
+   // printf("draw_start: %d\n", draw_start);
+    //printf("wall_type: %d\n", wall_type);
+    color = texture_info(data, data->raycast->texture_x, data->raycast->texture_y, wall_type);
+    //color = test_color(data, data->raycast->texture_x, data->raycast->texture_y, wall_type);
+    my_xpm_pixel_put(data, x, draw_start, color);
+}
 /**
  * Calculates the ray direction for a given x-coordinate in the rendering loop.
  *
@@ -205,6 +295,7 @@ void draw_texture(t_data *data, int draw_start, int line_height)
 {
     double hit_x;
 
+   // data->raycast->texture_num = data->raycast->wall_type - 1; // check if that is intended to be like this
     if (data->raycast->side == 0)
         hit_x = data->player[0]->pos[0]->y + data->raycast->perp_wall_dist * data->raycast->ray_dir[0]->y;
     else
@@ -221,33 +312,26 @@ void draw_texture(t_data *data, int draw_start, int line_height)
 
 
 
-void draw_world(t_data *data, int x, int draw_start, int draw_end)
-{
-    (void)draw_end;
-    int color;
-    int wall_type = data->raycast->wall_type;
-    color = get_color(data, wall_type);
-    if (data->raycast->side == 1)
-        color = color / 2;
-    my_mlx_pixel_put(data, x, draw_start, color);
-}
 
 
 void draw_loop(t_data *data, int x, int draw_start, int draw_end)
 {
-     while (draw_start <= draw_end)
+     while (draw_start < draw_end)
         {
             data->raycast->texture_y = (int)data->raycast->texture_pos & (TEXTURE_SIZE - 1);
             data->raycast->texture_pos += data->raycast->step_n;
+            //data->color->color32 = data->map_addr[(data->raycast->texture_y * TEXTURE_SIZE) + data->raycast->texture_x];
             if (data->raycast->side == 1 && data->raycast->ray_dir[0]->y < 0)              
-                draw_world(data, x, draw_start, draw_end);
+                draw_world_v2(data, x, draw_start, 1);
             else if (data->raycast->side == 1 && data->raycast->ray_dir[0]->y > 0)
-                draw_world(data, x, draw_start, draw_end);
+                draw_world_v2(data, x, draw_start, 2);
             else if (data->raycast->side == 0 && data->raycast->ray_dir[0]->x < 0)
-                draw_world(data, x, draw_start, draw_end);
+                draw_world_v2(data, x, draw_start, 3);
             else if (data->raycast->side == 0 && data->raycast->ray_dir[0]->x > 0)
-                draw_world(data, x, draw_start, draw_end);
+                draw_world_v2(data, x, draw_start, 4);
             draw_start++;
+           // printf("draw_start: %d, draw_end: %d\n", draw_start, draw_end);
+            //printf("x: %d, draw_start: %d, draw_end: %d\n", x, draw_start, draw_end);
         }
 }
 
@@ -282,7 +366,7 @@ void raycasting(t_data *data)
         draw_start = 0;
         draw_end = 0;
         draw_end_to_start(data, &line_height, &draw_start, &draw_end);
-        //draw_texture(data, draw_start, line_height);
+        draw_texture(data, draw_start, line_height);
         draw_loop(data, x, draw_start, draw_end);
         x++;
     }

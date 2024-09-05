@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/02 13:00:02 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/05 02:44:04 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,17 @@ typedef struct s_data {
 
 }				t_data;
 
+typedef struct s_tex {
+    char *path;
+    char *tex_img;
+    char *tex_addr;
+    int width;
+    int height;
+    int bpp;
+    int line_length;
+    int endian; 
+} t_tex;
+
 typedef struct s_rc {
     double camera_x;
     double perp_wall_dist;
@@ -120,6 +131,8 @@ typedef struct s_rc {
     int     texture_x;
     int     texture_y;
     double  texture_pos;
+    int     texture_num;
+    struct s_tex texture[5];
     double  step_n;
     int draw_start;
     int draw_end;
@@ -128,6 +141,7 @@ typedef struct s_rc {
     int wall_type;
 } t_rc;
 
+
 typedef struct s_color {
 	int			red;
 	int			green;
@@ -135,6 +149,7 @@ typedef struct s_color {
     int			magenta;
     int			yellow;
     int			grey;
+    //uint32_t    color32;
 }				t_color;
 
 /*new player position with direction and angle*/
@@ -153,6 +168,7 @@ typedef struct s_point {
 }				t_point;
 
 
+
 typedef struct s_vector {
     int			x;
     int			y;
@@ -167,6 +183,7 @@ void handle_movement(t_data *data);
 int create_trgb(int t, int r, int g, int b);
 //t_color create_trgb(int t, int r, int g, int b)
 
+void my_xpm_pixel_put(t_data *data, int x, int y, int color);
 // void my_mlx_pixel_put(t_data *data, int x, int y, int draw_end, int color);
 void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 //void my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -181,7 +198,8 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 // void rot_draw_triangle(t_data *data, t_point p1, t_point p2, t_point p3, double angle);
 // void draw_rectangle(t_data *data, int x, int y, int width, int height, int color);
 // void  draw_arrow(t_data *data, t_point center, int line_length, int triangle_size, double angle);
-void    cub_draw(t_data *data);
+//void    cub_draw(t_data *data);
+int cub_draw(t_data *data);
 void map_test(t_data *data);
 void draw_map(t_data *data, int map[MAP_SIZE][MAP_SIZE], int offset_x, int offset_y);
 void display_angle(t_data *data);
@@ -194,6 +212,7 @@ void   map_draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 void draw_filled_rectangle(t_data *data, int x, int y, int width, int height, int color);
 
 /* render */
+void    ceiling_floor(t_data *data);
 void raycasting(t_data *data);
 //void raycasting(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);
 //void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);

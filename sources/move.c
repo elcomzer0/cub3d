@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:18 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/03 16:29:12 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/05 03:06:05 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,8 @@ void handle_movement(t_data *data)
     double move_speed;
     double rotation_speed;
 
-    move_speed =  0.008;
-    rotation_speed = 0.008;
+    move_speed =  0.05;
+    rotation_speed = 0.035;
     if (data->key_states[map_keycode(KEY_LEFTARROW)])
         left_rot_key(data, rotation_speed);
     if (data->key_states[map_keycode(KEY_RIGHTARROW)])
@@ -150,8 +150,19 @@ void handle_movement(t_data *data)
     if (data->key_states[map_keycode(KEY_ANSI_D)])
         strafe(data, 1, move_speed);
     mlx_destroy_image(data->mlx, data->img);
-    data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+    mlx_destroy_image(data->mlx, data->raycast->texture[4].tex_img);
+    /* for(int i = 0; i < 4; i++)
+    {
+        data->tex
+    } */
+   data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+    data->raycast->texture[4].tex_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+    ceiling_floor(data);
     cub_draw(data);
     mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+    mlx_put_image_to_window(data->mlx, data->win, data->raycast->texture[4].tex_img, 0, 0);
+   // for (int i = 0; i < 5; i++)
+     //  mlx_put_image_to_window(data->mlx, data->win, data->raycast->texture[i].tex_img, 0, 0);
+
     cub_menu(data);
 }
