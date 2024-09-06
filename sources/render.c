@@ -6,20 +6,12 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/05 02:29:13 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/06 03:37:21 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "./includes/cub3d.h"
 
-
-/**
- * Calculates the delta distance for the ray casting algorithm.
- * The delta distance is the distance the ray has to move in the x or y direction
- * for the next step in the grid.
- *
- * @param data The main data structure containing the game state.
- */
 
 
 void rc_delta_dist(t_data *data)
@@ -34,13 +26,7 @@ void rc_delta_dist(t_data *data)
         data->raycast->delta_dist[0]->y = fabs(1 / data->raycast->ray_dir[0]->y);
 }
 
-/**
- * Calculates the initial side distance values for the ray casting algorithm.
- * The side distance is the distance the ray has to move in the x or y direction
- * to reach the next grid cell.
- *
- * @param data The main data structure containing the game state.
- */
+
 void rc_side_step(t_data *data)
 {
     if (data->raycast->ray_dir[0]->x < 0)
@@ -65,17 +51,6 @@ void rc_side_step(t_data *data)
     }
     
 }
-
-/**
- * Performs the ray casting loop to determine the hit point on a wall.
- *
- * This function is responsible for iterating the ray casting algorithm until a
- * wall is hit. It updates the map position and side distance values as the ray
- * moves through the grid. When a wall is hit, the wall type is stored in the
- * `wall_type` field of the `raycast` struct.
- *
- * @param data The main data structure containing the game state.
- */
 
 
 void rc_loop_hit(t_data *data)
@@ -102,7 +77,7 @@ void rc_loop_hit(t_data *data)
             data->raycast->map_y += data->raycast->step[0]->y;
             data->raycast->side = 1;
         }
-        int map_value = data->z_values[data->raycast->map_y][data->raycast->map_x];
+        int map_value = data->z_values[data->raycast->map_y][data->raycast->map_x]; //for later 1 and 32
         if (map_value >= 1 && map_value <= 5)
         {
             data->raycast->hit = 1;
@@ -112,34 +87,8 @@ void rc_loop_hit(t_data *data)
     }
 }
 
-/**
- * Determines the color to use for a given wall type.
- *
- * This function takes a wall type integer and returns the corresponding color
- * value. The color values are retrieved from the `data->color` struct, which
- * likely contains the RGB values for each wall type.
- *
- * @param data The main data structure containing the game state.
- * @param wall_type The integer value representing the wall type.
- * @return The color value to use for the given wall type.
- */
-/* int  get_color(t_data *data, int wall_type)
-{
-    if (wall_type == 1)
-        return data->color->red;
-    else if (wall_type == 2)
-        return data->color->green;
-    else if (wall_type == 3)
-        return data->color->blue;
-    else if (wall_type == 4)
-        return data->color->magenta;
-    else if (wall_type == 5)
-        return data->color->yellow;
-    else 
-        return 0; // Default color if wall type is not recognized
-} */
 
-/* int test_color(t_data *data, int x, int y, int texture_index)
+int test_color(t_data *data, int x, int y, int texture_index)
 {
      if (x < 0 || x >= data->raycast->texture[texture_index].width || 
         y < 0 || y >= data->raycast->texture[texture_index].height) {
@@ -158,13 +107,9 @@ void rc_loop_hit(t_data *data)
                 pixel_data[0];
 
     return color;
-    //return (*(int *)data->raycast->texture[i].tex_addr + (y * data->raycast->texture[i].line_length + x * (data->raycast->texture[i].bpp / 8)));
-} */
-
-int texture_info(t_data *data, int x, int y, int texture_index)
-{
-    return (*(int *)data->raycast->texture[texture_index].tex_addr + (y * data->raycast->texture[texture_index].line_length + x * (data->raycast->texture[texture_index].bpp / 8)));
 }
+
+
 int  xpm_switcher(t_data *data, int wall_type)
 {
     (void)data;
@@ -188,45 +133,79 @@ int  xpm_switcher(t_data *data, int wall_type)
         //strcpy(&data->raycast->texture->path[0], ".textures/WOOD_1C.xpm");
         return 3;
     }
-    // else 
-    // {
-    //     //strcpy(&data->raycast->texture->path[0], ".textures/WOOD_1C.xpm");
-    //     return 4;
-    // }
-    // else 
-    //     return -1; // Default color if wall type is not recognized
-    /* else if (wall_type == 4)
-    {
-        //strcpy(&data->raycast->texture->path[0], ".textures/WOOD_1C.xpm");
-        return 4;
-    }
-    else if (wall_type == 5)
-        return data->color->yellow; */
 }
 
-// void draw_world(t_data *data, int x, int draw_start, int draw_end)
-// {
-//     (void)draw_end;
-//     int color = 0;
-//     int wall_type = data->raycast->wall_type;
-//     int texture_index = xpm_switcher(data, wall_type);
-//     //color = get_color(data, wall_type);
-//     //color = test_color(data, data->raycast->texture_x, data->raycast->texture_y, texture_index);
-//     // if (data->raycast->side == 1)
-//     //     color = color / 2;
-//     //my_mlx_pixel_put(data, x, draw_start, color);
-//     my_xpm_pixel_put(data, x, draw_start, color);
 
-// }
+
+/* void draw_world_v3(t_data *data, int x, int draw_start, int compass)
+{
+    int color = 0;
+    int wall_type = xpm_switcher(data, compass);
+    color = test_color(data, data->raycast->texture_x, data->raycast->texture_y, wall_type);
+    // Calculate the distance from the player to the wall
+    double distance = data->raycast->perp_wall_dist;
+
+    // Apply shading based on distance
+    double shading_factor = 1.0 / (1.0 + distance * distance * 0.0051); // Adjust the factor as needed
+    int r = ((color >> 16) & 0xFF) * shading_factor;
+    int g = ((color >> 8) & 0xFF) * shading_factor;
+    int b = (color & 0xFF) * shading_factor;
+    int shaded_color = (r << 16) | (g << 8) | b;
+
+    my_xpm_pixel_put(data, x, draw_start, shaded_color);
+} */
+
+void draw_world_v3(t_data *data, int x, int draw_start, int compass)
+{
+    int color = 0;
+    int wall_type = xpm_switcher(data, compass);
+    color = test_color(data, data->raycast->texture_x, data->raycast->texture_y, wall_type);
+
+    // Calculate the distance from the player to the wall
+    double distance = data->raycast->perp_wall_dist;
+
+    // Determine the side of the wall and apply different shading factors
+    double shading_factor;
+    if (data->raycast->side == 0) // Vertical wall
+    {
+        if (data->raycast->ray_dir[0]->x > 0) // East-facing wall
+        {
+            shading_factor = 1.0 / (1.0 + distance * distance * 0.0051); // Lighter shading
+        }
+        else // West-facing wall
+        {
+            shading_factor = 1.0 / (1.0 + distance * distance * 0.04); // Darker shading
+        }
+    }
+    else // Horizontal wall
+    {
+        if (data->raycast->ray_dir[0]->y > 0) // South-facing wall
+        {
+            shading_factor = 1.0 / (1.0 + distance * distance * 0.0051); // Lighter shading
+        }
+        else // North-facing wall
+        {
+            shading_factor = 1.0 / (1.0 + distance * distance * 0.04); // Darker shading
+        }
+    }
+
+    // Apply shading to the color
+    int r = ((color >> 16) & 0xFF) * shading_factor;
+    int g = ((color >> 8) & 0xFF) * shading_factor;
+    int b = (color & 0xFF) * shading_factor;
+    int shaded_color = (r << 16) | (g << 8) | b;
+
+    my_xpm_pixel_put(data, x, draw_start, shaded_color);
+}
 
 void draw_world_v2(t_data *data, int x, int draw_start, int compass)
 {
     int color = 0;
+
     int wall_type = xpm_switcher(data, compass);
-   // printf("draw_start: %d\n", draw_start);
-    //printf("wall_type: %d\n", wall_type);
-    color = texture_info(data, data->raycast->texture_x, data->raycast->texture_y, wall_type);
-    //color = test_color(data, data->raycast->texture_x, data->raycast->texture_y, wall_type);
+
+    color = test_color(data, data->raycast->texture_x, data->raycast->texture_y, wall_type);
+
     my_xpm_pixel_put(data, x, draw_start, color);
 }
 /**
@@ -263,7 +242,7 @@ void  calculate_map_position(t_data *data)
 
 void draw_end_to_start(t_data *data, int *line_height, int *draw_start, int *draw_end)
 {
-    *line_height = (int)(HEIGHT / data->raycast->perp_wall_dist);
+    *line_height = (HEIGHT / data->raycast->perp_wall_dist);
     *draw_start = -(*line_height) / 2 + HEIGHT / 2;
     if (*draw_start < 0)
         *draw_start = 0;
@@ -295,7 +274,6 @@ void draw_texture(t_data *data, int draw_start, int line_height)
 {
     double hit_x;
 
-   // data->raycast->texture_num = data->raycast->wall_type - 1; // check if that is intended to be like this
     if (data->raycast->side == 0)
         hit_x = data->player[0]->pos[0]->y + data->raycast->perp_wall_dist * data->raycast->ray_dir[0]->y;
     else
@@ -313,25 +291,21 @@ void draw_texture(t_data *data, int draw_start, int line_height)
 
 
 
-
 void draw_loop(t_data *data, int x, int draw_start, int draw_end)
 {
      while (draw_start < draw_end)
         {
             data->raycast->texture_y = (int)data->raycast->texture_pos & (TEXTURE_SIZE - 1);
-            data->raycast->texture_pos += data->raycast->step_n;
-            //data->color->color32 = data->map_addr[(data->raycast->texture_y * TEXTURE_SIZE) + data->raycast->texture_x];
+            data->raycast->texture_pos = data->raycast->texture_pos + data->raycast->step_n;
             if (data->raycast->side == 1 && data->raycast->ray_dir[0]->y < 0)              
-                draw_world_v2(data, x, draw_start, 1);
+                draw_world_v3(data, x, draw_start, 1);
             else if (data->raycast->side == 1 && data->raycast->ray_dir[0]->y > 0)
-                draw_world_v2(data, x, draw_start, 2);
+                draw_world_v3(data, x, draw_start, 2);
             else if (data->raycast->side == 0 && data->raycast->ray_dir[0]->x < 0)
-                draw_world_v2(data, x, draw_start, 3);
+                draw_world_v3(data, x, draw_start, 3);
             else if (data->raycast->side == 0 && data->raycast->ray_dir[0]->x > 0)
-                draw_world_v2(data, x, draw_start, 4);
+                draw_world_v3(data, x, draw_start, 4);
             draw_start++;
-           // printf("draw_start: %d, draw_end: %d\n", draw_start, draw_end);
-            //printf("x: %d, draw_start: %d, draw_end: %d\n", x, draw_start, draw_end);
         }
 }
 

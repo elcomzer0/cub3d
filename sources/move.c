@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:18 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/05 03:06:05 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/05 21:16:36 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void strafe(t_data *data, int direction, double move_speed)
     double strafe_dy;
     double new_x;
     double new_y;
+    int tmp = 0;
         
     strafe_dx = data->raycast->plane[0]->x * direction * move_speed;
     strafe_dy = data->raycast->plane[0]->y * direction * move_speed;
@@ -66,6 +67,9 @@ void strafe(t_data *data, int direction, double move_speed)
     new_y = data->player[0]->pos[0]->y + strafe_dy;
     if (data->z_values[(int)new_y][(int)new_x] == 0)
     {
+        if (data->z_values[(int)new_y][(int)new_x] == -1)
+            tmp = data->z_values[(int)new_y][(int)new_x] + 1;
+        data->z_values[(int)new_y][(int)new_x] = tmp;
         data->player[0]->pos[0]->x = new_x;
         data->player[0]->pos[0]->y = new_y;
     }
@@ -75,11 +79,15 @@ void down_key(t_data *data, double move_speed)
 {
     double new_x;
     double new_y;
+    int tmp = 0;
     
     new_x = data->player[0]->pos[0]->x - data->player[0]->dx * move_speed;
     new_y = data->player[0]->pos[0]->y - data->player[0]->dy * move_speed;
     if (data->z_values[(int)new_y][(int)new_x] == 0)
     {
+        if (data->z_values[(int)new_y][(int)new_x] == -1)
+            tmp = data->z_values[(int)new_y][(int)new_x] + 1;
+        data->z_values[(int)new_y][(int)new_x] = tmp;
         data->player[0]->pos[0]->x = new_x;
         data->player[0]->pos[0]->y = new_y;
     }
@@ -88,12 +96,16 @@ void down_key(t_data *data, double move_speed)
 void up_key(t_data *data, double move_speed)
 {
     double new_x;
-    double new_y; 
+    double new_y;
+    int tmp = 0;
 
     new_x = data->player[0]->pos[0]->x + data->player[0]->dx * move_speed;
     new_y = data->player[0]->pos[0]->y + data->player[0]->dy * move_speed;
     if (data->z_values[(int)new_y][(int)new_x] == 0)
     {
+        if (data->z_values[(int)new_y][(int)new_x] == -1)
+            tmp = data->z_values[(int)new_y][(int)new_x] + 1;
+        data->z_values[(int)new_y][(int)new_x] = tmp;
         data->player[0]->pos[0]->x = new_x;
         data->player[0]->pos[0]->y = new_y;
     }

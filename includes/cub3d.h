@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/05 02:44:04 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/06 03:39:01 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ typedef struct s_data {
     int player_x;
     int player_y;
 
+    int star_x[100];
+    int star_y[100];
 }				t_data;
 
 typedef struct s_tex {

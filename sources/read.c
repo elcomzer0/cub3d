@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:11 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/03 16:00:20 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/06 01:08:52 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,9 @@ void fill_values(int *z_values, char *line, t_data *data)
 
 			}
 
-            data->player[0]->pos[0]->x = i;
-            data->player[0]->pos[0]->y = data->current_line;
+            data->player[0]->pos[0]->x = i;// + 0.5;
+            data->player[0]->pos[0]->y = data->current_line;// + 0.5;
+			
 // dx and dy needs to be initialized here
             if (line[i] == 'N')
 			{
@@ -310,7 +311,7 @@ void	ft_info_read(char *file, t_data *data)
 		line = get_next_line(fd);
 		i++;
 	}
-	//print_z_values(data);
+	print_z_values(data);
 	//create_map_coord(data);
 	
 	find_player_pos(data, data->z_values);
