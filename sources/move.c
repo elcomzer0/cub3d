@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:18 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/05 21:16:36 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/06 15:59:09 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,8 @@ void handle_movement(t_data *data)
     double move_speed;
     double rotation_speed;
 
-    move_speed =  0.05;
-    rotation_speed = 0.035;
+    move_speed =  0.15;
+    rotation_speed = 0.135;
     if (data->key_states[map_keycode(KEY_LEFTARROW)])
         left_rot_key(data, rotation_speed);
     if (data->key_states[map_keycode(KEY_RIGHTARROW)])

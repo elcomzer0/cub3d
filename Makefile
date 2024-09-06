@@ -39,7 +39,10 @@ SOURCES_LIST = main.c \
 	menu.c \
 	read.c \
 	raycaster.c \
+	raycaster_2.c \
 	render.c \
+	render_utils.c \
+	shader.c \
 	move.c
 
 

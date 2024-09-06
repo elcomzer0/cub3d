@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/06 03:39:01 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/06 23:43:20 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include <sys/time.h>
 # include <time.h>
 
-# define HEIGHT 640
-# define WIDTH  640
+# define HEIGHT 720
+# define WIDTH  1024
 
 # define TEXTURE_SIZE 64
 
@@ -50,6 +50,11 @@
 # define COLOR_BLUE 3
 # define COLOR_MAGENTA 4
 # define COLOR_YELLOW 5
+
+# define EA_LT_SHADER 0.011
+# define EA_DK_SHADER 0.01
+# define NO_LT_SHADER 0.031
+# define NO_DK_SHADER 0.04
 
 #define EPSILON 1e-6
 
@@ -213,9 +218,35 @@ void map_draw_rectangle(t_data *data, int x, int y, int width, int height, int c
 void   map_draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
 void draw_filled_rectangle(t_data *data, int x, int y, int width, int height, int color);
 
-/* render */
+/* raycaster */
 void    ceiling_floor(t_data *data);
 void raycasting(t_data *data);
+void rc_delta_dist(t_data *data);
+void rc_side_step(t_data *data);
+void side_hit_x(t_data *data);
+void side_hit_y(t_data *data);
+void rc_loop_hit(t_data *data);
+void raycasting_loop(t_data *data, int line_height, int draw_start, int draw_end);
+void raycasting(t_data *data);
+void calculate_ray_direction(t_data *data, int x);
+void  calculate_map_position(t_data *data);
+void perp_wall_dist(t_data *data);
+
+/* render */
+void draw_loop(t_data *data, int x, int draw_start, int draw_end);
+void draw_texture(t_data *data, int draw_start, int line_height);
+void draw_end_to_start(t_data *data, int *line_height, int *draw_start, int *draw_end);
+void draw_world(t_data *data, int x, int draw_start, int compass);
+
+/* render utils */
+int ft_floor(double x);
+int retrieve_px_info(t_data *data, int x, int y, int texture_index);
+int  xpm_switcher(t_data *data, int wall_type);
+
+/* shader */
+int shading_color(int color, double shading_factor);
+double apply_shading(t_data *data, double shading_factor);
+
 //void raycasting(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);
 //void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);
 //void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE]);

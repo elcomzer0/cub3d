@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:35 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/06 03:24:09 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/06 22:13:44 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,15 +231,15 @@ void init_xpm(t_data *data)
 {
     int i;
      const char *texture_paths[5] = {
-        "textures/WARN_1A.xpm",
-        "textures/WOOD_1C.xpm", 
-        "textures/WARN_1A.xpm", 
-        "textures/WOOD_1C.xpm"  
+        "textures/pipes.xpm",
+        "textures/console.xpm", 
+        "textures/supports_space.xpm", 
+        "textures/wall_space.xpm"  
     };
     //textures from the file
     //int i;
     //const char *texture_paths[5] = {
-    //    data->file->text->no,
+//    data->file->text->no,
     //    data->file->text->so,
     //    data->file->text->ea;
     //    data->file->text->we;
