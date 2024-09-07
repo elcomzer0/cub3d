@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/06 23:43:20 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/07 01:27:08 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,6 @@ typedef struct s_rc {
     struct s_point	**step;
     struct s_point	**side_dist;
     struct s_point	**delta_dist;
-    //struct s_vector	**delta_dist;
-    //struct s_point	**perp_wall_dist;
     struct s_point  **plane;
     int hit;
     int		side;
@@ -188,24 +186,9 @@ int key_hook_press(int keycode, t_data *data);
 int key_hook_release(int keycode, t_data *data);
 void handle_movement(t_data *data);
 int create_trgb(int t, int r, int g, int b);
-//t_color create_trgb(int t, int r, int g, int b)
 
 void my_xpm_pixel_put(t_data *data, int x, int y, int color);
-// void my_mlx_pixel_put(t_data *data, int x, int y, int draw_end, int color);
 void my_mlx_pixel_put(t_data *data, int x, int y, int color);
-//void my_mlx_pixel_put(t_data *data, int x, int y, int color);
-// void    draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
-// void    draw_square(t_data *data, int x, int y, int size, int color);
-// void    draw_circle(t_data *data, int xc, int yc, int radius, int color);
-// void draw_triangle(t_data *data, int x, int y, int size, int color);
-// void draw_hexagon(t_data *data, int xc, int yc, int size, int color);
-// void    draw_gradient(t_data *data);
-// void    draw_rainbow(t_data *data);
-//t_point rotate_point(t_point p, t_point center, double angle);
-// void rot_draw_triangle(t_data *data, t_point p1, t_point p2, t_point p3, double angle);
-// void draw_rectangle(t_data *data, int x, int y, int width, int height, int color);
-// void  draw_arrow(t_data *data, t_point center, int line_length, int triangle_size, double angle);
-//void    cub_draw(t_data *data);
 int cub_draw(t_data *data);
 void map_test(t_data *data);
 void draw_map(t_data *data, int map[MAP_SIZE][MAP_SIZE], int offset_x, int offset_y);
@@ -213,10 +196,7 @@ void display_angle(t_data *data);
 void    cub_menu(t_data *data);
 int ft_init(t_data *data);
 
-void my_map_pixel_put(t_data *data, int x, int y, int color);
-void map_draw_rectangle(t_data *data, int x, int y, int width, int height, int color);
-void   map_draw_line(t_data *data, int x0, int y0, int x1, int y1, int color);
-void draw_filled_rectangle(t_data *data, int x, int y, int width, int height, int color);
+// void draw_filled_rectangle(t_data *data, int x, int y, int width, int height, int color);
 
 /* raycaster */
 void    ceiling_floor(t_data *data);
@@ -247,11 +227,16 @@ int  xpm_switcher(t_data *data, int wall_type);
 int shading_color(int color, double shading_factor);
 double apply_shading(t_data *data, double shading_factor);
 
-//void raycasting(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);
-//void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], int map_offset_x, int map_offset_y);
-//void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE]);
-//void raycasting_2D(t_data *data, int map[MAP_SIZE][MAP_SIZE], double arrow_angle);
-//void raycasting_v2(t_data *data, int map[MAP_SIZE][MAP_SIZE], double arrow_angle);
+/* move*/
+
+/* key_hook*/
+
+/* draw */
+
+/* game info */
+
+
+//sting_v2(t_data *data, int map[MAP_SIZE][MAP_SIZE], double arrow_angle);
 
 /*utils.c*/
 void    double_to_string(double value, char *buffer);
@@ -260,7 +245,6 @@ void    double_to_string_x(double value, char *buffer);
 char	**ft_split(char const *s, char c);
 char	*get_next_line(int fd);
 int	ft_wordcounter(char const *str, char c);
-//int ft_strlen(const char *str);
 int ft_strchr(const char *s, int c);
 void *ft_calloc(size_t count, size_t size);
 char	*ft_strjoin(char const *s1, char const *s2);
@@ -275,6 +259,7 @@ int	ft_atoi(const char *str);
 int	ft_open(char *file, int fd, t_data *data);
 void	ft_info_read(char *file, t_data *data);
 
+/* key mapping */
 # define KEY_ANSI_Q			0X71
 
 # define KEY_ANSI_A			0X61

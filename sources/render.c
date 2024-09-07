@@ -6,11 +6,48 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/06 23:47:19 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/07 01:43:07 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "./includes/cub3d.h"
+
+
+double apply_shading_v2(t_data *data, double shading_factor)
+{
+    double dist; 
+    double angle_of_incidence;
+    t_vector wall_normal;
+    t_vector light_dir = {1, 0}; // Assuming light is coming from the right (east)
+
+    dist = data->raycast->perp_wall_dist;
+
+    // Calculate wall normal
+    if (data->raycast->side == 0) // North-South wall
+    {
+        if (data->raycast->ray_dir[0]->x > 0)
+            wall_normal = (t_vector){-1, 0}; // Facing west
+        else
+            wall_normal = (t_vector){1, 0};  // Facing east
+    }
+    else // East-West wall
+    {
+        if (data->raycast->ray_dir[0]->y > 0)
+            wall_normal = (t_vector){0, -1}; // Facing north
+        else
+            wall_normal = (t_vector){0, 1};  // Facing south
+    }
+
+    // Calculate angle of incidence
+    angle_of_incidence = acos((wall_normal.x * light_dir.x + wall_normal.y * light_dir.y) / 
+                              (sqrt(wall_normal.x * wall_normal.x + wall_normal.y * wall_normal.y) * 
+                               sqrt(light_dir.x * light_dir.x + light_dir.y * light_dir.y)));
+
+    // Adjust shading factor based on angle of incidence
+    shading_factor = 1.0 / (1.0 + dist * dist * (0.5 + 0.5 * cos(angle_of_incidence)));
+
+    return shading_factor;
+}
 
 /**
  * Draws a single column of the game world with shading applied.

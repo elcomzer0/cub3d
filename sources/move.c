@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:18 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/06 15:59:09 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/07 00:29:46 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int map_keycode(int keycode)
     else
         return -1;
 }
-
 
 int key_hook_press(int keycode, t_data *data)
 {
@@ -59,57 +58,45 @@ void strafe(t_data *data, int direction, double move_speed)
     double strafe_dy;
     double new_x;
     double new_y;
-    int tmp = 0;
         
     strafe_dx = data->raycast->plane[0]->x * direction * move_speed;
     strafe_dy = data->raycast->plane[0]->y * direction * move_speed;
     new_x = data->player[0]->pos[0]->x + strafe_dx;
     new_y = data->player[0]->pos[0]->y + strafe_dy;
-    if (data->z_values[(int)new_y][(int)new_x] == 0)
-    {
-        if (data->z_values[(int)new_y][(int)new_x] == -1)
-            tmp = data->z_values[(int)new_y][(int)new_x] + 1;
-        data->z_values[(int)new_y][(int)new_x] = tmp;
-        data->player[0]->pos[0]->x = new_x;
+
+    if (data->z_values[(int)new_y][(int)data->player[0]->pos[0]->x] == 0)
         data->player[0]->pos[0]->y = new_y;
-    }
+    if (data->z_values[(int)data->player[0]->pos[0]->y][(int)new_x] == 0)
+        data->player[0]->pos[0]->x = new_x;
 }
 
 void down_key(t_data *data, double move_speed)
 {
     double new_x;
     double new_y;
-    int tmp = 0;
     
     new_x = data->player[0]->pos[0]->x - data->player[0]->dx * move_speed;
     new_y = data->player[0]->pos[0]->y - data->player[0]->dy * move_speed;
-    if (data->z_values[(int)new_y][(int)new_x] == 0)
-    {
-        if (data->z_values[(int)new_y][(int)new_x] == -1)
-            tmp = data->z_values[(int)new_y][(int)new_x] + 1;
-        data->z_values[(int)new_y][(int)new_x] = tmp;
-        data->player[0]->pos[0]->x = new_x;
+    if (data->z_values[(int)new_y][(int)data->player[0]->pos[0]->x] == 0)
         data->player[0]->pos[0]->y = new_y;
-    }
+    if (data->z_values[(int)data->player[0]->pos[0]->y][(int)new_x] == 0)
+        data->player[0]->pos[0]->x = new_x;
 }
 
 void up_key(t_data *data, double move_speed)
 {
     double new_x;
     double new_y;
-    int tmp = 0;
 
     new_x = data->player[0]->pos[0]->x + data->player[0]->dx * move_speed;
     new_y = data->player[0]->pos[0]->y + data->player[0]->dy * move_speed;
-    if (data->z_values[(int)new_y][(int)new_x] == 0)
-    {
-        if (data->z_values[(int)new_y][(int)new_x] == -1)
-            tmp = data->z_values[(int)new_y][(int)new_x] + 1;
-        data->z_values[(int)new_y][(int)new_x] = tmp;
-        data->player[0]->pos[0]->x = new_x;
+
+    if (data->z_values[(int)new_y][(int)data->player[0]->pos[0]->x] == 0)
         data->player[0]->pos[0]->y = new_y;
-    }
+    if (data->z_values[(int)data->player[0]->pos[0]->y][(int)new_x] == 0)
+        data->player[0]->pos[0]->x = new_x;
 }
+
 void right_rot_key(t_data *data, double rotation_speed)
 {
     double old_dir_x;
@@ -142,6 +129,19 @@ void left_rot_key(t_data *data, double rotation_speed)
         data->player[0]->angle += 360;
 }
 
+void rerender_frame(t_data *data)
+{
+    mlx_destroy_image(data->mlx, data->img);
+    mlx_destroy_image(data->mlx, data->raycast->texture[4].tex_img);
+    data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+    data->raycast->texture[4].tex_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+    ceiling_floor(data);
+    cub_draw(data);
+    mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+    mlx_put_image_to_window(data->mlx, data->win, data->raycast->texture[4].tex_img, 0, 0);
+    cub_menu(data);
+}
+
 void handle_movement(t_data *data)
 {
     double move_speed;
@@ -161,20 +161,5 @@ void handle_movement(t_data *data)
         strafe(data, -1, move_speed);
     if (data->key_states[map_keycode(KEY_ANSI_D)])
         strafe(data, 1, move_speed);
-    mlx_destroy_image(data->mlx, data->img);
-    mlx_destroy_image(data->mlx, data->raycast->texture[4].tex_img);
-    /* for(int i = 0; i < 4; i++)
-    {
-        data->tex
-    } */
-   data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-    data->raycast->texture[4].tex_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-    ceiling_floor(data);
-    cub_draw(data);
-    mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-    mlx_put_image_to_window(data->mlx, data->win, data->raycast->texture[4].tex_img, 0, 0);
-   // for (int i = 0; i < 5; i++)
-     //  mlx_put_image_to_window(data->mlx, data->win, data->raycast->texture[i].tex_img, 0, 0);
-
-    cub_menu(data);
+    rerender_frame(data);
 }
