@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:14 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/06 23:18:53 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:40:19 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,16 @@
  */
 void side_hit_x(t_data *data)
 {
-    data->raycast->side_dist[0]->x += data->raycast->delta_dist[0]->x;
-    data->raycast->map_x += data->raycast->step[0]->x;
+    data->raycast->side_dist[0] += data->raycast->delta_dist[0];
+    data->raycast->map_x += data->raycast->step[0];
     data->raycast->side = 0;
 }
+// void side_hit_x(t_data *data)
+// {
+//     data->raycast->side_dist[0]->x += data->raycast->delta_dist[0]->x;
+//     data->raycast->map_x += data->raycast->step[0]->x;
+//     data->raycast->side = 0;
+// }
 
 /**
  * Updates the ray's position and direction based on the calculated side distance and delta distance values.
@@ -34,10 +40,16 @@ void side_hit_x(t_data *data)
  */
 void side_hit_y(t_data *data)
 {
-    data->raycast->side_dist[0]->y += data->raycast->delta_dist[0]->y;
-    data->raycast->map_y += data->raycast->step[0]->y;
+    data->raycast->side_dist[1] += data->raycast->delta_dist[1];
+    data->raycast->map_y += data->raycast->step[1];
     data->raycast->side = 1;
 }
+// void side_hit_y(t_data *data)
+// {
+//     data->raycast->side_dist[0]->y += data->raycast->delta_dist[0]->y;
+//     data->raycast->map_y += data->raycast->step[0]->y;
+//     data->raycast->side = 1;
+// }
 
 /**
  * Performs the ray casting loop to determine when the ray hits a wall.
@@ -52,8 +64,7 @@ void rc_loop_hit(t_data *data)
     int map_value;
     
     map_value = 0;
-    if (data->raycast->side_dist[0] == NULL
-        || data->raycast->delta_dist[0] == NULL || data->raycast->step[0] == NULL)
+    if (data->raycast == NULL)
     {
         write(2, "Error: side_dist[0] or delta_dist[0] or step[0] is NULL\n", 57);
         return ;
@@ -61,7 +72,7 @@ void rc_loop_hit(t_data *data)
     data->raycast->hit = 0;
     while (data->raycast->hit == 0)
     {
-        if (data->raycast->side_dist[0]->x < data->raycast->side_dist[0]->y)
+        if (data->raycast->side_dist[0] < data->raycast->side_dist[1])
             side_hit_x(data);
         else
             side_hit_y(data);
@@ -74,6 +85,33 @@ void rc_loop_hit(t_data *data)
         }
     }
 }
+// void rc_loop_hit(t_data *data)
+// {
+//     int map_value;
+    
+//     map_value = 0;
+//     if (data->raycast->side_dist[0] == NULL
+//         || data->raycast->delta_dist[0] == NULL || data->raycast->step[0] == NULL)
+//     {
+//         write(2, "Error: side_dist[0] or delta_dist[0] or step[0] is NULL\n", 57);
+//         return ;
+//     }
+//     data->raycast->hit = 0;
+//     while (data->raycast->hit == 0)
+//     {
+//         if (data->raycast->side_dist[0]->x < data->raycast->side_dist[0]->y)
+//             side_hit_x(data);
+//         else
+//             side_hit_y(data);
+//         map_value = data->z_values[data->raycast->map_y][data->raycast->map_x]; //for later 1 and 32
+//         if (map_value >= 1 && map_value <= 5)
+//         {
+//             data->raycast->hit = 1;
+//             data->raycast->wall_type = map_value;
+//             break;  // Store the wall type
+//         }
+//     }
+// }
 
 void raycasting_loop(t_data *data, int line_height, int draw_start, int draw_end)
 {
@@ -113,7 +151,6 @@ void raycasting(t_data *data)
     draw_end = 0;
     if (data == NULL || data->raycast == NULL
         || data->player == NULL
-        || data->raycast->ray_dir[0] == NULL || data->player[0]->pos[0] == NULL
         || data->color == NULL)
         {
             write(2, "Error: One or more pointers for raycast are NULL\n", 38);
@@ -121,3 +158,22 @@ void raycasting(t_data *data)
         }
     raycasting_loop(data, line_height, draw_start, draw_end);
 }
+// void raycasting(t_data *data)
+// {
+//     int line_height;
+//     int draw_start;
+//     int draw_end;
+    
+//     line_height = 0;
+//     draw_start = 0;
+//     draw_end = 0;
+//     if (data == NULL || data->raycast == NULL
+//         || data->player == NULL
+//         || data->raycast->ray_dir[0] == NULL || data->player[0]->pos[0] == NULL
+//         || data->color == NULL)
+//         {
+//             write(2, "Error: One or more pointers for raycast are NULL\n", 38);
+//             return ;
+//         }
+//     raycasting_loop(data, line_height, draw_start, draw_end);
+// }

@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/07 01:27:08 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:11:08 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include <sys/time.h>
 # include <time.h>
 
-# define HEIGHT 720
-# define WIDTH  1024
+# define HEIGHT 640
+# define WIDTH  640
 
 # define TEXTURE_SIZE 64
 
@@ -59,7 +59,31 @@
 #define EPSILON 1e-6
 
 #define KEY_COUNT 256
+# define ROT_SPEED 0.2
+# define MOVE_SPEED 0.15
 
+typedef struct s_player {
+	//struct s_point	**pos;  //-> you dont need this
+    double          pos[2]; //-> you need this
+    double			dx;
+    double			dy;
+    double			angle;
+}				t_player;
+
+typedef struct s_fl_cl {
+    double ray_dy[2];
+    double ray_dx[2];
+    double pos_z;
+    double row_distance;
+    double floor_step[2];
+    double floor[2];
+    int    cell[2];
+    int    tex[2];
+    int    floor_tex;
+    int    ceiling_tex;
+    double    shading_factor;
+    int    color;
+} t_fl_cl;
 typedef struct s_data {
     double		x;
     double		y;
@@ -89,11 +113,13 @@ typedef struct s_data {
     int map[MAP_SIZE][MAP_SIZE];
     void *map_img;
     char    *map_addr;
-    struct s_player	**player;
+    t_player	*player;
     struct s_color		*color;
     struct s_rc	    *raycast;
     struct s_point		**map_coord;
+    struct s_fl_cl *fl_cl;
     double start_angle;
+    
     
     double time;
     double old_time;
@@ -121,14 +147,46 @@ typedef struct s_tex {
     int endian; 
 } t_tex;
 
+
+
+// typedef struct s_rc {
+//     double camera_x;
+//     double perp_wall_dist;
+//     struct s_point	**ray_dir;
+//     struct s_point	**step;
+//     struct s_point	**side_dist;
+//     struct s_point	**delta_dist;
+//     struct s_point  **plane;
+//     int hit;
+//     int		side;
+//     int		map_x;
+//     int		map_y;
+//     int     texture_x;
+//     int     texture_y;
+//     double  texture_pos;
+//     int     texture_num;
+//     struct s_tex texture[5];
+//     double  step_n;
+//     int draw_start;
+//     int draw_end;
+//     int line_height;
+//     int color;
+//     int wall_type;
+// } t_rc;
+
 typedef struct s_rc {
     double camera_x;
     double perp_wall_dist;
-    struct s_point	**ray_dir;
-    struct s_point	**step;
-    struct s_point	**side_dist;
-    struct s_point	**delta_dist;
-    struct s_point  **plane;
+    // struct s_point	**ray_dir;
+    // struct s_point	**step;
+    // struct s_point	**side_dist;
+    // struct s_point	**delta_dist;
+    // struct s_point  **plane;
+    double ray_dir[2];
+    double step[2];
+    double side_dist[2];
+    double delta_dist[2];
+    double plane[2];
     int hit;
     int		side;
     int		map_x;
@@ -146,7 +204,6 @@ typedef struct s_rc {
     int wall_type;
 } t_rc;
 
-
 typedef struct s_color {
 	int			red;
 	int			green;
@@ -158,12 +215,15 @@ typedef struct s_color {
 }				t_color;
 
 /*new player position with direction and angle*/
-typedef struct s_player {
-	struct s_point	**pos;
-    double			dx;
-    double			dy;
-    double			angle;
-}				t_player;
+// data->player->pos[0]   -> this is your X
+// data->player->pos[1]   -> this is your Y   
+// typedef struct s_player {
+// 	struct s_point	**pos;  //-> you dont need this
+//     // double             pos[2]; -> you need this
+//     double			dx;
+//     double			dy;
+//     double			angle;
+// }				t_player;
 
 
 

@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:31 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/09 00:21:30 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:27:44 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 int main(int ac, char **av)
 {
+    t_player *player;
     t_data *data;
     (void)av;
     (void)ac;
     
+    player = (t_player *)calloc(1, sizeof(t_player));
     data = (t_data *)calloc(1, sizeof(t_data));
+    data->player = player;
+    
     if (!data)
     {
         write(2, "Error: malloc failed\n", 20);

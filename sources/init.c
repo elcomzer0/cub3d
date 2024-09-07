@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:35 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/06 22:13:44 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:42:59 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,14 @@ int init_color(t_color **color)
 
 void free_raycast(t_rc *raycast)
 {
-    if (raycast) {
-        if (raycast->ray_dir) {
-            if (raycast->ray_dir[0]) free(raycast->ray_dir[0]);
-            free(raycast->ray_dir);
-        }
-        if (raycast->step) {
-            if (raycast->step[0]) free(raycast->step[0]);
-            free(raycast->step);
-        }
-        if (raycast->side_dist) {
-            if (raycast->side_dist[0]) free(raycast->side_dist[0]);
-            free(raycast->side_dist);
-        }
-        if (raycast->delta_dist) {
-            if (raycast->delta_dist[0]) free(raycast->delta_dist[0]);
-            free(raycast->delta_dist);
-        }
-        if (raycast->plane) {
-            if (raycast->plane[0]) free(raycast->plane[0]);
-            free(raycast->plane);
-        }
+    if (raycast)
+    {
         free(raycast);
     }
 }
 
-void init_textures(t_data *data) {
+void init_textures(t_data *data)
+{
     int i = 0;
     while (i < 5) {
         data->raycast->texture[i] = (t_tex){
@@ -112,82 +94,17 @@ int rc_init(t_data *data) {
     data->raycast = malloc(sizeof(t_rc));
     if (!data->raycast) return -1; // Handle allocation failure
 
-    data->raycast->ray_dir = malloc(sizeof(t_point *));
-    if (!data->raycast->ray_dir) {
-        free_raycast(data->raycast);
-        return -1; // Handle allocation failure
-    }
-    data->raycast->ray_dir[0] = malloc(sizeof(t_point));
-    if (!data->raycast->ray_dir[0]) {
-        free_raycast(data->raycast);
-        return -1; // Handle allocation failure
-    }
-
-    data->raycast->step = malloc(sizeof(t_point *));
-    if (!data->raycast->step) {
-        free_raycast(data->raycast);
-        return -1; // Handle allocation failure
-    }
-    data->raycast->step[0] = malloc(sizeof(t_point));
-    if (!data->raycast->step[0]) {
-        free_raycast(data->raycast);
-        return -1; // Handle allocation failure
-    }
-
-    data->raycast->side_dist = malloc(sizeof(t_point *));
-    if (!data->raycast->side_dist) {
-        free_raycast(data->raycast);
-        return -1; // Handle allocation failure
-    }
-    data->raycast->side_dist[0] = malloc(sizeof(t_point));
-    if (!data->raycast->side_dist[0]) {
-        free_raycast(data->raycast);
-        return -1; // Handle allocation failure
-    }
-
-    /* data->raycast->delta_dist = malloc(sizeof(t_point *));
-    if (!data->raycast->delta_dist) {
-        free_raycast(data->raycast);
-        return -1; // Handle allocation failure
-    } */
-    data->raycast->delta_dist = malloc(sizeof(t_vector *));
-    if (!data->raycast->delta_dist) {
-        free_raycast(data->raycast);
-        return -1; // Handle allocation failure
-    }
-    /* data->raycast->delta_dist[0] = malloc(sizeof(t_point));
-    if (!data->raycast->delta_dist[0]) {
-        free_raycast(data->raycast);
-        return -1; // Handle allocation failure
-    } */
-    data->raycast->delta_dist[0] = malloc(sizeof(t_vector));
-    if (!data->raycast->delta_dist[0]) {
-        free_raycast(data->raycast);
-        return -1; // Handle allocation failure
-    }
-
-    data->raycast->plane = malloc(sizeof(t_point *));
-    if (!data->raycast->plane) {
-        free_raycast(data->raycast);
-        return -1; // Handle allocation failure
-    }
-    data->raycast->plane[0] = malloc(sizeof(t_point));
-    if (!data->raycast->plane[0]) {
-        free_raycast(data->raycast);
-        return -1; // Handle allocation failure
-    }
-
     // Initialize values
-    data->raycast->ray_dir[0]->x = 0;
-    data->raycast->ray_dir[0]->y = 0;
-    data->raycast->step[0]->x = 0;
-    data->raycast->step[0]->y = 0;
-    data->raycast->side_dist[0]->x = 0;
-    data->raycast->side_dist[0]->y = 0;
-    data->raycast->delta_dist[0]->x = 0;
-    data->raycast->delta_dist[0]->y = 0;
-    data->raycast->plane[0]->x = 0;
-    data->raycast->plane[0]->y = 0;
+    data->raycast->ray_dir[0] = 0;
+    data->raycast->ray_dir[1] = 0;
+    data->raycast->step[0] = 0;
+    data->raycast->step[1] = 0;
+    data->raycast->side_dist[0] = 0;
+    data->raycast->side_dist[1] = 0;
+    data->raycast->delta_dist[0] = 0;
+    data->raycast->delta_dist[1] = 0;
+    data->raycast->plane[0] = 0;
+    data->raycast->plane[1] = 0;
     data->raycast->hit = 0;
     data->raycast->side = 0;
     data->raycast->map_x = 0;
@@ -205,6 +122,104 @@ int rc_init(t_data *data) {
 
     return 0;
 }
+
+// int rc_init(t_data *data) {
+//     data->raycast = malloc(sizeof(t_rc));
+//     if (!data->raycast) return -1; // Handle allocation failure
+
+//     data->raycast->ray_dir = malloc(sizeof(t_point *));
+//     if (!data->raycast->ray_dir) {
+//         free_raycast(data->raycast);
+//         return -1; // Handle allocation failure
+//     }
+//     data->raycast->ray_dir[0] = malloc(sizeof(t_point));
+//     if (!data->raycast->ray_dir[0]) {
+//         free_raycast(data->raycast);
+//         return -1; // Handle allocation failure
+//     }
+
+//     data->raycast->step = malloc(sizeof(t_point *));
+//     if (!data->raycast->step) {
+//         free_raycast(data->raycast);
+//         return -1; // Handle allocation failure
+//     }
+//     data->raycast->step[0] = malloc(sizeof(t_point));
+//     if (!data->raycast->step[0]) {
+//         free_raycast(data->raycast);
+//         return -1; // Handle allocation failure
+//     }
+
+//     data->raycast->side_dist = malloc(sizeof(t_point *));
+//     if (!data->raycast->side_dist) {
+//         free_raycast(data->raycast);
+//         return -1; // Handle allocation failure
+//     }
+//     data->raycast->side_dist[0] = malloc(sizeof(t_point));
+//     if (!data->raycast->side_dist[0]) {
+//         free_raycast(data->raycast);
+//         return -1; // Handle allocation failure
+//     }
+
+//     /* data->raycast->delta_dist = malloc(sizeof(t_point *));
+//     if (!data->raycast->delta_dist) {
+//         free_raycast(data->raycast);
+//         return -1; // Handle allocation failure
+//     } */
+//     data->raycast->delta_dist = malloc(sizeof(t_vector *));
+//     if (!data->raycast->delta_dist) {
+//         free_raycast(data->raycast);
+//         return -1; // Handle allocation failure
+//     }
+//     /* data->raycast->delta_dist[0] = malloc(sizeof(t_point));
+//     if (!data->raycast->delta_dist[0]) {
+//         free_raycast(data->raycast);
+//         return -1; // Handle allocation failure
+//     } */
+//     data->raycast->delta_dist[0] = malloc(sizeof(t_vector));
+//     if (!data->raycast->delta_dist[0]) {
+//         free_raycast(data->raycast);
+//         return -1; // Handle allocation failure
+//     }
+
+//     data->raycast->plane = malloc(sizeof(t_point *));
+//     if (!data->raycast->plane) {
+//         free_raycast(data->raycast);
+//         return -1; // Handle allocation failure
+//     }
+//     data->raycast->plane[0] = malloc(sizeof(t_point));
+//     if (!data->raycast->plane[0]) {
+//         free_raycast(data->raycast);
+//         return -1; // Handle allocation failure
+//     }
+
+//     // Initialize values
+//     data->raycast->ray_dir[0]->x = 0;
+//     data->raycast->ray_dir[0]->y = 0;
+//     data->raycast->step[0]->x = 0;
+//     data->raycast->step[0]->y = 0;
+//     data->raycast->side_dist[0]->x = 0;
+//     data->raycast->side_dist[0]->y = 0;
+//     data->raycast->delta_dist[0]->x = 0;
+//     data->raycast->delta_dist[0]->y = 0;
+//     data->raycast->plane[0]->x = 0;
+//     data->raycast->plane[0]->y = 0;
+//     data->raycast->hit = 0;
+//     data->raycast->side = 0;
+//     data->raycast->map_x = 0;
+//     data->raycast->map_y = 0;
+//     data->raycast->draw_start = 0;
+//     data->raycast->draw_end = 0;
+//     data->raycast->line_height = 0;
+//     data->raycast->color = 0;
+//     data->raycast->perp_wall_dist = 0;
+//     data->raycast->camera_x = 0;
+//     data->raycast->wall_type = 0;
+//     init_textures(data);
+
+//     write(1, "hello\n", 6);
+
+//     return 0;
+// }
 
 /* int init_point(t_point ***point)
 {
@@ -306,11 +321,20 @@ void init_stars(t_data *data, int num_stars)
     }
 }
 
+void init_fl_cl(t_data *data)
+{
+    data->fl_cl = malloc(sizeof(t_fl_cl));
+    if (!data->fl_cl)
+    {
+        write(2, "erroor: alloc fl_cl failed\n", 27);
+        return ;
+    }
+}
 
 int ft_init(t_data *data)
 {
 
-
+    init_fl_cl(data);
     if (init_color(&data->color) == 1)
         return (1);
 

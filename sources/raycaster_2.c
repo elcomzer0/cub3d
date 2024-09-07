@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 23:20:21 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/06 23:36:00 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:15:44 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,18 @@
 void perp_wall_dist(t_data *data)
 {
     if (data->raycast->side == 0)
-        data->raycast->perp_wall_dist = (data->raycast->map_x - data->player[0]->pos[0]->x + (1 - data->raycast->step[0]->x) / 2) / data->raycast->ray_dir[0]->x;
+        data->raycast->perp_wall_dist = (data->raycast->map_x - data->player->pos[0] + (1 - data->raycast->step[0]) / 2) / data->raycast->ray_dir[0];
     else
-        data->raycast->perp_wall_dist = (data->raycast->map_y - data->player[0]->pos[0]->y + (1 - data->raycast->step[0]->y) / 2) / data->raycast->ray_dir[0]->y;
+        data->raycast->perp_wall_dist = (data->raycast->map_y - data->player->pos[1] + (1 - data->raycast->step[1]) / 2) / data->raycast->ray_dir[1];
 }
+
+// void perp_wall_dist(t_data *data)
+// {
+//     if (data->raycast->side == 0)
+//         data->raycast->perp_wall_dist = (data->raycast->map_x - data->player[0]->pos[0]->x + (1 - data->raycast->step[0]->x) / 2) / data->raycast->ray_dir[0]->x;
+//     else
+//         data->raycast->perp_wall_dist = (data->raycast->map_y - data->player[0]->pos[0]->y + (1 - data->raycast->step[0]->y) / 2) / data->raycast->ray_dir[0]->y;
+// }
 
 /**
  * Calculates the ray direction for a given x-coordinate in the rendering loop.
@@ -40,9 +48,16 @@ void perp_wall_dist(t_data *data)
 void calculate_ray_direction(t_data *data, int x)
 {
     data->raycast->camera_x = 2 * x /(double)WIDTH - 1;
-    data->raycast->ray_dir[0]->x = data->player[0]->dx + data->raycast->camera_x * data->raycast->plane[0]->x;
-    data->raycast->ray_dir[0]->y = data->player[0]->dy + data->raycast->camera_x * data->raycast->plane[0]->y;
+    data->raycast->ray_dir[0] = data->player->dx + data->raycast->camera_x * data->raycast->plane[0];
+    data->raycast->ray_dir[1] = data->player->dy + data->raycast->camera_x * data->raycast->plane[1];
 }
+
+// void calculate_ray_direction(t_data *data, int x)
+// {
+//     data->raycast->camera_x = 2 * x /(double)WIDTH - 1;
+//     data->raycast->ray_dir[0]->x = data->player[0]->dx + data->raycast->camera_x * data->raycast->plane[0]->x;
+//     data->raycast->ray_dir[0]->y = data->player[0]->dy + data->raycast->camera_x * data->raycast->plane[0]->y;
+// }
 
 /**
  * Calculates the map position for the current ray being cast.
@@ -55,9 +70,15 @@ void calculate_ray_direction(t_data *data, int x)
  */
 void  calculate_map_position(t_data *data)
 {
-    data->raycast->map_x = (int)data->player[0]->pos[0]->x;
-    data->raycast->map_y = (int)data->player[0]->pos[0]->y;
+    data->raycast->map_x = (int)data->player->pos[0];
+    data->raycast->map_y = (int)data->player->pos[1];
 }
+
+// void  calculate_map_position(t_data *data)
+// {
+//     data->raycast->map_x = (int)data->player[0]->pos[0]->x;
+//     data->raycast->map_y = (int)data->player[0]->pos[0]->y;
+// }
 
 /**
  * Calculates the delta distance values for the ray casting algorithm.
@@ -67,15 +88,26 @@ void  calculate_map_position(t_data *data)
  */
 void rc_delta_dist(t_data *data)
 {
-    if(data->raycast->ray_dir[0]->x == 0)
-        data->raycast->delta_dist[0]->x = DBL_MAX;
+    if(data->raycast->ray_dir[0] == 0)
+        data->raycast->delta_dist[0] = DBL_MAX;
     else
-        data->raycast->delta_dist[0]->x = fabs(1 / data->raycast->ray_dir[0]->x);
-    if(data->raycast->ray_dir[0]->y == 0)
-        data->raycast->delta_dist[0]->y = DBL_MAX;
+        data->raycast->delta_dist[0] = fabs(1 / data->raycast->ray_dir[0]);
+    if(data->raycast->ray_dir[1] == 0)
+        data->raycast->delta_dist[1] = DBL_MAX;
     else
-        data->raycast->delta_dist[0]->y = fabs(1 / data->raycast->ray_dir[0]->y);
+        data->raycast->delta_dist[1] = fabs(1 / data->raycast->ray_dir[1]);
 }
+// void rc_delta_dist(t_data *data)
+// {
+//     if(data->raycast->ray_dir[0]->x == 0)
+//         data->raycast->delta_dist[0]->x = DBL_MAX;
+//     else
+//         data->raycast->delta_dist[0]->x = fabs(1 / data->raycast->ray_dir[0]->x);
+//     if(data->raycast->ray_dir[0]->y == 0)
+//         data->raycast->delta_dist[0]->y = DBL_MAX;
+//     else
+//         data->raycast->delta_dist[0]->y = fabs(1 / data->raycast->ray_dir[0]->y);
+// }
 
 /**
  * Calculates the step values and side distance values for the ray casting algorithm.
@@ -86,26 +118,51 @@ void rc_delta_dist(t_data *data)
  */
 void rc_side_step(t_data *data)
 {
-    if (data->raycast->ray_dir[0]->x < 0)
+    if (data->raycast->ray_dir[0] < 0)
     {
-        data->raycast->step[0]->x = -1;
-        data->raycast->side_dist[0]->x = (data->player[0]->pos[0]->x - data->raycast->map_x) * data->raycast->delta_dist[0]->x;
+        data->raycast->step[0] = -1;
+        data->raycast->side_dist[0] = (data->player->pos[0] - data->raycast->map_x) * data->raycast->delta_dist[0];
     }
     else
     {
-        data->raycast->step[0]->x = 1;
-        data->raycast->side_dist[0]->x = (data->raycast->map_x + 1.0 - data->player[0]->pos[0]->x) * data->raycast->delta_dist[0]->x;
+        data->raycast->step[0] = 1;
+        data->raycast->side_dist[0] = (data->raycast->map_x + 1.0 - data->player->pos[0]) * data->raycast->delta_dist[0];
     }
-    if (data->raycast->ray_dir[0]->y < 0)
+    if (data->raycast->ray_dir[1] < 0)
     {
-        data->raycast->step[0]->y = -1;
-        data->raycast->side_dist[0]->y = (data->player[0]->pos[0]->y - data->raycast->map_y) * data->raycast->delta_dist[0]->y;
+        data->raycast->step[1] = -1;
+        data->raycast->side_dist[1] = (data->player->pos[1] - data->raycast->map_y) * data->raycast->delta_dist[1];
     }
     else
     {
-        data->raycast->step[0]->y = 1;
-        data->raycast->side_dist[0]->y = (data->raycast->map_y + 1.0 - data->player[0]->pos[0]->y) * data->raycast->delta_dist[0]->y; 
+        data->raycast->step[1] = 1;
+        data->raycast->side_dist[1] = (data->raycast->map_y + 1.0 - data->player->pos[1]) * data->raycast->delta_dist[1]; 
     }
     
 }
+
+// void rc_side_step(t_data *data)
+// {
+//     if (data->raycast->ray_dir[0]->x < 0)
+//     {
+//         data->raycast->step[0]->x = -1;
+//         data->raycast->side_dist[0]->x = (data->player[0]->pos[0]->x - data->raycast->map_x) * data->raycast->delta_dist[0]->x;
+//     }
+//     else
+//     {
+//         data->raycast->step[0]->x = 1;
+//         data->raycast->side_dist[0]->x = (data->raycast->map_x + 1.0 - data->player[0]->pos[0]->x) * data->raycast->delta_dist[0]->x;
+//     }
+//     if (data->raycast->ray_dir[0]->y < 0)
+//     {
+//         data->raycast->step[0]->y = -1;
+//         data->raycast->side_dist[0]->y = (data->player[0]->pos[0]->y - data->raycast->map_y) * data->raycast->delta_dist[0]->y;
+//     }
+//     else
+//     {
+//         data->raycast->step[0]->y = 1;
+//         data->raycast->side_dist[0]->y = (data->raycast->map_y + 1.0 - data->player[0]->pos[0]->y) * data->raycast->delta_dist[0]->y; 
+//     }
+    
+// }
 

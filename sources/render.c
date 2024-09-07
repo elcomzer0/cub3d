@@ -6,48 +6,48 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/07 01:43:07 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:53:31 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "./includes/cub3d.h"
 
 
-double apply_shading_v2(t_data *data, double shading_factor)
-{
-    double dist; 
-    double angle_of_incidence;
-    t_vector wall_normal;
-    t_vector light_dir = {1, 0}; // Assuming light is coming from the right (east)
+// double apply_shading_v2(t_data *data, double shading_factor)
+// {
+//     double dist; 
+//     double angle_of_incidence;
+//     t_vector wall_normal;
+//     t_vector light_dir = {1, 0}; // Assuming light is coming from the right (east)
 
-    dist = data->raycast->perp_wall_dist;
+//     dist = data->raycast->perp_wall_dist;
 
-    // Calculate wall normal
-    if (data->raycast->side == 0) // North-South wall
-    {
-        if (data->raycast->ray_dir[0]->x > 0)
-            wall_normal = (t_vector){-1, 0}; // Facing west
-        else
-            wall_normal = (t_vector){1, 0};  // Facing east
-    }
-    else // East-West wall
-    {
-        if (data->raycast->ray_dir[0]->y > 0)
-            wall_normal = (t_vector){0, -1}; // Facing north
-        else
-            wall_normal = (t_vector){0, 1};  // Facing south
-    }
+//     // Calculate wall normal
+//     if (data->raycast->side == 0) // North-South wall
+//     {
+//         if (data->raycast->ray_dir[0]->x > 0)
+//             wall_normal = (t_vector){-1, 0}; // Facing west
+//         else
+//             wall_normal = (t_vector){1, 0};  // Facing east
+//     }
+//     else // East-West wall
+//     {
+//         if (data->raycast->ray_dir[0]->y > 0)
+//             wall_normal = (t_vector){0, -1}; // Facing north
+//         else
+//             wall_normal = (t_vector){0, 1};  // Facing south
+//     }
 
-    // Calculate angle of incidence
-    angle_of_incidence = acos((wall_normal.x * light_dir.x + wall_normal.y * light_dir.y) / 
-                              (sqrt(wall_normal.x * wall_normal.x + wall_normal.y * wall_normal.y) * 
-                               sqrt(light_dir.x * light_dir.x + light_dir.y * light_dir.y)));
+//     // Calculate angle of incidence
+//     angle_of_incidence = acos((wall_normal.x * light_dir.x + wall_normal.y * light_dir.y) / 
+//                               (sqrt(wall_normal.x * wall_normal.x + wall_normal.y * wall_normal.y) * 
+//                                sqrt(light_dir.x * light_dir.x + light_dir.y * light_dir.y)));
 
-    // Adjust shading factor based on angle of incidence
-    shading_factor = 1.0 / (1.0 + dist * dist * (0.5 + 0.5 * cos(angle_of_incidence)));
+//     // Adjust shading factor based on angle of incidence
+//     shading_factor = 1.0 / (1.0 + dist * dist * (0.5 + 0.5 * cos(angle_of_incidence)));
 
-    return shading_factor;
-}
+//     return shading_factor;
+// }
 
 /**
  * Draws a single column of the game world with shading applied.
@@ -115,14 +115,14 @@ void draw_texture(t_data *data, int draw_start, int line_height)
     double hit_x;
 
     if (data->raycast->side == 0)
-        hit_x = data->player[0]->pos[0]->y + data->raycast->perp_wall_dist * data->raycast->ray_dir[0]->y;
+        hit_x = data->player->pos[1] + data->raycast->perp_wall_dist * data->raycast->ray_dir[1];
     else
-        hit_x = data->player[0]->pos[0]->x + data->raycast->perp_wall_dist * data->raycast->ray_dir[0]->x;
+        hit_x = data->player->pos[0] + data->raycast->perp_wall_dist * data->raycast->ray_dir[0];
     hit_x -= ft_floor(hit_x);
     data->raycast->texture_x = hit_x * TEXTURE_SIZE;
-    if (data->raycast->side == 0 && data->raycast->ray_dir[0]->x > 0)
+    if (data->raycast->side == 0 && data->raycast->ray_dir[0] > 0)
         data->raycast->texture_x = TEXTURE_SIZE - data->raycast->texture_x - 1;
-    if (data->raycast->side == 1 && data->raycast->ray_dir[0]->y < 0)
+    if (data->raycast->side == 1 && data->raycast->ray_dir[1] < 0)
         data->raycast->texture_x = TEXTURE_SIZE - data->raycast->texture_x - 1;
     data->raycast->step_n = 1.0 * TEXTURE_SIZE / line_height;
     data->raycast->texture_pos = (draw_start - HEIGHT / 2 + line_height / 2) * data->raycast->step_n;
@@ -144,13 +144,13 @@ void draw_loop(t_data *data, int x, int draw_start, int draw_end)
     {
         data->raycast->texture_y = (int)data->raycast->texture_pos & (TEXTURE_SIZE - 1);
         data->raycast->texture_pos = data->raycast->texture_pos + data->raycast->step_n;
-        if (data->raycast->side == 1 && data->raycast->ray_dir[0]->y < 0)              
+        if (data->raycast->side == 1 && data->raycast->ray_dir[1] < 0)              
             draw_world(data, x, draw_start, 1);
-        else if (data->raycast->side == 1 && data->raycast->ray_dir[0]->y > 0)
+        else if (data->raycast->side == 1 && data->raycast->ray_dir[1] > 0)
             draw_world(data, x, draw_start, 2);
-        else if (data->raycast->side == 0 && data->raycast->ray_dir[0]->x < 0)
+        else if (data->raycast->side == 0 && data->raycast->ray_dir[0] < 0)
             draw_world(data, x, draw_start, 3);
-        else if (data->raycast->side == 0 && data->raycast->ray_dir[0]->x > 0)
+        else if (data->raycast->side == 0 && data->raycast->ray_dir[0] > 0)
             draw_world(data, x, draw_start, 4);
         draw_start++;
     }

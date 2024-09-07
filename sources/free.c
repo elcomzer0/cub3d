@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:37:43 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/08/28 17:09:25 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:44:10 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,7 @@ void free_z_values(t_data *data)
 void free_player(t_data *data)
 {
     if (data->player) {
-        if (data->player[0]) {
-            if (data->player[0]->pos) {
-                if (data->player[0]->pos[0]) {
-                    free(data->player[0]->pos[0]);
-                }
-                free(data->player[0]->pos);
-            }
-            free(data->player[0]);
-        }
+    
         free(data->player);
     }
 }
@@ -53,11 +45,7 @@ int ft_clean(t_data *data)
 {
     if (data->raycast)
     {
-        free(data->raycast->ray_dir);
-        free(data->raycast->step);
-        free(data->raycast->side_dist);
-        free(data->raycast->delta_dist);
-        free(data->raycast->plane);
+        
         free(data->raycast);
         data->raycast = NULL;
         return (0);

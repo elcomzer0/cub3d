@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:18 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/07 00:29:46 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/07 17:33:48 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,75 +59,151 @@ void strafe(t_data *data, int direction, double move_speed)
     double new_x;
     double new_y;
         
-    strafe_dx = data->raycast->plane[0]->x * direction * move_speed;
-    strafe_dy = data->raycast->plane[0]->y * direction * move_speed;
-    new_x = data->player[0]->pos[0]->x + strafe_dx;
-    new_y = data->player[0]->pos[0]->y + strafe_dy;
+    strafe_dx = data->raycast->plane[0] * direction * move_speed;
+    strafe_dy = data->raycast->plane[1] * direction * move_speed;
+    new_x = data->player->pos[0] + strafe_dx;
+    new_y = data->player->pos[1] + strafe_dy;
 
-    if (data->z_values[(int)new_y][(int)data->player[0]->pos[0]->x] == 0)
-        data->player[0]->pos[0]->y = new_y;
-    if (data->z_values[(int)data->player[0]->pos[0]->y][(int)new_x] == 0)
-        data->player[0]->pos[0]->x = new_x;
+    if (data->z_values[(int)new_y][(int)data->player->pos[0]] == 0)
+        data->player->pos[1] = new_y;
+    if (data->z_values[(int)data->player->pos[1]][(int)new_x] == 0)
+        data->player->pos[0] = new_x;
 }
+// void strafe(t_data *data, int direction, double move_speed)
+// {
+//     double strafe_dx;
+//     double strafe_dy;
+//     double new_x;
+//     double new_y;
+        
+//     strafe_dx = data->raycast->plane[0]->x * direction * move_speed;
+//     strafe_dy = data->raycast->plane[0]->y * direction * move_speed;
+//     new_x = data->player[0]->pos[0]->x + strafe_dx;
+//     new_y = data->player[0]->pos[0]->y + strafe_dy;
+
+//     if (data->z_values[(int)new_y][(int)data->player[0]->pos[0]->x] == 0)
+//         data->player[0]->pos[0]->y = new_y;
+//     if (data->z_values[(int)data->player[0]->pos[0]->y][(int)new_x] == 0)
+//         data->player[0]->pos[0]->x = new_x;
+// }
+
 
 void down_key(t_data *data, double move_speed)
 {
     double new_x;
     double new_y;
     
-    new_x = data->player[0]->pos[0]->x - data->player[0]->dx * move_speed;
-    new_y = data->player[0]->pos[0]->y - data->player[0]->dy * move_speed;
-    if (data->z_values[(int)new_y][(int)data->player[0]->pos[0]->x] == 0)
-        data->player[0]->pos[0]->y = new_y;
-    if (data->z_values[(int)data->player[0]->pos[0]->y][(int)new_x] == 0)
-        data->player[0]->pos[0]->x = new_x;
+    new_x = data->player->pos[0] - data->player->dx * move_speed;
+    new_y = data->player->pos[1] - data->player->dy * move_speed;
+    if (data->z_values[(int)new_y][(int)data->player->pos[0]] == 0)
+        data->player->pos[1] = new_y;
+    if (data->z_values[(int)data->player->pos[1]][(int)new_x] == 0)
+        data->player->pos[0] = new_x;
 }
+// void down_key(t_data *data, double move_speed)
+// {
+//     double new_x;
+//     double new_y;
+    
+//     new_x = data->player[0]->pos[0]->x - data->player[0]->dx * move_speed;
+//     new_y = data->player[0]->pos[0]->y - data->player[0]->dy * move_speed;
+//     if (data->z_values[(int)new_y][(int)data->player[0]->pos[0]->x] == 0)
+//         data->player[0]->pos[0]->y = new_y;
+//     if (data->z_values[(int)data->player[0]->pos[0]->y][(int)new_x] == 0)
+//         data->player[0]->pos[0]->x = new_x;
+// }
 
 void up_key(t_data *data, double move_speed)
 {
     double new_x;
     double new_y;
 
-    new_x = data->player[0]->pos[0]->x + data->player[0]->dx * move_speed;
-    new_y = data->player[0]->pos[0]->y + data->player[0]->dy * move_speed;
+    new_x = data->player->pos[0] + data->player->dx * move_speed;
+    new_y = data->player->pos[1] + data->player->dy * move_speed;
 
-    if (data->z_values[(int)new_y][(int)data->player[0]->pos[0]->x] == 0)
-        data->player[0]->pos[0]->y = new_y;
-    if (data->z_values[(int)data->player[0]->pos[0]->y][(int)new_x] == 0)
-        data->player[0]->pos[0]->x = new_x;
+    if (data->z_values[(int)new_y][(int)data->player->pos[0]] == 0)
+        data->player->pos[1] = new_y;
+    if (data->z_values[(int)data->player->pos[1]][(int)new_x] == 0)
+        data->player->pos[0] = new_x;
 }
+
+// void up_key(t_data *data, double move_speed)
+// {
+//     double new_x;
+//     double new_y;
+
+//     new_x = data->player[0]->pos[0]->x + data->player[0]->dx * move_speed;
+//     new_y = data->player[0]->pos[0]->y + data->player[0]->dy * move_speed;
+
+//     if (data->z_values[(int)new_y][(int)data->player[0]->pos[0]->x] == 0)
+//         data->player[0]->pos[0]->y = new_y;
+//     if (data->z_values[(int)data->player[0]->pos[0]->y][(int)new_x] == 0)
+//         data->player[0]->pos[0]->x = new_x;
+// }
 
 void right_rot_key(t_data *data, double rotation_speed)
 {
     double old_dir_x;
     double old_plane_x;
     
-    old_dir_x = data->player[0]->dx;
-    old_plane_x = data->raycast->plane[0]->x;
-    data->player[0]->dx = old_dir_x * cos(rotation_speed) - data->player[0]->dy * sin(rotation_speed);
-    data->player[0]->dy = old_dir_x * sin(rotation_speed) + data->player[0]->dy * cos(rotation_speed);
-    data->raycast->plane[0]->x = old_plane_x * cos(rotation_speed) - data->raycast->plane[0]->y * sin(rotation_speed);
-    data->raycast->plane[0]->y = old_plane_x * sin(rotation_speed) + data->raycast->plane[0]->y * cos(rotation_speed);
-    data->player[0]->angle = atan2(data->player[0]->dy, data->player[0]->dx) * 180 / M_PI;
-    if (data->player[0]->angle < 0)
-        data->player[0]->angle += 360;
+    old_dir_x = data->player->dx;
+    old_plane_x = data->raycast->plane[0];
+    data->player->dx = old_dir_x * cos(rotation_speed) - data->player->dy * sin(rotation_speed);
+    data->player->dy = old_dir_x * sin(rotation_speed) + data->player->dy * cos(rotation_speed);
+    data->raycast->plane[0] = old_plane_x * cos(rotation_speed) - data->raycast->plane[1] * sin(rotation_speed);
+    data->raycast->plane[1] = old_plane_x * sin(rotation_speed) + data->raycast->plane[1] * cos(rotation_speed);
+    data->player->angle = atan2(data->player->dy, data->player->dx) * 180 / M_PI;
+    if (data->player->angle < 0)
+        data->player->angle += 360;
 }
+
+// void right_rot_key(t_data *data, double rotation_speed)
+// {
+//     double old_dir_x;
+//     double old_plane_x;
+    
+//     old_dir_x = data->player[0]->dx;
+//     old_plane_x = data->raycast->plane[0]->x;
+//     data->player[0]->dx = old_dir_x * cos(rotation_speed) - data->player[0]->dy * sin(rotation_speed);
+//     data->player[0]->dy = old_dir_x * sin(rotation_speed) + data->player[0]->dy * cos(rotation_speed);
+//     data->raycast->plane[0]->x = old_plane_x * cos(rotation_speed) - data->raycast->plane[0]->y * sin(rotation_speed);
+//     data->raycast->plane[0]->y = old_plane_x * sin(rotation_speed) + data->raycast->plane[0]->y * cos(rotation_speed);
+//     data->player[0]->angle = atan2(data->player[0]->dy, data->player[0]->dx) * 180 / M_PI;
+//     if (data->player[0]->angle < 0)
+//         data->player[0]->angle += 360;
+// }
 
 void left_rot_key(t_data *data, double rotation_speed)
 {
     double old_dir_x;
     double old_plane_x;
 
-    old_dir_x = data->player[0]->dx;
-    old_plane_x = data->raycast->plane[0]->x;
-    data->player[0]->dx = old_dir_x * cos(-rotation_speed) - data->player[0]->dy * sin(-rotation_speed);
-    data->player[0]->dy = old_dir_x * sin(-rotation_speed) + data->player[0]->dy * cos(-rotation_speed);
-    data->raycast->plane[0]->x = old_plane_x * cos(-rotation_speed) - data->raycast->plane[0]->y * sin(-rotation_speed);
-    data->raycast->plane[0]->y = old_plane_x * sin(-rotation_speed) + data->raycast->plane[0]->y * cos(-rotation_speed);
-    data->player[0]->angle = atan2(data->player[0]->dy, data->player[0]->dx) * 180 / M_PI;
-    if (data->player[0]->angle < 0)
-        data->player[0]->angle += 360;
+    old_dir_x = data->player->dx;
+    old_plane_x = data->raycast->plane[0];
+    data->player->dx = old_dir_x * cos(-rotation_speed) - data->player->dy * sin(-rotation_speed);
+    data->player->dy = old_dir_x * sin(-rotation_speed) + data->player->dy * cos(-rotation_speed);
+    data->raycast->plane[0] = old_plane_x * cos(-rotation_speed) - data->raycast->plane[1] * sin(-rotation_speed);
+    data->raycast->plane[1] = old_plane_x * sin(-rotation_speed) + data->raycast->plane[1] * cos(-rotation_speed);
+    data->player->angle = atan2(data->player->dy, data->player->dx) * 180 / M_PI;
+    if (data->player->angle < 0)
+        data->player->angle += 360;
 }
+
+// void left_rot_key(t_data *data, double rotation_speed)
+// {
+//     double old_dir_x;
+//     double old_plane_x;
+
+//     old_dir_x = data->player[0]->dx;
+//     old_plane_x = data->raycast->plane[0]->x;
+//     data->player[0]->dx = old_dir_x * cos(-rotation_speed) - data->player[0]->dy * sin(-rotation_speed);
+//     data->player[0]->dy = old_dir_x * sin(-rotation_speed) + data->player[0]->dy * cos(-rotation_speed);
+//     data->raycast->plane[0]->x = old_plane_x * cos(-rotation_speed) - data->raycast->plane[0]->y * sin(-rotation_speed);
+//     data->raycast->plane[0]->y = old_plane_x * sin(-rotation_speed) + data->raycast->plane[0]->y * cos(-rotation_speed);
+//     data->player[0]->angle = atan2(data->player[0]->dy, data->player[0]->dx) * 180 / M_PI;
+//     if (data->player[0]->angle < 0)
+//         data->player[0]->angle += 360;
+// }
 
 void rerender_frame(t_data *data)
 {
@@ -147,8 +223,8 @@ void handle_movement(t_data *data)
     double move_speed;
     double rotation_speed;
 
-    move_speed =  0.15;
-    rotation_speed = 0.135;
+    move_speed =  ROT_SPEED;
+    rotation_speed = MOVE_SPEED;
     if (data->key_states[map_keycode(KEY_LEFTARROW)])
         left_rot_key(data, rotation_speed);
     if (data->key_states[map_keycode(KEY_RIGHTARROW)])

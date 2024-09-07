@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:11 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/06 01:08:52 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/07 18:44:19 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ int	read_height(char *file, t_data *data)
 	return (height);
 }
 
-
 void fill_values(int *z_values, char *line, t_data *data)
 {
     int i;
@@ -109,83 +108,43 @@ void fill_values(int *z_values, char *line, t_data *data)
             data->player_y = data->current_line;
 
             // Ensure the player struct is allocated
-            if (!data->player)
-            {
-                data->player = (t_player **)malloc(sizeof(t_player *));
-				if (!data->player)
-				{
-					perror("Error: Failed to allocate memory for player");
-					ft_clean(data);
-					//ft_destroy(data);
-					exit(1);
-				}
-                data->player[0] = (t_player *)malloc(sizeof(t_player));
-            	if (!data->player[0])
-				{
-					perror("Error: Failed to allocate memory for player");
-					ft_clean(data);
-					//ft_destroy(data);
-					exit(1);
-				}
-				data->player[0]->pos = NULL;
-			}
-            if (!data->player[0]->pos)
-            {
-                data->player[0]->pos = (t_point **)malloc(sizeof(t_point *));
-                if (!data->player[0]->pos)
-				{
-					perror("Error: Failed to allocate memory for player");
-					ft_clean(data);
-					//ft_destroy(data);
-					exit(1);
-				}
-				data->player[0]->pos[0] = (t_point *)malloc(sizeof(t_point));
-				if (!data->player[0]->pos[0])
-				{
-					perror("Error: Failed to allocate memory for player");
-					ft_clean(data);
-					//ft_destroy(data);
-					exit(1);
-				}
 
-			}
-
-            data->player[0]->pos[0]->x = i;// + 0.5;
-            data->player[0]->pos[0]->y = data->current_line;// + 0.5;
+            data->player->pos[0] = i;// + 0.5;
+            data->player->pos[1] = data->current_line;// + 0.5;
 			
 // dx and dy needs to be initialized here
             if (line[i] == 'N')
 			{
-                data->player[0]->angle = 270;
-				data->player[0]->dx = 0;
-				data->player[0]->dy = -1;
-				data->raycast->plane[0]->x = 0.66; // Camera plane for facing North
-    			data->raycast->plane[0]->y = 0; 
+                data->player->angle = 270;
+				data->player->dx = 0;
+				data->player->dy = -1;
+				data->raycast->plane[0] = 0.66; // Camera plane for facing North
+    			data->raycast->plane[1] = 0; 
 			}
 
             else if (line[i] == 'S')
 			{
-                data->player[0]->angle = 90;
-				data->player[0]->dx = 0;
-				data->player[0]->dy = 1;
-				data->raycast->plane[0]->x = -0.66; // Camera plane for facing South
-    			data->raycast->plane[0]->y = 0;
+                data->player->angle = 90;
+				data->player->dx = 0;
+				data->player->dy = 1;
+				data->raycast->plane[0] = -0.66; // Camera plane for facing South
+    			data->raycast->plane[1] = 0;
 			}
             else if (line[i] == 'W')
 			{
-                data->player[0]->angle = 180;
-				data->player[0]->dx = -1;
-				data->player[0]->dy = 0;
-				data->raycast->plane[0]->x = 0; 
-    			data->raycast->plane[0]->y = -0.66;
+                data->player->angle = 180;
+				data->player->dx = -1;
+				data->player->dy = 0;
+				data->raycast->plane[0] = 0; 
+    			data->raycast->plane[1] = -0.66;
 			}
             else if (line[i] == 'E')
 			{
-                data->player[0]->angle = 0;
-				data->player[0]->dx = 1;
-				data->player[0]->dy = 0;
-				data->raycast->plane[0]->x = 0;
-    			data->raycast->plane[0]->y = 0.66;
+                data->player->angle = 0;
+				data->player->dx = 1;
+				data->player->dy = 0;
+				data->raycast->plane[0] = 0;
+    			data->raycast->plane[1] = 0.66;
 			}
         }
         else if (line[i] == '1' || line[i] == '0' || line[i] == '2' || line[i] == '3' || line[i] == '4')
@@ -205,6 +164,117 @@ void fill_values(int *z_values, char *line, t_data *data)
         i++;
     } */
 }
+
+// void fill_values(int *z_values, char *line, t_data *data)
+// {
+//     int i;
+
+//     i = 0;
+//     while (/* line[i] &&  */i < data->map_width)
+//     {
+//         if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
+//         {
+//             z_values[i] = -1; // Use -1 or any other special value to denote the player's position
+//             data->player_x = i;
+//             data->player_y = data->current_line;
+
+//             // Ensure the player struct is allocated
+//             if (!data->player)
+//             {
+//                 data->player = (t_player **)malloc(sizeof(t_player *));
+// 				if (!data->player)
+// 				{
+// 					perror("Error: Failed to allocate memory for player");
+// 					ft_clean(data);
+// 					//ft_destroy(data);
+// 					exit(1);
+// 				}
+//                 data->player[0] = (t_player *)malloc(sizeof(t_player));
+//             	if (!data->player[0])
+// 				{
+// 					perror("Error: Failed to allocate memory for player");
+// 					ft_clean(data);
+// 					//ft_destroy(data);
+// 					exit(1);
+// 				}
+// 				data->player[0]->pos = NULL;
+// 			}
+//             if (!data->player[0]->pos)
+//             {
+//                 data->player[0]->pos = (t_point **)malloc(sizeof(t_point *));
+//                 if (!data->player[0]->pos)
+// 				{
+// 					perror("Error: Failed to allocate memory for player");
+// 					ft_clean(data);
+// 					//ft_destroy(data);
+// 					exit(1);
+// 				}
+// 				data->player[0]->pos[0] = (t_point *)malloc(sizeof(t_point));
+// 				if (!data->player[0]->pos[0])
+// 				{
+// 					perror("Error: Failed to allocate memory for player");
+// 					ft_clean(data);
+// 					//ft_destroy(data);
+// 					exit(1);
+// 				}
+
+// 			}
+
+//             data->player[0]->pos[0]->x = i;// + 0.5;
+//             data->player[0]->pos[0]->y = data->current_line;// + 0.5;
+			
+// // dx and dy needs to be initialized here
+//             if (line[i] == 'N')
+// 			{
+//                 data->player[0]->angle = 270;
+// 				data->player[0]->dx = 0;
+// 				data->player[0]->dy = -1;
+// 				data->raycast->plane[0]->x = 0.66; // Camera plane for facing North
+//     			data->raycast->plane[0]->y = 0; 
+// 			}
+
+//             else if (line[i] == 'S')
+// 			{
+//                 data->player[0]->angle = 90;
+// 				data->player[0]->dx = 0;
+// 				data->player[0]->dy = 1;
+// 				data->raycast->plane[0]->x = -0.66; // Camera plane for facing South
+//     			data->raycast->plane[0]->y = 0;
+// 			}
+//             else if (line[i] == 'W')
+// 			{
+//                 data->player[0]->angle = 180;
+// 				data->player[0]->dx = -1;
+// 				data->player[0]->dy = 0;
+// 				data->raycast->plane[0]->x = 0; 
+//     			data->raycast->plane[0]->y = -0.66;
+// 			}
+//             else if (line[i] == 'E')
+// 			{
+//                 data->player[0]->angle = 0;
+// 				data->player[0]->dx = 1;
+// 				data->player[0]->dy = 0;
+// 				data->raycast->plane[0]->x = 0;
+//     			data->raycast->plane[0]->y = 0.66;
+// 			}
+//         }
+//         else if (line[i] == '1' || line[i] == '0' || line[i] == '2' || line[i] == '3' || line[i] == '4')
+//         {
+//             z_values[i] = line[i] - '0'; // Convert '1' or '0' character to integer 1 or 0
+//         }
+//         else
+//         {
+//             // Handle unexpected characters
+//             z_values[i] = 0; // Default to 0 for unexpected characters
+//         }
+//         i++;
+//     }
+//     /* while (i < data->map_width)
+//     {
+//         z_values[i] = 0; // Ensure the rest of the values are set to 0 if the line is shorter than map_width
+//         i++;
+//     } */
+// }
 
 
 int	ft_open(char *file, int fd, t_data *data)
@@ -272,6 +342,21 @@ void print_z_values(t_data *data)
 	}
 }
 
+// void find_player_pos(t_data *data, int **z_values)
+// {
+// 	(void)z_values;
+//     // Print the player's position and orientation
+// 	//write(1, "Player position: ", 18);
+//     if (data->player)
+//     {
+//         printf("Player position: (%f, %f)\n", data->player[0]->pos[0]->x, data->player[0]->pos[0]->y);
+//         printf("Player angle: %f\n", data->player[0]->angle);
+//     }
+//     else
+//     {
+//         printf("No player found in the map.\n");
+//     }
+// }
 void find_player_pos(t_data *data, int **z_values)
 {
 	(void)z_values;
@@ -279,8 +364,8 @@ void find_player_pos(t_data *data, int **z_values)
 	//write(1, "Player position: ", 18);
     if (data->player)
     {
-        printf("Player position: (%f, %f)\n", data->player[0]->pos[0]->x, data->player[0]->pos[0]->y);
-        printf("Player angle: %f\n", data->player[0]->angle);
+        printf("Player position: (%f, %f)\n", data->player->pos[0], data->player->pos[1]);
+        printf("Player angle: %f\n", data->player->angle);
     }
     else
     {
@@ -311,7 +396,7 @@ void	ft_info_read(char *file, t_data *data)
 		line = get_next_line(fd);
 		i++;
 	}
-	print_z_values(data);
+	//print_z_values(data);
 	//create_map_coord(data);
 	
 	find_player_pos(data, data->z_values);
