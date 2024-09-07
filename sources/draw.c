@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:33:07 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/07 17:26:40 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/07 22:51:40 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,16 +205,6 @@ void render_fl_step(t_data *data, int p, int y)
     data->fl_cl->floor[0] = data->player->pos[0] + data->fl_cl->row_distance * data->fl_cl->ray_dx[0];
     data->fl_cl->floor[1] = data->player->pos[1] + data->fl_cl->row_distance * data->fl_cl->ray_dy[0];
 }
-// void render_fl_step(t_data *data, int p, int y)
-// {
-//     p = y - HEIGHT / 2;
-//     data->fl_cl->pos_z = 0.5 * HEIGHT;
-//     data->fl_cl->row_distance = data->fl_cl->pos_z / p;
-//     data->fl_cl->floor_step[0] = data->fl_cl->row_distance * (data->fl_cl->ray_dx[1] - data->fl_cl->ray_dx[0]) / WIDTH;
-//     data->fl_cl->floor_step[1] = data->fl_cl->row_distance * (data->fl_cl->ray_dy[1] - data->fl_cl->ray_dy[0]) / WIDTH;
-//     data->fl_cl->floor[0] = data->player[0]->pos[0]->x + data->fl_cl->row_distance * data->fl_cl->ray_dx[0];
-//     data->fl_cl->floor[1] = data->player[0]->pos[0]->y + data->fl_cl->row_distance * data->fl_cl->ray_dy[0];
-// }
 
 /**
  * Renders the floor texture and applies shading to the floor.
@@ -334,20 +324,13 @@ void ceiling_floor(t_data *data)
     render_floor(data);
     render_ceiling(data);
 }
-// void ceiling_floor(t_data *data)
-// {
-//     data->fl_cl->ray_dx[0] = data->player[0]->dx - data->raycast->plane[0]->x;
-//     data->fl_cl->ray_dy[0] = data->player[0]->dy - data->raycast->plane[0]->y;
-//     data->fl_cl->ray_dx[1] = data->player[0]->dx + data->raycast->plane[0]->x;
-//     data->fl_cl->ray_dy[1] = data->player[0]->dy + data->raycast->plane[0]->y;
-//     render_floor(data);
-//     render_ceiling(data);
-// }
+
 
 int    cub_draw(t_data *data)
 { 
     ceiling_floor(data);
     raycasting(data);
+
     mlx_put_image_to_window(data->mlx, data->win, data->raycast->texture[4].tex_img, 0, 0);
     return (0);
 }

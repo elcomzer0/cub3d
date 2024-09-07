@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/07 18:53:31 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/07 20:11:27 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@
 //     // Calculate wall normal
 //     if (data->raycast->side == 0) // North-South wall
 //     {
-//         if (data->raycast->ray_dir[0]->x > 0)
+//         if (data->raycast->ray_dir[0] > 0)
 //             wall_normal = (t_vector){-1, 0}; // Facing west
 //         else
 //             wall_normal = (t_vector){1, 0};  // Facing east
 //     }
 //     else // East-West wall
 //     {
-//         if (data->raycast->ray_dir[0]->y > 0)
+//         if (data->raycast->ray_dir[1] > 0)
 //             wall_normal = (t_vector){0, -1}; // Facing north
 //         else
 //             wall_normal = (t_vector){0, 1};  // Facing south

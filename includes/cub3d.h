@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/07 19:11:08 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/07 22:51:29 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include <sys/time.h>
 # include <time.h>
 
-# define HEIGHT 640
-# define WIDTH  640
+# define HEIGHT 720
+# define WIDTH  1024
 
 # define TEXTURE_SIZE 64
 
@@ -62,6 +62,9 @@
 # define ROT_SPEED 0.2
 # define MOVE_SPEED 0.15
 
+
+
+
 typedef struct s_player {
 	//struct s_point	**pos;  //-> you dont need this
     double          pos[2]; //-> you need this
@@ -84,6 +87,7 @@ typedef struct s_fl_cl {
     double    shading_factor;
     int    color;
 } t_fl_cl;
+
 typedef struct s_data {
     double		x;
     double		y;
@@ -114,10 +118,11 @@ typedef struct s_data {
     void *map_img;
     char    *map_addr;
     t_player	*player;
-    struct s_color		*color;
+   // struct s_color		color;
     struct s_rc	    *raycast;
     struct s_point		**map_coord;
     struct s_fl_cl *fl_cl;
+    //t_fireball fireball;
     double start_angle;
     
     
@@ -314,19 +319,21 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 int	ft_atoi(const char *str);
 
+// void update_fireball(t_data *data);
+// void launch_fireball(t_data *data);
 /*read.c*/
 
 int	ft_open(char *file, int fd, t_data *data);
 void	ft_info_read(char *file, t_data *data);
 
 /* key mapping */
-# define KEY_ANSI_Q			0X71
+//# define KEY_ANSI_Q			0X71
 
 # define KEY_ANSI_A			0X61
 # define KEY_ANSI_S			0X73
 # define KEY_ANSI_D			0X64
 # define KEY_ANSI_W			0X77
-
+// # define KEY_SPACE			0X20
 # define KEY_ESCAPE			0xff1b
 # define KEY_LEFTARROW		0XFF51
 # define KEY_RIGHTARROW		0XFF53
