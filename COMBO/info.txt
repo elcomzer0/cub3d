@@ -1,0 +1,28 @@
+----------------
+main
+1. allocation
+2. validation of inputs 
+3. init of values
+4. parsing of map
+5. clean exit
+
+init of values
+
+parsing of map
+	- is it a valid map?
+	- parse the values of the map
+		- check caracters
+			- Wall = 1
+			- empty space = 0
+			- players start position and spawning orientation = N, S, E or W
+	- creation of 3D space
+		- ceiling color = C 225,30,0
+		- floor color = F 220,100,0
+		- North texture = NO ./path_to_the_north_texture
+		- South texture = SO ./path_to_the_south_texture
+		- West texture = WE ./path_to_the_west_texture
+		- East texture = EA ./path_to_the_east_texture
+
+		
+
+

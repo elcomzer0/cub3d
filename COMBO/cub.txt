@@ -1,0 +1,1283 @@
+hello
+Player position: (23.000000, 24.000000)
+Player angle: 0.000000
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
+@ here 2
+Out of bounds: 24, 24
