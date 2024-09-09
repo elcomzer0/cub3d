@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:04:46 by miturk            #+#    #+#             */
-/*   Updated: 2024/09/09 12:36:43 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/09 15:48:20 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,18 @@ int change_value(int c)
 	return (c);
 }
 
-void free_z_values(int **z_values, int rows)
+void free_z_values(t_data *data)
 {
 	int i;
-
-	i = 0;
-	while (i < rows)
+	//int j;
+	i = -1;
+	
+	while (i++, i < data->file->line_hei)
 	{
-		ft_bzero(z_values[i], sizeof(int));
-		i++;
+		//while (j++, j < data->file->line_len)
+			free(data->z_values[i]);
 	}
-    free(z_values);
+	free(data->z_values);
 }
 
 int map_conversion(t_data *data, int i)
@@ -93,7 +94,7 @@ int map_conversion(t_data *data, int i)
         data->z_values[i] = (int *)malloc(sizeof(int)
 			* (data->file->line_len));
         if (data->z_values[i] == NULL)
-            return(free_z_values(data->z_values, i),
+            return(free_z_values(data),
 				ft_putstr_fd("Error: Malloc failed\n", 2), false);
         j = 0;
         while (data->file->map[i][j] != '\0')

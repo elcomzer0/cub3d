@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:31 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/09 14:30:49 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/09 15:39:08 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int main(int ac, char **av)
 	if (ft_init(data) == false)
 		return (ft_free(file),
 			ft_clean(data), free(text), free(file), free(player), free(data), 1);
-	ft_free(file);
-	free_z_values(data->z_values, data->file->line_hei);
-	(free(text), free(player), free(file), free(data));
+	// ft_free(file);
+	// free_z_values(data->z_values, data->file->line_hei);
+	// (free(text), free(player), free(file), free(data));
 	return (0);
 }
 

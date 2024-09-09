@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:18 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/09 14:28:43 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/09 15:50:57 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,10 +145,6 @@ void handle_movement(t_data *data)
     double move_speed;
     double rotation_speed;
 
-	// int i = 0;
-	// while (i != KEY_COUNT)
-	// 	data->key_states[i++] = 0;
-	// data->key_states[KEY_COUNT] = 0;
     move_speed =  MOVE_SPEED;
     rotation_speed = ROT_SPEED;
     if (data->key_states[map_keycode(KEY_LEFTARROW)])

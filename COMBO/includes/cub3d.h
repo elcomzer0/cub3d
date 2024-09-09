@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/09 13:14:16 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/09 15:44:52 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -396,7 +396,7 @@ int		smallcheck(char c);
 int		short_check(t_file *data, int i, int j);
 void	map_width(t_file *data);
 int		map_conversion(t_data *data, int i);
-void	free_z_values(int **z_values, int rows);
+void	free_z_values(t_data *data);
 
 //texture_check.c
 char	**list_textures(t_file *data, int i, int j, char *tmp);
