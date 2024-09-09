@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:33:07 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/08 15:24:08 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/09 13:06:22 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,22 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 
 
-void    draw_gradient(t_data *data)
-{
-    int y = 0;
-    while (y < HEIGHT)
-    {
-        int x = 0;
-        while (x < WIDTH)
-        {
-            int color = (x * 255 / WIDTH) << 16 | (y * 255 / HEIGHT) << 8;
-            my_xpm_pixel_put(data, x, y, color);
-            x++;
-        }
-        y++;
-    }
+// void    draw_gradient(t_data *data)
+// {
+//     int y = 0;
+//     while (y < HEIGHT)
+//     {
+//         int x = 0;
+//         while (x < WIDTH)
+//         {
+//             int color = (x * 255 / WIDTH) << 16 | (y * 255 / HEIGHT) << 8;
+//             my_xpm_pixel_put(data, x, y, color);
+//             x++;
+//         }
+//         y++;
+//     }
     
-}
+// }
 
 int blend_colors_clfl(int color1, int color2, double blend_factor)
 {
@@ -188,7 +188,7 @@ void render_cl_shader(t_data *data)
     data->fl_cl->floor_tex = 3;
     data->fl_cl->color = retrieve_px_info(data, data->fl_cl->tex[0], data->fl_cl->tex[1], data->fl_cl->floor_tex);
     data->fl_cl->shading_factor = 1.0 / (1.0 + data->fl_cl->row_distance * data->fl_cl->row_distance * 0.1);
-    data->fl_cl->color = shading_color_floor(data, data->fl_cl->color, data->fl_cl->shading_factor);
+    data->fl_cl->color = shading_color_ceiling(data, data->fl_cl->color, data->fl_cl->shading_factor);
 }
 
 /**
@@ -269,20 +269,18 @@ void render_floor(t_data *data)
     int x;
     int p;
     
-    y = HEIGHT / 2 + 1;
+    y = HEIGHT / 2;
     p = 0;
-    while (y < HEIGHT)
+    while (y++, y < HEIGHT)
     {
         render_fl_step(data, p, y);
-        x = 0;
-        while (x < WIDTH)
+        x = -1;
+        while (x++, x < WIDTH)
         {
             render_pos_tex(data);
             render_fl_shader(data);
             my_xpm_pixel_put(data, x, y, data->fl_cl->color);
-            x++;
         }
-        y++;
     }
 }
 
@@ -303,21 +301,19 @@ void render_ceiling(t_data *data)
     int x;
     int p;
     
-    x = 0;
-    y = 0;
+    
+    y = -1;
     p = 0;
-    while (y < HEIGHT / 2)
+    while (y++, y < HEIGHT / 2)
     {
         render_cl_step(data, p, y);
-        x = 0;
-        while (x < WIDTH)
+        x = -1;
+        while (x++, x < WIDTH)
         {
             render_pos_tex(data);
             render_cl_shader(data);
             my_xpm_pixel_put(data, x, y, data->fl_cl->color);
-            x++;
         }
-        y++;
     }
 }
 

@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/08 16:32:18 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/09 13:14:16 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@
 
 #define KEY_COUNT 256
 # define ROT_SPEED 0.2
-# define MOVE_SPEED 0.15
+# define MOVE_SPEED 0.35
 
 
 typedef struct s_text
@@ -127,7 +127,7 @@ typedef struct s_data {
     double		y;
     double		z;
     double		arrow_angle;
-	int			**z_values;
+	int		**z_values;
     int			*line_z;
     int map_height;
     int map_width;
@@ -155,7 +155,8 @@ typedef struct s_data {
    // struct s_color		color;
     struct s_rc	    *raycast;
     struct s_point		**map_coord;
-    struct s_fl_cl *fl_cl;
+    // struct s_fl_cl *fl_cl;
+	t_fl_cl	*fl_cl;
     //t_fireball fireball;
     double start_angle;
     

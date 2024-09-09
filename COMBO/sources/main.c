@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:31 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/08 16:32:32 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/09 14:30:49 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,8 @@ void the_handover(t_data *data)
 	// /*(write your var)*/ = data->file->map; // this is the map in char ** format
 	data->map_width = data->file->line_len; // this is the width of the map
 	data->map_height = data->file->line_hei; // this is the height of the map
-	printf("data->file->pos[0]: %d\n", data->file->pos[0]);
-	printf("data->file->pos[1]: %d\n", data->file->pos[1]);
-	data->player->pos[0] = (double)data->file->pos[0]; // this is the x position of the player add plus 1 if needed.
-	data->player->pos[1] = (double)data->file->pos[1]; // this is the y position of the player add plus 1 if needed.
-	printf("data->player->pos[0]: %f\n", data->player->pos[0]);
-	printf("data->player->pos[1]: %f\n", data->player->pos[1]);
+	data->player->pos[0] = (double)data->file->pos[0] + 0.5; // this is the x position of the player add plus 1 if needed.
+	data->player->pos[1] = (double)data->file->pos[1] + 0.5; // this is the y position of the player add plus 1 if needed.
 	// data->player-> = data->file->player_direction; // this is the direction of the player N, S, W, E its stored as a char
 	// /*(write your var)*/ = data->file->text->no; // this is the path to the north texture stored as a char *
 	// /*(write your var)*/ = data->file->text->so; // this is the path to the south texture stored as a char *

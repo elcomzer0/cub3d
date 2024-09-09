@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:37:43 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/08 14:51:48 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/09 14:30:12 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,14 @@ int ft_clean(t_data *data)
 int	ft_destroy(t_data *data)
 {
     int i = 0;
-      while (i <= 4)
-      {
-        mlx_destroy_image(data->mlx,data->raycast->texture[i].tex_img);
-        free(data->raycast->texture[i].path);
-       // free(data->raycast->texture[i].tex_addr);
-          //free(data->raycast->texture[i].tex_img);
-        i++;
-      }
+	while (i <= 4)
+	{
+	mlx_destroy_image(data->mlx,data->raycast->texture[i].tex_img);
+	free(data->raycast->texture[i].path);
+	// free(data->raycast->texture[i].tex_addr);
+		//free(data->raycast->texture[i].tex_img);
+	i++;
+	}
   //  mlx_destroy_image(data->mlx, data->map_img);
 	mlx_clear_window(data->mlx, data->win);
 	mlx_destroy_image(data->mlx, data->img);
@@ -101,8 +101,9 @@ int	ft_destroy(t_data *data)
 	mlx_destroy_display(data->mlx);
 	mlx_loop_end(data->mlx);
 	free(data->mlx);
+	free_z_values(data->z_values, data->file->line_hei);
 	ft_clean(data);
-	ft_free(data->file);
+	// ft_free(data->file);
 	//free(data);
 	exit (0);
 }

@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:14 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/08 16:08:01 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/09 13:21:05 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void rc_loop_hit(t_data *data)
             side_hit_x(data);
         else
             side_hit_y(data);
-        map_value = data->z_values[data->raycast->map_y][data->raycast->map_x]; //for later 1 and 32
+        map_value = data->z_values[data->raycast->map_x][data->raycast->map_y]; //for later 1 and 32
         if (map_value == 1)
         {
             data->raycast->hit = 1;
@@ -81,8 +81,8 @@ void raycasting_loop(t_data *data, int line_height, int draw_start, int draw_end
 {
     int x;
 
-    x = 0;
-    while (x < WIDTH)
+    x = -1;
+    while (x++, x < WIDTH)
     {
         calculate_ray_direction(data, x);
         calculate_map_position(data);
@@ -93,7 +93,6 @@ void raycasting_loop(t_data *data, int line_height, int draw_start, int draw_end
         draw_end_to_start(data, &line_height, &draw_start, &draw_end);
         draw_texture(data, draw_start, line_height);
         draw_loop(data, x, draw_start, draw_end);
-        x++;
     }
 }
 

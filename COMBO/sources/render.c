@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/07 20:11:27 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:32:11 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,8 @@ void draw_texture(t_data *data, int draw_start, int line_height)
  */
 void draw_loop(t_data *data, int x, int draw_start, int draw_end)
 {
-     while (draw_start <= draw_end)
+	draw_start = draw_start - 1;
+    while (draw_start++, draw_start <= draw_end)
     {
         data->raycast->texture_y = (int)data->raycast->texture_pos & (TEXTURE_SIZE - 1);
         data->raycast->texture_pos = data->raycast->texture_pos + data->raycast->step_n;
@@ -152,6 +153,5 @@ void draw_loop(t_data *data, int x, int draw_start, int draw_end)
             draw_world(data, x, draw_start, 3);
         else if (data->raycast->side == 0 && data->raycast->ray_dir[0] > 0)
             draw_world(data, x, draw_start, 4);
-        draw_start++;
     }
 }

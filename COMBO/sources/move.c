@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:18 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/07 22:52:02 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/09 14:28:43 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int key_hook_press(int keycode, t_data *data)
     if (mapped_key >= 0 && mapped_key < KEY_COUNT)
         data->key_states[mapped_key] = 1;
     if (keycode == KEY_ESCAPE)
-        ft_destroy(data);
-
+		ft_destroy(data);
     return (0);
 }
 
@@ -65,10 +64,10 @@ void strafe(t_data *data, int direction, double move_speed)
     new_x = data->player->pos[0] + strafe_dx;
     new_y = data->player->pos[1] + strafe_dy;
 
-    if (data->z_values[(int)new_y][(int)data->player->pos[0]] == 0)
-        data->player->pos[1] = new_y;
-    if (data->z_values[(int)data->player->pos[1]][(int)new_x] == 0)
+    if (data->z_values[(int)new_x][(int)data->player->pos[1]] == 0)
         data->player->pos[0] = new_x;
+    if (data->z_values[(int)data->player->pos[0]][(int)new_y] == 0)
+        data->player->pos[1] = new_y;
 }
 
 void down_key(t_data *data, double move_speed)
@@ -78,10 +77,10 @@ void down_key(t_data *data, double move_speed)
     
     new_x = data->player->pos[0] - data->player->dx * move_speed;
     new_y = data->player->pos[1] - data->player->dy * move_speed;
-    if (data->z_values[(int)new_y][(int)data->player->pos[0]] == 0)
-        data->player->pos[1] = new_y;
-    if (data->z_values[(int)data->player->pos[1]][(int)new_x] == 0)
+    if (data->z_values[(int)new_x][(int)data->player->pos[1]] == 0)
         data->player->pos[0] = new_x;
+    if (data->z_values[(int)data->player->pos[0]][(int)new_y] == 0)
+        data->player->pos[1] = new_y;
 }
 
 void up_key(t_data *data, double move_speed)
@@ -92,10 +91,10 @@ void up_key(t_data *data, double move_speed)
     new_x = data->player->pos[0] + data->player->dx * move_speed;
     new_y = data->player->pos[1] + data->player->dy * move_speed;
 
-    if (data->z_values[(int)new_y][(int)data->player->pos[0]] == 0)
-        data->player->pos[1] = new_y;
-    if (data->z_values[(int)data->player->pos[1]][(int)new_x] == 0)
+    if (data->z_values[(int)new_x][(int)data->player->pos[1]] == 0)
         data->player->pos[0] = new_x;
+    if (data->z_values[(int)data->player->pos[0]][(int)new_y] == 0)
+        data->player->pos[1] = new_y;
 }
 
 void right_rot_key(t_data *data, double rotation_speed)
@@ -146,8 +145,12 @@ void handle_movement(t_data *data)
     double move_speed;
     double rotation_speed;
 
-    move_speed =  ROT_SPEED;
-    rotation_speed = MOVE_SPEED;
+	// int i = 0;
+	// while (i != KEY_COUNT)
+	// 	data->key_states[i++] = 0;
+	// data->key_states[KEY_COUNT] = 0;
+    move_speed =  MOVE_SPEED;
+    rotation_speed = ROT_SPEED;
     if (data->key_states[map_keycode(KEY_LEFTARROW)])
         left_rot_key(data, rotation_speed);
     if (data->key_states[map_keycode(KEY_RIGHTARROW)])

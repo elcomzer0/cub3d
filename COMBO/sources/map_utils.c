@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:04:46 by miturk            #+#    #+#             */
-/*   Updated: 2024/09/08 14:02:05 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/09 12:36:43 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ void free_z_values(int **z_values, int rows)
 	i = 0;
 	while (i < rows)
 	{
-		if(z_values[i] != NULL)
-			free(z_values[i]);
+		ft_bzero(z_values[i], sizeof(int));
 		i++;
 	}
     free(z_values);
