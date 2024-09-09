@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:33:07 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/09 13:06:22 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/09 16:48:45 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ void render_cl_step(t_data *data, int p, int y)
  */
 void render_cl_shader(t_data *data)
 {
-    data->fl_cl->floor_tex = 3;
+    data->fl_cl->floor_tex = 2;
     data->fl_cl->color = retrieve_px_info(data, data->fl_cl->tex[0], data->fl_cl->tex[1], data->fl_cl->floor_tex);
     data->fl_cl->shading_factor = 1.0 / (1.0 + data->fl_cl->row_distance * data->fl_cl->row_distance * 0.1);
     data->fl_cl->color = shading_color_ceiling(data, data->fl_cl->color, data->fl_cl->shading_factor);
@@ -225,7 +225,7 @@ void render_fl_step(t_data *data, int p, int y)
  */
 void render_fl_shader(t_data *data)
 {
-    data->fl_cl->floor_tex = 2; // Assuming floor texture index is 2
+    data->fl_cl->floor_tex = 3; // Assuming floor texture index is 2
     data->fl_cl->color = retrieve_px_info(data, data->fl_cl->tex[0], data->fl_cl->tex[1], data->fl_cl->floor_tex);
     data->fl_cl->shading_factor = 1.0 / (1.0 + data->fl_cl->row_distance * data->fl_cl->row_distance * 0.1);
     data->fl_cl->color = shading_color_floor(data, data->fl_cl->color, data->fl_cl->shading_factor);

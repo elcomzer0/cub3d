@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:14 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/09 13:21:05 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/09 16:11:57 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ void rc_loop_hit(t_data *data)
     
     map_value = 0;
     if (data->raycast == NULL)
-    {
-        write(2, "Error: side_dist[0] or delta_dist[0] or step[0] is NULL\n", 57);
-        return ;
-    }
+		return (ft_putstr_fd("Error: Raycast is NULL\n", 2));
     data->raycast->hit = 0;
     while (data->raycast->hit == 0)
     {
@@ -71,7 +68,7 @@ void rc_loop_hit(t_data *data)
         {
             data->raycast->hit = 1;
             data->raycast->wall_type = map_value;
-            break;  // Store the wall type
+            break;
         }
     }
 }
@@ -114,9 +111,6 @@ void raycasting(t_data *data)
     draw_end = 0;
     if (data == NULL || data->raycast == NULL
         || data->player == NULL)
-        {
-            write(2, "Error: One or more pointers for raycast are NULL\n", 38);
-            return ;
-        }
+		return (ft_putstr_fd("Error: Data is NULL\n", 2));
     raycasting_loop(data, line_height, draw_start, draw_end);
 }

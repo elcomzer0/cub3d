@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/09 13:32:11 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/09 16:29:45 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 //     t_vector wall_normal;
 //     t_vector light_dir = {1, 0}; // Assuming light is coming from the right (east)
 
-//     dist = data->raycast->perp_wall_dist;
+//     dist = data->raycast->perp_wall_dist / 2;
 
 //     // Calculate wall normal
 //     if (data->raycast->side == 0) // North-South wall
@@ -92,7 +92,8 @@ void draw_world(t_data *data, int x, int draw_start, int compass)
  */
 void draw_end_to_start(t_data *data, int *line_height, int *draw_start, int *draw_end)
 {
-    *line_height = (HEIGHT / data->raycast->perp_wall_dist);
+	double perp_wall_dist = data->raycast->perp_wall_dist;
+    *line_height = (HEIGHT / perp_wall_dist);
     *draw_start = -(*line_height) / 2 + HEIGHT / 2;
     if (*draw_start < 0)
         *draw_start = 0;
@@ -113,11 +114,15 @@ void draw_end_to_start(t_data *data, int *line_height, int *draw_start, int *dra
 void draw_texture(t_data *data, int draw_start, int line_height)
 {
     double hit_x;
+	double help1;
+	double help2;
 
+	help1 = data->player->pos[0] + data->raycast->perp_wall_dist * data->raycast->ray_dir[0];
+	help2 = data->player->pos[1] + data->raycast->perp_wall_dist * data->raycast->ray_dir[1];
     if (data->raycast->side == 0)
-        hit_x = data->player->pos[1] + data->raycast->perp_wall_dist * data->raycast->ray_dir[1];
+        hit_x = help2;
     else
-        hit_x = data->player->pos[0] + data->raycast->perp_wall_dist * data->raycast->ray_dir[0];
+        hit_x = help1;
     hit_x -= ft_floor(hit_x);
     data->raycast->texture_x = hit_x * TEXTURE_SIZE;
     if (data->raycast->side == 0 && data->raycast->ray_dir[0] > 0)
