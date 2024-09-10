@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/09 15:44:52 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/09 19:40:00 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -413,6 +413,7 @@ int		skip_textures(t_file *data);
 int		check_filelen(t_file *data);
 int		check_filetype(t_file *data);
 int		open_text(t_file *data);
+int		double_id(t_file *data, char *t1, char *t2, int i);
 
 //check_color.c
 int		check_color(t_file *data);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_utils.c                                         :+:      :+:    :+:   */
+/*   pars_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 14:16:53 by miturk            #+#    #+#             */
-/*   Updated: 2024/09/08 14:02:09 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/10 14:21:30 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	*player_pos(t_file *data)
 				data->p_flag = 1;
 			}
 			else if (data->p_flag == 1 && (is_player(data->map[i][j])))
-				return (ft_putstr_fd("Error: Invalid map: player count\n", 2),
+				return (ft_putstr_fd("Error:\nInvalid map: player count\n", 2),
 					NULL);
 			j++;
 		}
@@ -105,33 +105,34 @@ int	*player_pos(t_file *data)
 }
 
 int	file_check(t_file *data, int i, char *tmp)
-{
-	while (i++, data->file[i] != NULL)
+{	
+	while (i++, i < data->i)
 	{
-		if (skip_textures(data) == data->i || skip_textures(data) == i
+		if (skip_textures(data) == data->i || skip_textures(data) < 6
 			|| ft_strchr(data->file[i], '\t') != NULL)
-			return (ft_putstr_fd("Error: Invalid file: File\n", 2), false);
-		while (is_texture(data, i, 0) == true || data->file[i][0] == '\n')
+			return (ft_putstr_fd("Error:\nInvalid file: File\n", 2), false);
+		if ((is_texture(data, i, 0) == true || data->file[i][0] == '\n') && data->file[i] != NULL)
 			i++;
-		if (data->file[i][0] == ' ' || ft_isalnum(data->file[i][0]) != 0)
+		else if ((data->file[i][0] == ' ' || ft_isalnum(data->file[i][0]) != 0))
 		{
 			tmp = ft_strtrim(data->file[i], " ");
 			if (tmp == NULL)
-				return (ft_putstr_fd("Error: Malloc failed\n", 2), false);
-			if ((ft_isalnum(tmp[0]) != 0 && data->file[i][0] != '\n')
-				|| is_texture(data, i, 0) != true)
+				return (ft_putstr_fd("Error:\nMalloc failed\n", 2), false);
+			if (ft_isdigit(tmp[0]) != 0 || (data->file[i][0] != '\n'
+				|| is_texture(data, i, 0) != true))
 			{
 				if (ft_strchr(tmp, '1') == NULL)
 					return (free(tmp),
-						ft_putstr_fd("Error: Invalid file: Line\n", 2), false);
+						ft_putstr_fd("Error:\nInvalid file: Line\n", 2), false);
 			}
-			else if (tmp[0] == '\n' && data->file[i][0] == ' ')
+			if (tmp[0] == '\n' && data->file[i][0] == ' ')
 				return (free(tmp),
-					ft_putstr_fd("Error: Invalid file: Line\n", 2), false);
+					ft_putstr_fd("Error:\nInvalid file: Line\n", 2), false);
 			free(tmp);
+			i++;
 		}
 		else
-			return (ft_putstr_fd("Error: Invalid file: Line\n", 2), false);
+			return (ft_putstr_fd("Error:\nInvalid file: Line\n", 2), false);
 	}
 	return (true);
 }

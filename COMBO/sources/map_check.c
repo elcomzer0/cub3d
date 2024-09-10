@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:59:42 by miturk            #+#    #+#             */
-/*   Updated: 2024/09/08 14:01:54 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/10 14:42:05 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,15 @@ char	**list_map(t_file *data)
 
 	i = skip_textures(data);
 	j = 0;
+	if (i == -1)
+		return (NULL);
 	data->map = (char **)malloc(sizeof(char *) * ((data->i - i) + 1));
 	if (data->map == NULL)
 		return (ft_putstr_fd("Error: Malloc failed\n", 2), NULL);
 	while (data->file[i] != NULL)
 	{
+		if (data->file[i][0] == '\n')
+			return (data->map[j] = NULL, ft_putstr_fd("Error: Invalid map: newline_\n", 2), NULL);
 		data->map[j] = ft_strdup(data->file[i]);
 		if (data->map[j] == NULL)
 			return (NULL);
@@ -44,8 +48,7 @@ int	check_map(t_file *data, char *tmp, int i, int j)
 			return (ft_putstr_fd("Error: Malloc failed\n", 2), false);
 		if (tmp[0] == '\n' && data->map[i][0] == ' '
 			&& ft_strchr(data->map[i], '1') == NULL)
-			return (free(tmp),
-				ft_putstr_fd("Error: Invalid map: newline\n", 2), false);
+			return (free(tmp), ft_putstr_fd("Error: Invalid map: newline\n", 2), false);
 		(free(tmp), j = -1);
 		while (j++, data->map[i][j] != '\0')
 		{
@@ -114,6 +117,8 @@ void	remove_newline(t_file *data)
 		data->map[i] = ft_strdup(tmp);
 		if (data->map[i] == NULL && i < data->line_hei - 1)
 			return (ft_putstr_fd("Error\nMalloc failed\n", 2));
+		if (data->map[i][0] == '\n')
+			return (ft_putstr_fd("Error\nInvalid map\n", 2));
 		(free(tmp), i++);
 	}
 }
@@ -125,7 +130,7 @@ int	valid_map(t_file *data, int i, int j)
 		j = 0;
 		while (data->map[i][j] != '\0')
 		{
-			if (ft_strchr(data->map[data->line_hei - 1], '0') != NULL)
+			if (ft_strchr(data->map[data->line_hei - 1], ('0')) != NULL)
 				return (ft_putstr_fd("Error: Map: last line\n", 2), false);
 			if (data->map[i][0] == '0' || is_player(data->map[i][0]) == true)
 				return (ft_putstr_fd("Error: Map: Wrong border\n", 2), false);

@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 20:26:10 by miturk            #+#    #+#             */
-/*   Updated: 2024/09/08 14:01:24 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/10 13:57:14 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ char	**file_fill(t_file *data, char **argv, int j, char *tmp)
 	if (tmp == NULL)
 		return (close(fd),
 			ft_putstr_fd("Error: Function error\n", 2), NULL);
-	while (j < data->i)
+	while (j < data->i && tmp != NULL)
 	{
 		if (tmp == NULL)
-			return (close(fd),
+			return (close(fd), data->file[j] = NULL,
 				ft_putstr_fd("Error: Function error\n", 2), NULL);
 		data->file[j] = ft_strdup(tmp);
 		if (data->file[j] == NULL)

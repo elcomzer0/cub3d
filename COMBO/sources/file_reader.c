@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 21:35:12 by ggwagons          #+#    #+#             */
-/*   Updated: 2024/09/08 14:01:18 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/10 14:43:01 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	for_text(t_file *data)
 	if (list_textures(data, 0, 0, NULL) == NULL)
 		return (ft_free(data), false);
 	if (check_textures(data, -1, NULL) == false)
+		return (ft_free(data), false);
+	if (double_id(data, NULL, NULL, -1) == false)
 		return (ft_free(data), false);
 	if (text_check(data) == false)
 		return (ft_free(data), false);

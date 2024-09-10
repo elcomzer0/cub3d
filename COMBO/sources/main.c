@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:31 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/09 15:39:08 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/10 14:11:51 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int main(int ac, char **av)
 	if (ac != 2)
 		return (ft_putstr_fd("Error: Invalid number of arguments\n", 2), 1);
 	if (work_split(file, av) == false)
-		return (free(text), free(player), free(file), free(data), 1);
+		(free(text), free(player), free(file), free(data), exit(1));
 	data->z_values = NULL;
 	if (map_conversion(data, 0) == false)
 		return (ft_free(file),

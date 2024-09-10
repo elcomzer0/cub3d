@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:00:54 by miturk            #+#    #+#             */
-/*   Updated: 2024/09/08 14:02:19 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/10 14:09:10 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,17 @@ char	**list_textures(t_file *data, int i, int j, char *tmp)
 	while (j < 6)
 	{
 		if (data->file[i][0] == ' ')
+		{
 			if (help(data, i, j, tmp) == false)
 				return (NULL);
-		while (data->file[i][0] == '\n')
+		}
+		else if (data->file[i][0] == '\n')
 			i++;
-		if (is_texture(data, i, 0) == false)
+		if (is_texture(data, i, 0) == false && data->file[i][0] != '\n')
 			return (data->texture[j] = NULL,
 				ft_putstr_fd("Error: Invalid texture: direction\n", 2), NULL);
+		if (is_texture(data, i, 0) == false && j < 6)
+			return (data->texture[j] = NULL, ft_putstr_fd("Error: Invalid file: Texture\n", 2), NULL);
 		data->texture[j] = ft_strdup(data->file[i]);
 		if (data->texture[j] == NULL)
 			return (ft_putstr_fd("Error: Malloc failed\n", 2), NULL);
@@ -59,10 +63,9 @@ int	text_check(t_file *data)
 		&& (data->text->we[0] == '.' || ft_isalnum(data->text->we[0]) != 0)
 		&& (data->text->ea[0] == '.' || ft_isalnum(data->text->ea[0]) != 0))
 		i = true;
-	if (i == true)
-		return (true);
-	else
+	if (i == false)
 		return (ft_putstr_fd("Error: Missing texture\n", 2), false);
+	return (true);
 }
 
 int	check_textures(t_file *data, int i, char *s)
@@ -86,8 +89,10 @@ int	check_textures(t_file *data, int i, char *s)
 		else
 			return (ft_putstr_fd("Error: Invalid texture\n", 2), free(s),
 				false);
+		
 	}
 	if (text_check(data) == false || check_filetype(data) == false)
 		return (false);
 	return (true);
 }
+

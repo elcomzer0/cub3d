@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:04:46 by miturk            #+#    #+#             */
-/*   Updated: 2024/09/09 15:48:20 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/10 13:45:28 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void free_z_values(t_data *data)
 	
 	while (i++, i < data->file->line_hei)
 	{
-		//while (j++, j < data->file->line_len)
 			free(data->z_values[i]);
 	}
 	free(data->z_values);
