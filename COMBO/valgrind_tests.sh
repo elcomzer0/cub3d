@@ -15,6 +15,9 @@ NC='\033[0m' # No Color
 # Clear the report file if it exists
 > "$REPORT_FILE"
 
+# Initialize an array to hold the names of maps with Valgrind issues
+error_maps=()
+
 run_valgrind_test() {
     local map_file=$1
     local map_type=$2
@@ -31,6 +34,13 @@ run_valgrind_test() {
         valgrind_exit_code=0
     fi
     
+    # Check for memory leaks
+    if [[ $valgrind_output == *"definitely lost:"*" bytes in"* ]] || \
+       [[ $valgrind_output == *"indirectly lost:"*" bytes in"* ]] || \
+       [[ $valgrind_output == *"still reachable:"*" bytes in"* ]]; then
+        valgrind_exit_code=1
+    fi
+
     if [ $valgrind_exit_code -eq 0 ]; then
         # Print to console with color, but append to file without color
         echo -e "${GREEN}[Valgrind OK]${NC}" | tee -a >(sed 's/\x1b\[[0-9;]*m//g' >> "$REPORT_FILE")
@@ -38,6 +48,8 @@ run_valgrind_test() {
         # Print to console with color, but append to file without color
         echo -e "${RED}Valgrind found issues:${NC}" | tee -a >(sed 's/\x1b\[[0-9;]*m//g' >> "$REPORT_FILE")
         echo "$valgrind_output" >> "$REPORT_FILE"
+        # Add the map file to the error list
+        error_maps+=("$(basename "$map_file")")
     fi
     
     # Append a separator to both console and file
@@ -72,4 +84,14 @@ if [ -d "$VALID_MAPS_DIR" ]; then
 else
     echo "Valid maps directory not found!" | tee -a "$REPORT_FILE"
     exit 1
+fi
+
+# Print summary of maps with errors at the end
+if [ ${#error_maps[@]} -ne 0 ]; then
+    echo -e "${RED}Summary of maps with Valgrind issues:${NC}" | tee -a "$REPORT_FILE"
+    for error_map in "${error_maps[@]}"; do
+        echo "- $error_map" | tee -a "$REPORT_FILE"
+    done
+else
+    echo -e "${GREEN}All maps passed Valgrind checks without errors.${NC}" | tee -a "$REPORT_FILE"
 fi

@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 14:32:19 by miturk            #+#    #+#             */
-/*   Updated: 2024/09/07 21:57:01 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/10 17:39:53 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (len > 0 && ft_strchr(set, s1[len - 1]))
 		len--;
 	result = ft_substr(s1, 0, len);
+	if(result == NULL)
+		return (NULL);
 	return (result);
 }
 

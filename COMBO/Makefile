@@ -74,8 +74,8 @@ $(NAME): library $(OBJECTS_DIR) $(OBJECTS)
 	@echo "$(GREEN) Done $(RESET)\n"
 
 library:
-		@ make -C libft/
-		@ make -C get_next_line/
+		@make -s -C libft/
+		@make -s -C get_next_line/
 
 # Create folder objects dir
 $(OBJECTS_DIR):
@@ -92,16 +92,16 @@ $(OBJECTS_DIR)%.o: $(SOURCES_DIR)%.c $(HEADER)
 clean:
 	@echo "$(RED) Deleting objects files... $(RESET)\n"
 	@$(RM) $(OBJECTS_DIR)
-	@make -C libft/ clean
-	@make -C get_next_line/ clean
+	@make -s -C libft/ clean
+	@make -s -C get_next_line/ clean
 
 # Clean built programs
 fclean:
 	@echo "$(RED) Cleaning built program... $(RESET)\n"
 
 	@$(RM) -f $(NAME) $(OBJECTS_DIR)
-	@make -C libft/ fclean
-	@make -C get_next_line/ fclean
+	@make -s -C libft/ fclean
+	@make -s -C get_next_line/ fclean
 	@echo "$(NAME): $(RED) Deleted $(RESET)\n"
 
 # Rebuild all

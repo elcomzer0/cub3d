@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 21:35:12 by ggwagons          #+#    #+#             */
-/*   Updated: 2024/09/10 14:43:01 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/10 16:04:37 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	for_file(t_file *data, char **argv)
 
 int	for_text(t_file *data)
 {
-	if (list_textures(data, 0, 0, NULL) == NULL)
+	if (list_textures(data, -1, 0, NULL) == NULL)
 		return (ft_free(data), false);
 	if (check_textures(data, -1, NULL) == false)
 		return (ft_free(data), false);
@@ -54,7 +54,8 @@ int	for_text(t_file *data)
 	if (check_color(data) == false)
 		return (ft_free(data), false);
 	if (data->line_hei > INT_MAX || data->line_len > INT_MAX)
-		return (ft_putstr_fd("Error: map too big\n", 2), ft_free(data), false);
+		return (ft_putstr_fd("Error:\nInvalid file\n", 2),
+			ft_free(data), false);
 	return (true);
 }
 
@@ -71,7 +72,7 @@ int	for_map(t_file *data)
 		return (ft_free(data), false);
 	if (data->pos[0] == 0 || data->pos[1] == 0 || \
 		data->pos[0] == (data->line_hei) || data->pos[1] == (data->line_len))
-		return (ft_putstr_fd("Error: Wrong player position\n", 2),
+		return (ft_putstr_fd("Error:\nInvalid map\n", 2),
 			ft_free(data), false);
 	if (valid_map(data, 0, 0) == false)
 		return (ft_free(data), false);

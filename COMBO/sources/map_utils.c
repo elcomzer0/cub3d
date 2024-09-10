@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:04:46 by miturk            #+#    #+#             */
-/*   Updated: 2024/09/10 13:45:28 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/10 15:40:56 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	map_width(t_file *data)
 		data->line_hei++;
 }
 
-int change_value(int c)
+int	change_value(int c)
 {
 	if (c == -16)
 		c = c + 48;
@@ -67,41 +67,40 @@ int change_value(int c)
 	return (c);
 }
 
-void free_z_values(t_data *data)
+void	free_z_values(t_data *data)
 {
-	int i;
-	//int j;
+	int	i;
+
 	i = -1;
-	
 	while (i++, i < data->file->line_hei)
 	{
-			free(data->z_values[i]);
+		free(data->z_values[i]);
 	}
 	free(data->z_values);
 }
 
-int map_conversion(t_data *data, int i)
-{ 
-    int j;
+int	map_conversion(t_data *data, int i)
+{
+	int	j;
 
-    data->z_values = (int **)malloc(sizeof(int *)
-		* (data->file->line_hei));
-    if (data->z_values == NULL)
-        return (ft_putstr_fd("Error: Malloc failed\n", 2), false);
-    while (data->file->map[i] != NULL)
-    {
-        data->z_values[i] = (int *)malloc(sizeof(int)
-			* (data->file->line_len));
-        if (data->z_values[i] == NULL)
-            return(free_z_values(data),
-				ft_putstr_fd("Error: Malloc failed\n", 2), false);
-        j = 0;
-        while (data->file->map[i][j] != '\0')
-        {
-            data->z_values[i][j] = change_value(data->file->map[i][j] - '0');
-            j++;
-        }
-        i++;
-    }
+	data->z_values = (int **)malloc(sizeof(int *)
+			* (data->file->line_hei));
+	if (data->z_values == NULL)
+		return (ft_putstr_fd("Error:\nMalloc\n", 2), false);
+	while (data->file->map[i] != NULL)
+	{
+		data->z_values[i] = (int *)malloc(sizeof(int)
+				* (data->file->line_len));
+		if (data->z_values[i] == NULL)
+			return (free_z_values(data),
+				ft_putstr_fd("Error:\nMalloc\n", 2), false);
+		j = 0;
+		while (data->file->map[i][j] != '\0')
+		{
+			data->z_values[i][j] = change_value(data->file->map[i][j] - '0');
+			j++;
+		}
+		i++;
+	}
 	return (true);
 }

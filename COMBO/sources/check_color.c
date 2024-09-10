@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 15:49:23 by miturk            #+#    #+#             */
-/*   Updated: 2024/09/08 14:01:40 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/10 16:02:39 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 int	check_color(t_file *data)
 {
 	if (color_f(data, data->text->f, NULL, 0) == false)
-		return (ft_putstr_fd("Error: Invalid color: F\n", 2), false);
+		return (ft_putstr_fd("Error:\nInvalid color\n", 2), false);
 	if (color_c(data, data->text->c, NULL, 0) == false)
-		return (ft_putstr_fd("Error: Invalid color: C\n", 2), false);
+		return (ft_putstr_fd("Error:\nInvalid color\n", 2), false);
 	if (color_num(data->text->colorf) == false)
-		return (ft_putstr_fd("Error: Invalid color: F: Num\n", 2), false);
+		return (ft_putstr_fd("Error:\nInvalid color\n", 2), false);
 	if (color_num(data->text->colorc) == false)
-		return (ft_putstr_fd("Error: Invalid color: C: Num\n", 2), false);
+		return (ft_putstr_fd("Error:\nInvalid color\n", 2), false);
 	data->text->fr = ft_atoi(data->text->colorf[0]);
 	data->text->fg = ft_atoi(data->text->colorf[1]);
 	data->text->fb = ft_atoi(data->text->colorf[2]);
@@ -58,7 +58,7 @@ int	color_f(t_file *data, char *s, char *tmp, int i)
 		return (false);
 	data->text->colorf = ft_split(s, ',');
 	if (data->text->colorf == NULL)
-		return (free(s), ft_putstr_fd("Error: Malloc failed\n", 2), false);
+		return (free(s), ft_putstr_fd("Error:\nMalloc\n", 2), false);
 	i = 0;
 	while (data->text->colorf[i])
 		i++;
@@ -69,10 +69,10 @@ int	color_f(t_file *data, char *s, char *tmp, int i)
 	{
 		tmp = ft_strtrim(data->text->colorf[i], " ");
 		if (tmp == NULL)
-			return (ft_putstr_fd("Error: Malloc failed\n", 2), false);
+			return (ft_putstr_fd("Error:\nMalloc\n", 2), false);
 		(free(data->text->colorf[i]), data->text->colorf[i] = ft_strdup(tmp));
 		if (data->text->colorf[i] == NULL)
-			return (ft_putstr_fd("Error: Malloc failed\n", 2), false);
+			return (ft_putstr_fd("Error:\nMalloc\n", 2), false);
 		(free(tmp), i++);
 	}
 	return (true);
@@ -87,7 +87,7 @@ int	color_c(t_file *data, char *s, char *tmp, int i)
 		return (false);
 	data->text->colorc = ft_split(s, ',');
 	if (data->text->colorc == NULL)
-		return (free(s), ft_putstr_fd("Error: Malloc failed\n", 2), false);
+		return (free(s), ft_putstr_fd("Error:\nMalloc\n", 2), false);
 	i = 0;
 	while (data->text->colorc[i])
 		i++;
@@ -98,10 +98,10 @@ int	color_c(t_file *data, char *s, char *tmp, int i)
 	{
 		tmp = ft_strtrim(data->text->colorc[i], " ");
 		if (tmp == NULL)
-			return (ft_putstr_fd("Error: Malloc failed\n", 2), false);
+			return (ft_putstr_fd("Error:\nMalloc\n", 2), false);
 		(free(data->text->colorc[i]), data->text->colorc[i] = ft_strdup(tmp));
 		if (data->text->colorc[i] == NULL)
-			return (ft_putstr_fd("Error: Malloc failed\n", 2), false);
+			return (ft_putstr_fd("Error:\nMalloc\n", 2), false);
 		(free(tmp), i++);
 	}
 	return (true);
