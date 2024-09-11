@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/11 14:48:02 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:38:09 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,20 +109,47 @@ void draw_texture(t_data *data, int draw_start, int line_height)
  * @param draw_start The starting vertical pixel coordinate for the current wall segment.
  * @param draw_end The ending vertical pixel coordinate for the current wall segment.
  */
+// void draw_loop(t_data *data, int x, int draw_start, int draw_end)
+// {
+// 	draw_start = draw_start - 1;
+// 	while (draw_start++, draw_start <= draw_end)
+// 	{
+// 		data->raycast->texture_y = (int)data->raycast->texture_pos & (TEXTURE_SIZE - 1);
+// 		data->raycast->texture_pos = data->raycast->texture_pos + data->raycast->step_n;
+// 		if (data->raycast->side == 1 && data->raycast->ray_dir[1] < 0)              
+// 			draw_world(data, x, draw_start, 1);
+// 		else if (data->raycast->side == 1 && data->raycast->ray_dir[1] > 0)
+// 			draw_world(data, x, draw_start, 2);
+// 		else if (data->raycast->side == 0 && data->raycast->ray_dir[0] < 0)
+// 			draw_world(data, x, draw_start, 3);
+// 		else if (data->raycast->side == 0 && data->raycast->ray_dir[0] > 0)
+// 			draw_world(data, x, draw_start, 4);
+// 	}
+// }
+
 void draw_loop(t_data *data, int x, int draw_start, int draw_end)
 {
+	int compass;
+	
+	if (data->raycast->side == 1)
+	{
+		if (data->raycast->ray_dir[1] < 0)
+			compass = 1;
+		else
+			compass = 2;
+	}
+	else
+	{
+		if (data->raycast->ray_dir[0] < 0)
+			compass = 3;
+		else
+			compass = 4;
+	}
 	draw_start = draw_start - 1;
 	while (draw_start++, draw_start <= draw_end)
 	{
 		data->raycast->texture_y = (int)data->raycast->texture_pos & (TEXTURE_SIZE - 1);
-		data->raycast->texture_pos = data->raycast->texture_pos + data->raycast->step_n;
-		if (data->raycast->side == 1 && data->raycast->ray_dir[1] < 0)              
-			draw_world(data, x, draw_start, 1);
-		else if (data->raycast->side == 1 && data->raycast->ray_dir[1] > 0)
-			draw_world(data, x, draw_start, 2);
-		else if (data->raycast->side == 0 && data->raycast->ray_dir[0] < 0)
-			draw_world(data, x, draw_start, 3);
-		else if (data->raycast->side == 0 && data->raycast->ray_dir[0] > 0)
-			draw_world(data, x, draw_start, 4);
+		data->raycast->texture_pos += data->raycast->step_n;
+		draw_world(data, x, draw_start, compass);
 	}
 }

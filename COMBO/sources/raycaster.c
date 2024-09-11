@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:14 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/09 16:11:57 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:18:01 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void rc_loop_hit(t_data *data)
             side_hit_x(data);
         else
             side_hit_y(data);
-        map_value = data->z_values[data->raycast->map_x][data->raycast->map_y]; //for later 1 and 32
+        map_value = data->z_values[data->raycast->map_x][data->raycast->map_y];
         if (map_value == 1)
         {
             data->raycast->hit = 1;

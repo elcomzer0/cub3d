@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 23:20:21 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/09 11:23:19 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:44:34 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,21 @@
 /**
  * Calculates the perpendicular distance from the player to the wall.
  *
- * This function determines the perpendicular distance from the player's position to the wall that the current ray has intersected. The calculation depends on whether the ray intersected the wall on a vertical or horizontal grid line.
+ * This function determines the perpendicular distance from the player's 
+ * position to the wall that the current ray has intersected. 
+ * The calculation depends on whether the ray intersected the wall on a vertical
+ * or horizontal grid line.
  *
  * @param data The main data structure containing the game state.
  */
 void perp_wall_dist(t_data *data)
 {
     if (data->raycast->side == 0)
-        data->raycast->perp_wall_dist = (data->raycast->map_x - data->player->pos[0] + (1 - data->raycast->step[0]) / 2) / data->raycast->ray_dir[0];
+        data->raycast->perp_wall_dist = (data->raycast->map_x
+        - data->player->pos[0] + (1 - data->raycast->step[0]) / 2) / data->raycast->ray_dir[0];
     else
-        data->raycast->perp_wall_dist = (data->raycast->map_y - data->player->pos[1] + (1 - data->raycast->step[1]) / 2) / data->raycast->ray_dir[1];
+        data->raycast->perp_wall_dist = (data->raycast->map_y
+        - data->player->pos[1] + (1 - data->raycast->step[1]) / 2) / data->raycast->ray_dir[1];
 }
 
 /**
@@ -40,8 +45,10 @@ void perp_wall_dist(t_data *data)
 void calculate_ray_direction(t_data *data, int x)
 {
     data->raycast->camera_x = 2 * x /(double)WIDTH - 1;
-    data->raycast->ray_dir[0] = data->player->dx + data->raycast->camera_x * data->raycast->plane[0];
-    data->raycast->ray_dir[1] = data->player->dy + data->raycast->camera_x * data->raycast->plane[1];
+    data->raycast->ray_dir[0] = data->player->dx
+    + data->raycast->camera_x * data->raycast->plane[0];
+    data->raycast->ray_dir[1] = data->player->dy
+    + data->raycast->camera_x * data->raycast->plane[1];
 }
 
 /**
@@ -62,7 +69,8 @@ void  calculate_map_position(t_data *data)
 
 /**
  * Calculates the delta distance values for the ray casting algorithm.
- * The delta distance values determine how far the ray has to travel in the x and y directions to reach the next grid line.
+ * The delta distance values determine how far the ray has to travel in the
+ *  x and y directions to reach the next grid line.
  *
  * @param data A pointer to the main data struct containing the ray casting information.
  */
@@ -90,24 +98,27 @@ void rc_side_step(t_data *data)
     if (data->raycast->ray_dir[0] < 0)
     {
         data->raycast->step[0] = -1;
-        data->raycast->side_dist[0] = (data->player->pos[0] - data->raycast->map_x) * data->raycast->delta_dist[0];
+        data->raycast->side_dist[0] = (data->player->pos[0]
+        - data->raycast->map_x) * data->raycast->delta_dist[0];
     }
     else
     {
         data->raycast->step[0] = 1;
-        data->raycast->side_dist[0] = (data->raycast->map_x + 1.0 - data->player->pos[0]) * data->raycast->delta_dist[0];
+        data->raycast->side_dist[0] = (data->raycast->map_x
+        + 1.0 - data->player->pos[0]) * data->raycast->delta_dist[0];
     }
     if (data->raycast->ray_dir[1] < 0)
     {
         data->raycast->step[1] = -1;
-        data->raycast->side_dist[1] = (data->player->pos[1] - data->raycast->map_y) * data->raycast->delta_dist[1];
+        data->raycast->side_dist[1] = (data->player->pos[1]
+        - data->raycast->map_y) * data->raycast->delta_dist[1];
     }
     else
     {
         data->raycast->step[1] = 1;
-        data->raycast->side_dist[1] = (data->raycast->map_y + 1.0 - data->player->pos[1]) * data->raycast->delta_dist[1]; 
+        data->raycast->side_dist[1] = (data->raycast->map_y
+        + 1.0 - data->player->pos[1]) * data->raycast->delta_dist[1]; 
     }
-    
 }
 
 

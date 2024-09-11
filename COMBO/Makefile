@@ -1,5 +1,5 @@
 # Target programs
-NAME = cub3d
+NAME = cub3D
 
 # Color codes
 RED = \033[1;7;31m

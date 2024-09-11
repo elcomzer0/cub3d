@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/11 14:52:58 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/11 16:21:55 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,16 @@ typedef struct s_data {
 	int				player_y;
 	int				star_x[100];
 	int				star_y[100];
+	int				src_a;
+    int				src_r;
+    int				src_g;
+    int				src_b;
+	int				dest_r;
+	int				dest_g;
+	int				dest_b;
+	int				blended_color;
+	int				blend_color;
+    double			blend_factor;
 	t_file			*file;
 }				t_data;
 
@@ -199,6 +209,11 @@ typedef struct s_color {
 	int				magenta;
 	int				yellow;
 	int				grey;
+	int src_a;
+    int src_r;
+    int src_g;
+    int src_b;
+
 }				t_color;
 
 typedef struct s_point {
