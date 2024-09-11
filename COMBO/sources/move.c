@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:18 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/09 15:50:57 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/11 14:23:54 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ void rerender_frame(t_data *data)
     cub_draw(data);
     mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
     mlx_put_image_to_window(data->mlx, data->win, data->raycast->texture[4].tex_img, 0, 0);
-    cub_menu(data);
 }
 
 void handle_movement(t_data *data)

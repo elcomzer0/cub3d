@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 21:35:12 by ggwagons          #+#    #+#             */
-/*   Updated: 2024/09/10 16:04:37 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/11 09:52:05 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,26 @@ int	for_map(t_file *data)
 	if (valid_map(data, 0, 0) == false)
 		return (ft_free(data), false);
 	return (true);
+}
+
+int	open_text(t_file *data)
+{
+	int	fd;
+
+	fd = open(data->text->no, O_RDONLY);
+	if (fd == -1)
+		return (ft_putstr_fd("Error:\nCannot open NO texture\n", 2), false);
+	close(fd);
+	fd = open(data->text->so, O_RDONLY);
+	if (fd == -1)
+		return (ft_putstr_fd("Error:\nCannot open SO texture\n", 2), false);
+	close(fd);
+	fd = open(data->text->we, O_RDONLY);
+	if (fd == -1)
+		return (ft_putstr_fd("Error:\nCannot open WE texture\n", 2), false);
+	close(fd);
+	fd = open(data->text->ea, O_RDONLY);
+	if (fd == -1)
+		return (ft_putstr_fd("Error:\nCannot open EA texture\n", 2), false);	
+	return (close(fd), true);
 }

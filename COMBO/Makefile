@@ -51,7 +51,8 @@ SOURCES_LIST = main.c \
 	text_utils.c \
 	trim.c \
 	check_color.c \
-	pars_utils.c
+	pars_utils.c \
+	xpm_check.c 
 
 
 SOURCES = $(addprefix $(SOURCES_DIR), $(SOURCES_LIST))
@@ -106,8 +107,8 @@ fclean:
 
 # Rebuild all
 re:
-	@$(MAKE) fclean
-	@$(MAKE) all
+	@$(MAKE) -s fclean
+	@$(MAKE) -s all
 	@echo "$(GREEN) DELETED AND RECOMPILED $(RESET)\n"
 
 # Debug target for cub3d with gdb

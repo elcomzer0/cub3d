@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 16:07:25 by miturk            #+#    #+#             */
-/*   Updated: 2024/09/10 17:49:47 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/11 09:51:58 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,27 +78,7 @@ int	check_filetype(t_file *data)
 	return (free(sub), true);
 }
 
-int	open_text(t_file *data)
-{
-	int	fd;
 
-	fd = open(data->text->no, O_RDONLY);
-	if (fd == -1)
-		return (ft_putstr_fd("Error:\nCannot open NO texture\n", 2), false);
-	close(fd);
-	fd = open(data->text->so, O_RDONLY);
-	if (fd == -1)
-		return (ft_putstr_fd("Error:\nCannot open SO texture\n", 2), false);
-	close(fd);
-	fd = open(data->text->we, O_RDONLY);
-	if (fd == -1)
-		return (ft_putstr_fd("Error:\nCannot open WE texture\n", 2), false);
-	close(fd);
-	fd = open(data->text->ea, O_RDONLY);
-	if (fd == -1)
-		return (ft_putstr_fd("Error:\nCannot open EA texture\n", 2), false);	
-	return (close(fd), true);
-}
 
 int	double_id(t_file *data, char *t1, char *t2, int i)
 {

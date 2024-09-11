@@ -6,48 +6,11 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/09 16:29:45 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/11 14:48:02 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "./includes/cub3d.h"
-
-
-// double apply_shading_v2(t_data *data, double shading_factor)
-// {
-//     double dist; 
-//     double angle_of_incidence;
-//     t_vector wall_normal;
-//     t_vector light_dir = {1, 0}; // Assuming light is coming from the right (east)
-
-//     dist = data->raycast->perp_wall_dist / 2;
-
-//     // Calculate wall normal
-//     if (data->raycast->side == 0) // North-South wall
-//     {
-//         if (data->raycast->ray_dir[0] > 0)
-//             wall_normal = (t_vector){-1, 0}; // Facing west
-//         else
-//             wall_normal = (t_vector){1, 0};  // Facing east
-//     }
-//     else // East-West wall
-//     {
-//         if (data->raycast->ray_dir[1] > 0)
-//             wall_normal = (t_vector){0, -1}; // Facing north
-//         else
-//             wall_normal = (t_vector){0, 1};  // Facing south
-//     }
-
-//     // Calculate angle of incidence
-//     angle_of_incidence = acos((wall_normal.x * light_dir.x + wall_normal.y * light_dir.y) / 
-//                               (sqrt(wall_normal.x * wall_normal.x + wall_normal.y * wall_normal.y) * 
-//                                sqrt(light_dir.x * light_dir.x + light_dir.y * light_dir.y)));
-
-//     // Adjust shading factor based on angle of incidence
-//     shading_factor = 1.0 / (1.0 + dist * dist * (0.5 + 0.5 * cos(angle_of_incidence)));
-
-//     return shading_factor;
-// }
 
 /**
  * Draws a single column of the game world with shading applied.
@@ -63,18 +26,18 @@
  */
 void draw_world(t_data *data, int x, int draw_start, int compass)
 {
-    int color;
-    int wall_type;
-    int shaded_color;
-    double shading_factor;
-    
-    color = 0;
-    shading_factor = 0;
-    wall_type = xpm_switcher(data, compass);
-    color = retrieve_px_info(data, data->raycast->texture_x, data->raycast->texture_y, wall_type);
-    shading_factor = apply_shading(data, shading_factor);
-    shaded_color = shading_color(color, shading_factor);
-    my_xpm_pixel_put(data, x, draw_start, shaded_color);
+	double	shading_factor;
+	int		shaded_color;
+	int		wall_type;
+	int		color;
+
+	color = 0;
+	shading_factor = 0;
+	wall_type = xpm_switcher(data, compass);
+	color = retrieve_px_info(data, data->raycast->texture_x, data->raycast->texture_y, wall_type);
+	shading_factor = apply_shading(data, shading_factor);
+	shaded_color = shading_color(color, shading_factor);
+	my_xpm_pixel_put(data, x, draw_start, shaded_color);
 }
 
 
@@ -92,14 +55,16 @@ void draw_world(t_data *data, int x, int draw_start, int compass)
  */
 void draw_end_to_start(t_data *data, int *line_height, int *draw_start, int *draw_end)
 {
-	double perp_wall_dist = data->raycast->perp_wall_dist;
-    *line_height = (HEIGHT / perp_wall_dist);
-    *draw_start = -(*line_height) / 2 + HEIGHT / 2;
-    if (*draw_start < 0)
-        *draw_start = 0;
-    *draw_end = *line_height / 2 + HEIGHT / 2;
-    if (*draw_end >= HEIGHT)
-        *draw_end = HEIGHT - 1;
+	double	perp_wall_dist;
+
+	perp_wall_dist = data->raycast->perp_wall_dist;
+	*line_height = ((int)HEIGHT / perp_wall_dist);
+	*draw_start = -(*line_height) / 2 + HEIGHT / 2;
+	if (*draw_start < 0)
+		*draw_start = 0;
+	*draw_end = *line_height / 2 + HEIGHT / 2;
+	if (*draw_end >= HEIGHT)
+		*draw_end = HEIGHT - 1;
 }
 
 /**
@@ -113,30 +78,31 @@ void draw_end_to_start(t_data *data, int *line_height, int *draw_start, int *dra
  */
 void draw_texture(t_data *data, int draw_start, int line_height)
 {
-    double hit_x;
-	double help1;
-	double help2;
+	double	hit_x;
+	double	help1;
+	double	help2;
 
 	help1 = data->player->pos[0] + data->raycast->perp_wall_dist * data->raycast->ray_dir[0];
 	help2 = data->player->pos[1] + data->raycast->perp_wall_dist * data->raycast->ray_dir[1];
-    if (data->raycast->side == 0)
-        hit_x = help2;
-    else
-        hit_x = help1;
-    hit_x -= ft_floor(hit_x);
-    data->raycast->texture_x = hit_x * TEXTURE_SIZE;
-    if (data->raycast->side == 0 && data->raycast->ray_dir[0] > 0)
-        data->raycast->texture_x = TEXTURE_SIZE - data->raycast->texture_x - 1;
-    if (data->raycast->side == 1 && data->raycast->ray_dir[1] < 0)
-        data->raycast->texture_x = TEXTURE_SIZE - data->raycast->texture_x - 1;
-    data->raycast->step_n = 1.0 * TEXTURE_SIZE / line_height;
-    data->raycast->texture_pos = (draw_start - HEIGHT / 2 + line_height / 2) * data->raycast->step_n;
+	if (data->raycast->side == 0)
+		hit_x = help2;
+	else
+		hit_x = help1;
+	hit_x -= ft_floor(hit_x);
+	data->raycast->texture_x = hit_x * TEXTURE_SIZE;
+	if (data->raycast->side == 0 && data->raycast->ray_dir[0] > 0)
+		data->raycast->texture_x = TEXTURE_SIZE - data->raycast->texture_x - 1;
+	if (data->raycast->side == 1 && data->raycast->ray_dir[1] < 0)
+		data->raycast->texture_x = TEXTURE_SIZE - data->raycast->texture_x - 1;
+	data->raycast->step_n = 1.0 * TEXTURE_SIZE / line_height;
+	data->raycast->texture_pos = (draw_start - HEIGHT / 2 + line_height / 2) * data->raycast->step_n;
 }
 
 /**
  * Draws the wall textures on the screen for the current ray casting iteration.
  *
- * This function iterates through the vertical pixels of the current wall segment and draws the corresponding texture pixels. The texture coordinates are calculated based on the perpendicular wall distance and the ray direction.
+ * This function iterates through the vertical pixels of the current wall
+ * 	segment and draws the corresponding texture pixels. The texture coordinates are calculated based on the perpendicular wall distance and the ray direction.
  *
  * @param data The main data structure containing the game state.
  * @param x The current horizontal pixel coordinate being rendered.
@@ -146,17 +112,17 @@ void draw_texture(t_data *data, int draw_start, int line_height)
 void draw_loop(t_data *data, int x, int draw_start, int draw_end)
 {
 	draw_start = draw_start - 1;
-    while (draw_start++, draw_start <= draw_end)
-    {
-        data->raycast->texture_y = (int)data->raycast->texture_pos & (TEXTURE_SIZE - 1);
-        data->raycast->texture_pos = data->raycast->texture_pos + data->raycast->step_n;
-        if (data->raycast->side == 1 && data->raycast->ray_dir[1] < 0)              
-            draw_world(data, x, draw_start, 1);
-        else if (data->raycast->side == 1 && data->raycast->ray_dir[1] > 0)
-            draw_world(data, x, draw_start, 2);
-        else if (data->raycast->side == 0 && data->raycast->ray_dir[0] < 0)
-            draw_world(data, x, draw_start, 3);
-        else if (data->raycast->side == 0 && data->raycast->ray_dir[0] > 0)
-            draw_world(data, x, draw_start, 4);
-    }
+	while (draw_start++, draw_start <= draw_end)
+	{
+		data->raycast->texture_y = (int)data->raycast->texture_pos & (TEXTURE_SIZE - 1);
+		data->raycast->texture_pos = data->raycast->texture_pos + data->raycast->step_n;
+		if (data->raycast->side == 1 && data->raycast->ray_dir[1] < 0)              
+			draw_world(data, x, draw_start, 1);
+		else if (data->raycast->side == 1 && data->raycast->ray_dir[1] > 0)
+			draw_world(data, x, draw_start, 2);
+		else if (data->raycast->side == 0 && data->raycast->ray_dir[0] < 0)
+			draw_world(data, x, draw_start, 3);
+		else if (data->raycast->side == 0 && data->raycast->ray_dir[0] > 0)
+			draw_world(data, x, draw_start, 4);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/10 18:22:45 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/11 14:52:58 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@
 #define EPSILON 1e-6
 #define KEY_COUNT 256
 # define ROT_SPEED 0.2
-# define MOVE_SPEED 0.35
+# define MOVE_SPEED 0.225
 
 
 typedef struct s_text
@@ -212,23 +212,22 @@ typedef struct s_vector {
 }				t_vector;
 
 /*main.c*/
-int ft_clean(t_data *data);
-int ft_destroy(t_data *data);
-int key_hook_press(int keycode, t_data *data);
-int key_hook_release(int keycode, t_data *data);
-void handle_movement(t_data *data);
-int create_trgb(int t, int r, int g, int b);
-
-void my_xpm_pixel_put(t_data *data, int x, int y, int color);
-void my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int cub_draw(t_data *data);
-void map_test(t_data *data);
-void draw_map(t_data *data, int map[MAP_SIZE][MAP_SIZE], int offset_x, int offset_y);
-void display_angle(t_data *data);
-void    cub_menu(t_data *data);
+int		ft_clean(t_data *data);
+int		ft_destroy(t_data *data);
+int		key_hook_press(int keycode, t_data *data);
+int		key_hook_release(int keycode, t_data *data);
 int		ft_init(t_data *data);
+int		create_trgb(int t, int r, int g, int b);
+int		cub_draw(t_data *data);
+void	handle_movement(t_data *data);
+void	my_xpm_pixel_put(t_data *data, int x, int y, int color);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	map_test(t_data *data);
+void	draw_map(t_data *data, int map[MAP_SIZE][MAP_SIZE], int offset_x, int offset_y);
+void	display_angle(t_data *data);
+void	cub_menu(t_data *data);
 void	fill_values(t_data *data, char *line);
-// void draw_filled_rectangle(t_data *data, int x, int y, int width, int height, int color);
+
 
 /* raycaster */
 void	ceiling_floor(t_data *data);
@@ -270,11 +269,14 @@ int		work_split(t_file *data, char **argv);
 int		for_file(t_file *data, char **argv);
 int		for_text(t_file *data);
 int		for_map(t_file *data);
+int		open_text(t_file *data);
 
 //file_utils.c
 int		check_name(char **argv);
 int		check_access(t_file *data, char **argv);
 char	**file_fill(t_file *data, char **argv, int j, char *tmp);
+void	free_z_values(t_data *data);
+int		map_conversion(t_data *data, int i);
 
 //map_check.c
 char	**list_map(t_file *data);
@@ -288,8 +290,7 @@ int		is_player(char c);
 int		smallcheck(char c);
 int		short_check(t_file *data, int i, int j);
 void	map_width(t_file *data);
-int		map_conversion(t_data *data, int i);
-void	free_z_values(t_data *data);
+int		change_value(int c);
 
 //texture_check.c
 int		help(t_file *data, int i, int j, char *tmp);
@@ -302,7 +303,6 @@ int		skip_textures(t_file *data);
 int		is_texture(t_file *data, int i, int x);
 int		check_filelen(t_file *data);
 int		check_filetype(t_file *data);
-int		open_text(t_file *data);
 int		double_id(t_file *data, char *t1, char *t2, int i);
 
 //trim.c
@@ -328,6 +328,13 @@ int		file_check(t_file *data, int i, char *tmp);
 int		the_fail(t_data *data, t_file *file, t_text *text, t_player *player);
 void	the_handover(t_data *data);
 int		the_start(t_data *data, char **argv);
+
+//xpm_check.c
+int		open_texture_file(const char *text);
+ssize_t	read_texture_file(int fd, char *buffer, size_t buffer_size);
+int		parse_texture_header(const char *header_line, int *width, int *height);
+int		validate_texture_dimensions(int width, int height);
+int		xpm_check(t_data *data, char *text, int width, int height);
 
 # define KEY_ANSI_A			0X61
 # define KEY_ANSI_S			0X73

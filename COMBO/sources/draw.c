@@ -6,7 +6,7 @@
 /*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:33:07 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/09 16:48:45 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/11 14:55:52 by miturk           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ void render_cl_step(t_data *data, int p, int y)
  */
 void render_cl_shader(t_data *data)
 {
-    data->fl_cl->floor_tex = 2;
+    data->fl_cl->floor_tex = 0;
     data->fl_cl->color = retrieve_px_info(data, data->fl_cl->tex[0], data->fl_cl->tex[1], data->fl_cl->floor_tex);
     data->fl_cl->shading_factor = 1.0 / (1.0 + data->fl_cl->row_distance * data->fl_cl->row_distance * 0.1);
     data->fl_cl->color = shading_color_ceiling(data, data->fl_cl->color, data->fl_cl->shading_factor);
@@ -203,7 +203,7 @@ void render_cl_shader(t_data *data)
  */
 void render_fl_step(t_data *data, int p, int y)
 {
-    p = y - HEIGHT / 2;
+    p = y - (HEIGHT / 2);
     data->fl_cl->pos_z = 0.5 * HEIGHT;
     data->fl_cl->row_distance = data->fl_cl->pos_z / p;
     data->fl_cl->floor_step[0] = data->fl_cl->row_distance * (data->fl_cl->ray_dx[1] - data->fl_cl->ray_dx[0]) / WIDTH;
