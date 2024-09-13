@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 19:31:14 by ggwagons          #+#    #+#             */
-/*   Updated: 2024/09/12 11:49:40 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/13 16:34:00 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	shading_color_floor(t_data *data, int color, double shading_factor)
 
 void	render_fl_step(t_data *data, int p, int y)
 {
-	p = y - (HEIGHT / 2);
+	p = y - (HEIGHT >> 1);
 	data->fl_cl->pos_z = 0.5 * HEIGHT;
 	data->fl_cl->row_distance = data->fl_cl->pos_z / p;
 	data->fl_cl->floor_step[0] = data->fl_cl->row_distance

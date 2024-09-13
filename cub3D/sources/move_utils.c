@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:06:07 by miturk            #+#    #+#             */
-/*   Updated: 2024/09/12 17:09:07 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/13 16:28:50 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	right_rot_key(t_data *data, double rotation_speed)
 	data->raycast->plane[1] = old_plane_x * sin(rotation_speed)
 		+ data->raycast->plane[1] * cos(rotation_speed);
 	data->player->angle = atan2(data->player->dy, data->player->dx)
-		* 180 / M_PI;
+		*  RAD_TO_DEG;
 	if (data->player->angle < 0)
 		data->player->angle += 360;
 }
@@ -75,7 +75,7 @@ void	left_rot_key(t_data *data, double rotation_speed)
 	data->raycast->plane[1] = old_plane_x * sin(-rotation_speed)
 		+ data->raycast->plane[1] * cos(-rotation_speed);
 	data->player->angle = atan2(data->player->dy, data->player->dx)
-		* 180 / M_PI;
+		*  RAD_TO_DEG;
 	if (data->player->angle < 0)
 		data->player->angle += 360;
 }

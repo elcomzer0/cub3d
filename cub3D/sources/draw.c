@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:33:07 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/12 15:56:29 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/13 16:35:46 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	render_floor(t_data *data)
 	int	x;
 	int	p;
 
-	y = HEIGHT / 2;
+	y = (HEIGHT >> 1);
 	p = 0;
 	while (y++, y < HEIGHT)
 	{
@@ -95,7 +95,7 @@ void	render_ceiling(t_data *data)
 
 	y = -1;
 	p = 0;
-	while (y++, y < HEIGHT / 2)
+	while (y++, y < (HEIGHT >> 1))
 	{
 		render_cl_step(data, p, y);
 		x = -1;

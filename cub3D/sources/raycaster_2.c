@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 23:20:21 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/12 15:11:02 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/13 16:19:17 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,19 @@
 //  * or horizontal grid line.
 //  * @param data The main data structure containing the game state.
 
-void	perp_wall_dist(t_data *data)
+void perp_wall_dist(t_data *data)
 {
-	if (data->raycast->side == 0)
-		data->raycast->perp_wall_dist = (data->raycast->map_x
-				- data->player->pos[0] + (1 - data->raycast->step[0]) / 2)
-			/ data->raycast->ray_dir[0];
-	else
-		data->raycast->perp_wall_dist = (data->raycast->map_y
-				- data->player->pos[1] + (1 - data->raycast->step[1]) / 2)
-			/ data->raycast->ray_dir[1];
+    int step_shifted_x;
+    int step_shifted_y;
+
+    step_shifted_x = (1 - data->raycast->step[0]);
+    step_shifted_y = (1 - data->raycast->step[1]);
+    if (data->raycast->side == 0)
+        data->raycast->perp_wall_dist = (data->raycast->map_x
+        - data->player->pos[0] + (step_shifted_x >> 1)) / data->raycast->ray_dir[0];
+    else
+        data->raycast->perp_wall_dist = (data->raycast->map_y
+        - data->player->pos[1] + (step_shifted_y >> 1)) / data->raycast->ray_dir[1];
 }
 
 //  * Calculates the ray direction for 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggwagons <ggwagons@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:05 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/11 22:09:47 by ggwagons         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:38:39 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,20 @@ void	draw_world(t_data *data, int x, int draw_start, int compass)
 //  * @param draw_start A pointer to the current draw start position.
 //  * @param draw_end A pointer to the current draw end position.
 
-void	draw_end_to_start(t_data *data, int *line_height,
-	int *draw_start, int *draw_end)
+void draw_end_to_start(t_data *data, int *line_height, int *draw_start, int *draw_end)
 {
 	double	perp_wall_dist;
+	double reciprocal_perp;
+	int half_height;
 
+	half_height = (HEIGHT >> 1);
 	perp_wall_dist = data->raycast->perp_wall_dist;
-	*line_height = ((int)HEIGHT / perp_wall_dist);
-	*draw_start = -(*line_height) / 2 + HEIGHT / 2;
+	reciprocal_perp = 1.0 / perp_wall_dist;
+	*line_height = (HEIGHT *reciprocal_perp);
+	*draw_start = -((*line_height) >> 1) + half_height;
 	if (*draw_start < 0)
 		*draw_start = 0;
-	*draw_end = *line_height / 2 + HEIGHT / 2;
+	*draw_end = (*line_height >> 1) + half_height;
 	if (*draw_end >= HEIGHT)
 		*draw_end = HEIGHT - 1;
 }
@@ -77,29 +80,28 @@ void	draw_end_to_start(t_data *data, int *line_height,
 //  * @param draw_start The starting y-coordinate for drawing the texture.
 //  * @param line_height The height of the wall segment to be drawn.
 
-void	draw_texture(t_data *data, int draw_start, int line_height)
+void draw_texture(t_data *data, int draw_start, int line_height)
 {
 	double	hit_x;
 	double	help1;
 	double	help2;
 
-	help1 = data->player->pos[0] + data->raycast->perp_wall_dist
-		* data->raycast->ray_dir[0];
-	help2 = data->player->pos[1] + data->raycast->perp_wall_dist
-		* data->raycast->ray_dir[1];
+	help1 = data->player->pos[0] + data->raycast->perp_wall_dist * data->raycast->ray_dir[0];
+	help2 = data->player->pos[1] + data->raycast->perp_wall_dist * data->raycast->ray_dir[1];
 	if (data->raycast->side == 0)
 		hit_x = help2;
 	else
 		hit_x = help1;
 	hit_x -= ft_floor(hit_x);
-	data->raycast->texture_x = hit_x * TEXTURE_SIZE;
-	if (data->raycast->side == 0 && data->raycast->ray_dir[0] > 0)
+	data->raycast->texture_x = hit_x * (double)TEXTURE_SIZE;
+	if ((data->raycast->side == 0 && data->raycast->ray_dir[0] == 0) 
+	|| (data->raycast->side == 1 && data->raycast->ray_dir[1] == 0))
 		data->raycast->texture_x = TEXTURE_SIZE - data->raycast->texture_x - 1;
-	if (data->raycast->side == 1 && data->raycast->ray_dir[1] < 0)
-		data->raycast->texture_x = TEXTURE_SIZE - data->raycast->texture_x - 1;
-	data->raycast->step_n = 1.0 * TEXTURE_SIZE / line_height;
-	data->raycast->texture_pos = (draw_start - HEIGHT
-			/ 2 + line_height / 2) * data->raycast->step_n;
+	data->raycast->step_n = TEXTURE_SIZE / (double)line_height;
+	if (line_height != 0)
+		data->raycast->texture_pos = (draw_start - (HEIGHT >> 1) + (line_height >> 1)) * data->raycast->step_n;
+	else
+		data->raycast->texture_pos = 0;
 }
 
 void	draw_loop(t_data *data, int x, int draw_start, int draw_end)
@@ -120,7 +122,7 @@ void	draw_loop(t_data *data, int x, int draw_start, int draw_end)
 		else
 			compass = 4;
 	}
-	draw_start = draw_start - 1;
+	draw_start--;
 	while (draw_start++, draw_start <= draw_end)
 	{
 		data->raycast->texture_y = (int)data->raycast->texture_pos

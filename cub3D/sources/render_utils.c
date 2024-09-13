@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 23:45:49 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/12 16:16:13 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/13 16:37:53 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	retrieve_px_info(t_data *data, int x, int y, int texture_index)
 		|| y < 0 || y >= data->raycast->texture[texture_index].height)
 		return (0);
 	pixel_index = (y * data->raycast->texture[texture_index].line_length)
-		+ (x * (data->raycast->texture[texture_index].bpp / 8));
+		+ (x * (data->raycast->texture[texture_index].bpp >> 3));
 	pixel_data = data->raycast->texture[texture_index].tex_addr + pixel_index;
 	color = (pixel_data[3] << 24) | (pixel_data[2] << 16)
 		| (pixel_data[1] << 8) | pixel_data[0];

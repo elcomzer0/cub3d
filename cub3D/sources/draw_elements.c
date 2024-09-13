@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_elements.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:30:52 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/12 11:27:57 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/13 16:36:42 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	render_cl_shader(t_data *data)
 
 void	render_cl_step(t_data *data, int p, int y)
 {
-	p = HEIGHT / 2 - y;
+	p = (HEIGHT >> 1) - y;
 	data->fl_cl->pos_z = 0.5 * HEIGHT;
 	data->fl_cl->row_distance = data->fl_cl->pos_z / p;
 	data->fl_cl->floor_step[0] = data->fl_cl->row_distance

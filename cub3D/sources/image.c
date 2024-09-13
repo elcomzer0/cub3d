@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:43 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/12 15:38:38 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/13 16:31:45 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	my_xpm_pixel_put(t_data *data, int x, int y, int color)
 		return ;
 	dst = data->raycast->texture[4].tex_addr
 		+ (y * data->raycast->texture[4].line_length + x
-			* (data->raycast->texture[4].bpp / 8));
+			* (data->raycast->texture[4].bpp >> 3));
 	*(unsigned int *)dst = color;
 }
 

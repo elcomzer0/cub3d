@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggwagons <ggwagons@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 23:44:44 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/11 22:16:41 by ggwagons         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:24:40 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,28 @@
 // 		will be adjusted by this function.
 //  * @return The adjusted shading factor.
 
-double	apply_shading(t_data *data, double shading_factor)
+double apply_shading(t_data *data, double shading_factor)
 {
-	double	dist;
-
-	dist = data->raycast->perp_wall_dist;
-	if (data->raycast->side == 0)
-	{
-		if (data->raycast->ray_dir[0] > 0)
-			shading_factor = 1.0 / (1.0 + dist * dist * EA_LT_SHADER);
-		else
-			shading_factor = 1.0 / (1.0 + dist * dist * EA_DK_SHADER);
-	}
-	else
-	{
-		if (data->raycast->ray_dir[1] > 0)
-			shading_factor = 1.0 / (1.0 + dist * dist * NO_LT_SHADER);
-		else
-			shading_factor = 1.0 / (1.0 + dist * dist * NO_DK_SHADER);
-	}
-	return (shading_factor);
+    double dist; 
+    double shader_constant;
+    
+    dist = data->raycast->perp_wall_dist * data->raycast->perp_wall_dist;
+    if (data->raycast->side == 0)
+    {
+        if (data->raycast->ray_dir[0] > 0)
+            shader_constant = EA_LT_SHADER;
+        else
+            shader_constant = EA_DK_SHADER;
+    }
+    else
+    {
+        if (data->raycast->ray_dir[1] > 0)
+            shader_constant = NO_LT_SHADER;
+        else
+            shader_constant = NO_DK_SHADER;
+    }
+    shading_factor = 1.0 / (1.0 + dist * shader_constant);
+    return (shading_factor);
 }
 
 //  * Applies shading to a color based on a shading factor.

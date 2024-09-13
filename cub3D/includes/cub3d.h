@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:46 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/13 15:40:29 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/13 16:29:35 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@
 # define KEY_COUNT 256
 # define ROT_SPEED 0.2
 # define MOVE_SPEED 0.225
+# define RAD_TO_DEG 180 / M_PI
 
 # define KEY_ANSI_A			0X61
 # define KEY_ANSI_S			0X73
