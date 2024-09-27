@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 19:46:11 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/26 20:00:45 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/27 19:21:26 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	we(t_data *data)
 	data->raycast->plane[1] = 0;
 }
 
-void	so(t_data *data)
+void	ea(t_data *data)
 {
 	data->player->angle = 90;
 	data->player->dx = 0;
@@ -39,7 +39,7 @@ void	no(t_data *data)
 	data->raycast->plane[1] = -0.66;
 }
 
-void	ea(t_data *data)
+void	so(t_data *data)
 {
 	data->player->angle = 0;
 	data->player->dx = 1;

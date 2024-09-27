@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 23:20:21 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/26 19:48:23 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/27 19:10:19 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	perp_wall_dist(t_data *data)
 
 void	calculate_ray_direction(t_data *data, int x)
 {
-	data->raycast->camera_x = 2 * x / (double)WIDTH - 1;
+	data->raycast->camera_x = 2 * (WIDTH - 1 - x) / (double)WIDTH - 1;
 	data->raycast->ray_dir[0] = data->player->dx + data->raycast->plane[0]
 		* data->raycast->camera_x;
 	data->raycast->ray_dir[1] = data->player->dy + data->raycast->plane[1]

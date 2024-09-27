@@ -6,7 +6,7 @@
 /*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 00:33:07 by jorgonca          #+#    #+#             */
-/*   Updated: 2024/09/13 16:35:46 by jorgonca         ###   ########.fr       */
+/*   Updated: 2024/09/27 19:09:37 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	render_floor(t_data *data)
 	while (y++, y < HEIGHT)
 	{
 		render_fl_step(data, p, y);
-		x = -1;
-		while (x++, x < WIDTH)
+		x = WIDTH;
+		while (x--, x >= 0)
 		{
 			render_pos_tex(data);
 			render_fl_shader(data);
@@ -98,8 +98,8 @@ void	render_ceiling(t_data *data)
 	while (y++, y < (HEIGHT >> 1))
 	{
 		render_cl_step(data, p, y);
-		x = -1;
-		while (x++, x < WIDTH)
+		x = WIDTH;
+		while (x--, x >= 0)
 		{
 			render_pos_tex(data);
 			render_cl_shader(data);

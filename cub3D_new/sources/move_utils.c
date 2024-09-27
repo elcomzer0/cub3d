@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miturk <miturk@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jorgonca <jorgonca@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:06:07 by miturk            #+#    #+#             */
-/*   Updated: 2024/09/13 17:14:01 by miturk           ###   ########.fr       */
+/*   Updated: 2024/09/27 19:12:42 by jorgonca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	down_key(t_data *data, double move_speed)
 	double	new_x;
 	double	new_y;
 
-	new_x = data->player->pos[0] - data->player->dx * move_speed;
-	new_y = data->player->pos[1] - data->player->dy * move_speed;
+	new_x = data->player->pos[0] - data->player->dx * -move_speed;
+	new_y = data->player->pos[1] - data->player->dy * -move_speed;
 	if (data->z_values[(int)new_x][(int)data->player->pos[1]] == 0)
 		data->player->pos[0] = new_x;
 	if (data->z_values[(int)data->player->pos[0]][(int)new_y] == 0)
@@ -30,8 +30,8 @@ void	up_key(t_data *data, double move_speed)
 	double	new_x;
 	double	new_y;
 
-	new_x = data->player->pos[0] + data->player->dx * move_speed;
-	new_y = data->player->pos[1] + data->player->dy * move_speed;
+	new_x = data->player->pos[0] + data->player->dx * -move_speed;
+	new_y = data->player->pos[1] + data->player->dy * -move_speed;
 	if (data->z_values[(int)new_x][(int)data->player->pos[1]] == 0)
 		data->player->pos[0] = new_x;
 	if (data->z_values[(int)data->player->pos[0]][(int)new_y] == 0)
